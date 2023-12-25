@@ -148,7 +148,9 @@ export const SWView: React.FC<{ view: View }> = React.memo(
 
 export const SWRoundedRectangle: React.FC<{ view: RoundedRectangleComponent }> = React.memo(
     ({ view } ) => (
-        <div style={view.style} {...view.events} />
+        <SWWrapper view={view}>
+            <div style={view.style} {...view.events} />
+        </SWWrapper>
     )
 )
 

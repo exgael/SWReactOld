@@ -32,9 +32,9 @@ export default function Landing(): View {
                 ),
             )
                 .background(
-                    RoundedRectangle()
+                    RoundedRectangle( "10px" )
                         .background(Color.olive)
-                        .blur(2)
+                        .blur(4)
                 )
         )
             .frame({height: "100%"})
@@ -53,8 +53,8 @@ function EducationSection(): View {
 
         ForEach(
             [
-                "2019-2021: Master's degree in Computer Science, University of Sciences and Technology Houari Boumediene, Algiers, Algeria",
-                "2016-2019: Bachelor's degree in Computer Science, University of Sciences and Technology Houari Boumediene, Algiers, Algeria"
+                "201x-202x: Master's degree in Management, University of Strasbourg, Strasbourg, France",
+                "201x-201x: Bachelor's degree in Economic Science, University of Strasbourg, Strasbourg, France"
             ],
             (item: string) => Text(item)
         )
@@ -72,8 +72,8 @@ function ExperienceSection(): View {
 
         ForEach(
             [
-                "2020-2021: Internship at the Algerian Space Agency",
-                "2019-2020: Internship at the Algerian Space Agency"
+                "2020-2021: Internship at the xxxx xxxx xxxxx",
+                "2019-2020: Internship at the xxx xxxxx xxx"
             ],
             (item: string) => Text(item)
         )
