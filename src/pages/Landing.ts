@@ -1,4 +1,4 @@
-import {Button, Color, Spacer, View} from "../swift-react-ui";
+import {Button, Color, RoundedRectangle, Spacer, View} from "../swift-react-ui";
 import {ForEach, Text, VStack} from "../swift-react-ui";
 import {fullscreenCover} from "../swift-react-ui/SWCore/SWElements/SWModals/FullscreenCover/FullscreenCoverStore";
 import {sheet} from "../swift-react-ui/SWCore/SWElements/SWModals/Sheet/SheetStore";
@@ -15,7 +15,7 @@ export default function Landing(): View {
             VStack({alignment: "flex-start", gap: "10px" })(
                 Text("Contact Me")
                     .font("MerryWeather", "30px")
-                    .foregroundStyle(Color.olive)
+                    .foregroundStyle(Color.black)
                 ,
                 Text("Email"),
                 Button(
@@ -31,6 +31,11 @@ export default function Landing(): View {
                     Text("Show Sheet")
                 ),
             )
+                .background(
+                    RoundedRectangle()
+                        .background(Color.olive)
+                        .blur(2)
+                )
         )
             .frame({height: "100%"})
             .crossAxisAlignment("center")

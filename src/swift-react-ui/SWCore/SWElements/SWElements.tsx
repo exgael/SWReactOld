@@ -1,6 +1,34 @@
 import React from "react";
-import {ButtonComponent, ForEachComponent, ScreenComponent, StackComponent, TextComponent} from "../SWTypes/Components";
+import {
+    ButtonComponent,
+    ForEachComponent,
+    RoundedRectangleComponent,
+    ScreenComponent,
+    StackComponent,
+    TextComponent
+} from "../SWTypes/Components";
 import View from "../SWTypes/View";
+
+export const SWWrapper: React.FC<{ view: View, children: React.ReactNode }> = ({ view, children }) => {
+    const RenderBackground = () => {
+        if (view.background) {
+            return (
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1, width: "100%", height: "100%", ...view.background.style }}>
+                    {view.background.render && view.background.render()}
+                </div>
+            );
+        }
+        return null;
+    };
+
+    return (
+        <div style={{ ...view.style, position: 'relative' }} {...view.events}>
+            <RenderBackground />
+            {children}
+        </div>
+    );
+};
+
 
 export const SWText: React.FC<{ view: TextComponent }> = React.memo(
     // Lambda function to memoize
@@ -21,15 +49,17 @@ export const SWButton: React.FC<{ view: ButtonComponent }> = React.memo(
 
 export const SWStack: React.FC<{ view: StackComponent }> = React.memo(
     ({ view }) => (
-        <div style={view.style} {...view.events}>
-            {view.children && view.children.map((child: View, index: number) => {
-                return (
-                    <div key={index}>
-                        {child.render()}
-                    </div>
-                );
-            })}
-        </div>
+        <SWWrapper view={view}>
+            <div style={view.style} {...view.events}>
+                {view.children && view.children.map((child: View, index: number) => {
+                    return (
+                        <div key={index}>
+                            {child.render()}
+                        </div>
+                    );
+                })}
+            </div>
+        </SWWrapper>
     )
 );
 
@@ -111,6 +141,12 @@ export const SWForEach: React.FC<{ view: ForEachComponent }> = React.memo(
 )
 
 export const SWView: React.FC<{ view: View }> = React.memo(
+    ({ view } ) => (
+        <div style={view.style} {...view.events} />
+    )
+)
+
+export const SWRoundedRectangle: React.FC<{ view: RoundedRectangleComponent }> = React.memo(
     ({ view } ) => (
         <div style={view.style} {...view.events} />
     )

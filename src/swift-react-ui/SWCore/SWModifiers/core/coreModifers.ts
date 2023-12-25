@@ -1,6 +1,6 @@
 // coreModifiers.ts
 
-import {Color, Gradient, SWColor} from "../../SWTypes/Color";
+import {Color, Gradient, SWColor} from "../../SWTypes";
 import View from "../../SWTypes/View";
 
 export type MaybeFunction<T> = T | (() => T);
@@ -55,7 +55,7 @@ export type OnMouseLeaveModifier<T> = (handler: () => void) => T;
 
 // Modifier Types
 export type ForegroundStyleModifier<T> = (colorOrGradient: SWColor) => T;
-export type BackgroundModifier<T> = (color: SWColor) => T;
+export type BackgroundModifier<T> = (bg: SWColor | View) => T;
 export type MarginModifier<T> = (sizes: SWEdgeInsets) => T;
 export type PaddingModifier<T> = (sizes: SWEdgeInsets) => T;
 export type FrameModifier<T> = (SWSize: SWSize) => T;
@@ -204,19 +204,28 @@ export const coreModifiers = {
         }
     },
 
-    background: function<T extends View>(this: T, color: SWColor): T {
-        const c: Color | Gradient = evaluateSWColor(color)
+    background: function<T extends View>(this: T, bg: SWColor | View): T {
 
-        // Get css representation
-        const cssValue: string = c.toString();
+        if (bg instanceof Color) {
+            const c: Color | Gradient = evaluateSWColor(bg)
 
-        if (c instanceof Gradient) {
-            // Apply gradient to background
-            return applyCSSModifier(this, 'backgroundImage', cssValue);
+            // Get css representation
+            const cssValue: string = c.toString();
+
+            if (c instanceof Gradient) {
+                // Apply gradient to background
+                return applyCSSModifier(this, 'backgroundImage', cssValue);
+            } else {
+                // Apply solid color to background
+                return applyCSSModifier(this, 'backgroundColor', cssValue);
+            }
         } else {
-            // Apply solid color to background
-            return applyCSSModifier(this, 'backgroundColor', cssValue);
+            // Apply view to property
+            this.background = bg as View;
+            this.style.opacity = '0.99';
+            return this;
         }
+
     },
 
     margin: function<T extends View>(this: T, edgeInsets: SWEdgeInsets): T {

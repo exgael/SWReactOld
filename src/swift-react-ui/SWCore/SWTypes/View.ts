@@ -15,6 +15,8 @@ export type View = {
     };
     properties: Record<string, any>;
 
+    background?: View;
+
     render: () => React.ReactElement;
     ariaLabel?: string;
     ariaRole?: string;
