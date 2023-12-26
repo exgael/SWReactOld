@@ -32,13 +32,13 @@ export default function Landing(): View {
                 ),
             )
                 .background(
-                    RoundedRectangle( "10px" )
+                    RoundedRectangle( "20px" )
                         .background(Color.olive)
-                        .blur(4)
+                        .opacity(0.5)
+                        .blur(2)
                 )
         )
             .frame({height: "100%"})
-            .crossAxisAlignment("center")
             .background(Color.hex("#dedcd5"))
             .setNavigationTitle("Landing Page")
     );
@@ -59,7 +59,6 @@ function EducationSection(): View {
             (item: string) => Text(item)
         )
     )
-        .crossAxisAlignment("center")
 }
 
 function ExperienceSection(): View {
@@ -78,5 +77,4 @@ function ExperienceSection(): View {
             (item: string) => Text(item)
         )
     )
-        .crossAxisAlignment("center")
 }

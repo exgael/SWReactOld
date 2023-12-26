@@ -43,8 +43,8 @@ interface NavigationRoutesProps {
 export const Body: React.FC<NavigationRoutesProps> = ({ destinations }) => {
     return (
         <Routes>
-            {destinations.map((route: Destination) => (
-                <Route path={route.path} element={route.view().render()} />
+            {destinations.map((route: Destination, index: number) => (
+                <Route key={route.title + index} path={route.path} element={route.view().render()} />
             ))}
         </Routes>
     );

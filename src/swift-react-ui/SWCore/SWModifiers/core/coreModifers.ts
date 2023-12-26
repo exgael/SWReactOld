@@ -222,7 +222,6 @@ export const coreModifiers = {
         } else {
             // Apply view to property
             this.background = bg as View;
-            this.style.opacity = '0.99';
             return this;
         }
 
@@ -383,12 +382,12 @@ export const coreModifiers = {
 
     aspectRatio: function<T extends View>(this: T, ratio: number): T {
         // This is a simplification. You might need to adjust the width or height based on the parent container.
-        return applyCSSModifier(this, 'aspect-ratio', `${ratio}`);
+        return applyCSSModifier(this, 'aspectRatio', `${ratio}`);
     },
 
     font: function<T extends View>(this: T, fontFamily: string, fontSize: string): T {
-        applyCSSModifier(this, 'font-family', fontFamily);
-        return applyCSSModifier(this, 'font-size', fontSize);
+        applyCSSModifier(this, 'fontFamily', fontFamily);
+        return applyCSSModifier(this, 'fontSize', fontSize);
     },
 
     hidden: function<T extends View>(this: T, isHidden: boolean): T {
@@ -449,7 +448,7 @@ export const coreModifiers = {
     },
 
     multilineTextAlignment: function<T extends View>(this: T, alignment: 'left' | 'center' | 'right' | 'justify'): T {
-        return applyCSSModifier(this, 'text-align', alignment);
+        return applyCSSModifier(this, 'textAlign', alignment);
     },
 
     onDrag: function<T extends View>(this: T, dragData: string): T {
@@ -511,7 +510,7 @@ export const coreModifiers = {
     },
 
     preferredContentSizeCategory: function<T extends View>(this: T, fontSize: string): T {
-        return applyCSSModifier(this, 'font-size', fontSize);
+        return applyCSSModifier(this, 'fontSize', fontSize);
     },
 
     rotation3DEffect: function<T extends View>(this: T, angle: string, x: number, y: number, z: number): T {
@@ -524,7 +523,7 @@ export const coreModifiers = {
     },
 
     textCase: function<T extends View>(this: T, textCase: 'uppercase' | 'lowercase' | 'capitalize'): T {
-        return applyCSSModifier(this, 'text-transform', textCase);
+        return applyCSSModifier(this, 'textTransform', textCase);
     },
 
     textContentType: function<T extends View>(this: T, contentType: string): T {
@@ -534,9 +533,9 @@ export const coreModifiers = {
 
     truncationMode: function<T extends View>(this: T, mode: 'clip' | 'ellipsis'): T {
         if (mode === 'ellipsis') {
-            applyCSSModifier(this, 'white-space', 'nowrap');
+            applyCSSModifier(this, 'whiteSpace', 'nowrap');
             applyCSSModifier(this, 'overflow', 'hidden');
-            applyCSSModifier(this, 'text-overflow', 'ellipsis');
+            applyCSSModifier(this, 'textOverflow', 'ellipsis');
 
             return this;
         } else {

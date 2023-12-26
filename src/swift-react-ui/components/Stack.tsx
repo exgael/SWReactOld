@@ -1,7 +1,7 @@
 import View from "../SWCore/SWTypes/View";
 import {SpacerComponent, StackComponent} from "../SWCore/SWTypes/Components";
 import createComponent from "../SWCore/SWElements/componentFactory";
-import {SWStack, SWView, SZStack} from "../SWCore/SWElements/SWElements";
+import {SWSpacer, SWStack, SZStack} from "../SWCore/SWElements/SWElements";
 import {layoutModifiers} from "../SWCore/SWModifiers/layout/layoutModifiers";
 import React from "react";
 
@@ -78,7 +78,7 @@ export function HStack(...args: any[]): any {
 export const Spacer = ({ flexGrow = 1, flexShrink = 1, flexBasis = 'auto' } = {}): SpacerComponent => createComponent<SpacerComponent>(
     {
         render: function() {
-            return <SWView view={this as SpacerComponent} />;
+            return <SWSpacer view={this as SpacerComponent} />;
         }
     },
     {
