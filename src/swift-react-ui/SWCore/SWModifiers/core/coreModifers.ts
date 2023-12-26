@@ -2,6 +2,7 @@
 
 import {Color, Gradient, SWColor} from "../../SWTypes";
 import View from "../../SWTypes/View";
+import {RoundedRectangleComponent} from "../../SWTypes/Components";
 
 export type MaybeFunction<T> = T | (() => T);
 
@@ -61,6 +62,7 @@ export type PaddingModifier<T> = (sizes: SWEdgeInsets) => T;
 export type FrameModifier<T> = (SWSize: SWSize) => T;
 export type BorderModifier<T> = (SWBorder: SWBorder) => T;
 export type OpacityModifier<T> = (opacityValue: number) => T;
+export type MaskModifier<T> = (mask: View) => T;
 export type RotationEffectModifier<T> = (angle: string) => T;
 export type ClipShapeModifier<T> = (radius: string) => T;
 export type OverlayModifier<T> = (overlayView: View) => T;
@@ -114,6 +116,7 @@ export interface CoreModifiers<T = any> {
     frame: FrameModifier<T>;
     border: BorderModifier<T>;
     opacity: OpacityModifier<T>;
+    mask: MaskModifier<T>;
     rotationEffect: RotationEffectModifier<T>;
     clipShape: ClipShapeModifier<T>;
     overlay: OverlayModifier<T>;
@@ -203,6 +206,24 @@ export const coreModifiers = {
             return applyCSSModifier(this, 'color', cssValue);
         }
     },
+
+    mask: function<T extends View>(this: T, mask: RoundedRectangleComponent): T {
+        // Assuming `mask` is a View with its own style that defines the masking effect,
+        // such as using 'clip-path', 'mask-image', or similar CSS properties.
+        // Assuming mask is a RoundedRectangle with a borderRadius property
+        // Convert the borderRadius to a suitable clip-path value
+        const cornerRadius = mask.cornerRadius;
+        console.log(cornerRadius)
+
+        // Create a clip-path value - for example, a simple rectangle with rounded corners
+        const clipPathValue = `inset(0 round ${cornerRadius})`;
+
+        // Apply the clip-path to the current view's style
+        this.style.clipPath = clipPathValue;
+
+        return this;
+    },
+
 
     background: function<T extends View>(this: T, bg: SWColor | View): T {
 

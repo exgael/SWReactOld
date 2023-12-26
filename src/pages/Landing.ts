@@ -35,7 +35,10 @@ export default function Landing(): View {
                     RoundedRectangle( "20px" )
                         .background(Color.olive)
                         .opacity(0.5)
-                        .blur(2)
+                        .blur(10)
+                        .mask(
+                            RoundedRectangle( "5px" )
+                        )
                 )
         )
             .frame({height: "100%"})
