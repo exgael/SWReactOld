@@ -93,7 +93,6 @@ export const Spacer = ({ flexGrow = 1, flexShrink = 1, flexBasis = 'auto' } = {}
 function createStack(flexDirection: 'row' | 'column', options: StackOptions = {}) {
     return (...children: View[]): StackComponent => {
         const { alignment = 'center', gap = '0px' } = options;
-
         return createComponent<StackComponent>(
             {
                 render: function() {
@@ -102,14 +101,17 @@ function createStack(flexDirection: 'row' | 'column', options: StackOptions = {}
             },
 
             {
-                children,
                 style: {
                     display: "flex",
                     position: "relative",
                     flexDirection: flexDirection,
                     justifyContent: alignment, // Main axis
-                    alignItems: "center"
-                }
+                    alignItems: "center",
+                    width: "100%",
+                    height: "100%",
+                    gap: gap
+                },
+                children
             },
             layoutModifiers
         );

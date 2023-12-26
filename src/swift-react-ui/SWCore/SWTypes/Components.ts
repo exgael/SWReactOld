@@ -53,7 +53,9 @@ export type ButtonComponent = View
     label: View;
 };
 
-type ModalComponent = View & {
+export type ModalComponent = View
+    & CoreModifiers<ButtonComponent>
+    & {
     show: View;
     isPresented: boolean;
     onClose: () => void;
@@ -120,11 +122,10 @@ export type SpacerComponent = View
     size?: string;
 };
 
-export type RoundedRectangleComponent = View
+export type ShapeComponent = View
     // Base Modifiers
-    & CoreModifiers<RoundedRectangleComponent>
-    & AppBarModifiers<RoundedRectangleComponent>
+    & CoreModifiers<ShapeComponent>
+    & AppBarModifiers<ShapeComponent>
     & AbsoluteModifiers<TextComponent>
     & {
-    cornerRadius?: string;
 };

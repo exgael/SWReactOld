@@ -38,7 +38,9 @@ export class Color {
     static aliceblue = new Color('#f0f8ff');
     static antiquewhite = new Color('#faebd7');
     static aquamarine = new Color('#7fffd4');
-    // ...
+
+    // Clear colors
+    static clear = new Color('transparent');
 
     static hex(hexValue: string): Color {
         if (!/^#([A-Fa-f0-9]{3,4}){1,2}$/.test(hexValue)) {

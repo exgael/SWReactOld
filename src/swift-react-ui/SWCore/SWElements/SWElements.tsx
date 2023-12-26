@@ -1,8 +1,8 @@
-import React from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import View from "../SWTypes/View";
 
 import {
-    ButtonComponent, ForEachComponent, RoundedRectangleComponent, ScreenComponent,
+    ButtonComponent, ForEachComponent, ShapeComponent, ScreenComponent,
     StackComponent,
     TextComponent
 } from "../SWTypes/Components";
@@ -18,20 +18,20 @@ export const SWSpacer: React.FC<{ view: View }> = React.memo(
  * SWRoundedRectangle renders a rounded rectangle shape within an SWView.
  * It applies specific styles and event handlers related to the rounded rectangle.
  *
- * @param {RoundedRectangleComponent} view - The RoundedRectangleComponent object containing style, events, and cornerRadius.
+ * @param {ShapeComponent} view - The RoundedRectangleComponent object containing style, events, and cornerRadius.
  */
-export const SWRoundedRectangle: React.FC<{ view: RoundedRectangleComponent }> = React.memo(
+export const SWRoundedRectangle: React.FC<{ view: ShapeComponent }> = React.memo(
     ({ view }) => {
         // Define rounded rectangle-specific styles or event overrides here
         const roundedRectangleStyle =  { /* ... */ };
         const roundedRectangleEvents = { /* ... */ };
-
         return (
-            <SWView view={view} overrideStyles={roundedRectangleStyle} overrideEvents={roundedRectangleEvents}>
-                <div style={{
-                    borderRadius: view.cornerRadius // Apply corner radius specified in the view
-                }} />
-            </SWView>
+            <SWView
+                view={view}
+                overrideStyles={roundedRectangleStyle}
+                overrideEvents={roundedRectangleEvents}
+                children={null}
+            />
         )
     }
 );
@@ -127,11 +127,12 @@ export const SWStack: React.FC<{ view: StackComponent }> = React.memo(
 
         return (
             <SWView view={view} overrideStyles={stackStyle} overrideEvents={stackEvents}>
-                {view.children && view.children.map((child: View, index: number) => (
-                    <div key={index}>
+                {view.children && view.children.map((child: View, index: number) => {
+                    return (
+                    <div key={generateObjectHash(child, index)}>
                         {child.render()}
                     </div>
-                ))}
+                )})}
             </SWView>
         )
     }
@@ -214,6 +215,91 @@ export const SWView: React.FC<{
     )
 );
 
+
+interface SWBackgroundWrapperProps {
+    view: View;
+    children: React.ReactNode;
+}
+
+const SWBackgroundWrapper: FC<SWBackgroundWrapperProps> = ({ view, children }) => {
+    const RenderBackground: FC = () => {
+        if (view.background) {
+            // The backgroundStyle here is only necessary to position the background
+            // within the parent container. Since view.background.render() handles
+            // all styling, we should not apply any additional styling here.
+            const backgroundPlacement: React.CSSProperties  = {
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 0,
+                width: "100%",
+                height: "100%",
+            };
+
+            return (
+                <div style={backgroundPlacement}>
+                    {view.background.render ? view.background.render() : null}
+                </div>
+            );
+        }
+        return null;
+    };
+
+    return (
+        <div style={{ position: 'relative', width:"100%", height:"100%" }}>
+            <RenderBackground />
+            {children}
+        </div>
+    );
+};
+
+const SWBackgroundWrapper3: React.FC<{
+    view: View,
+    children: React.ReactNode
+}> = React.memo(
+    ({
+         view,
+         children
+     }) => {
+    const renderBackgrounds = (currentView: View) => {
+        let backgrounds = [];
+        let zIndex = 0;
+        while (currentView && currentView.background) {
+            // Collect background elements with base styles
+            backgrounds.push(
+                <div
+                    key={zIndex}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: zIndex,
+                        width: "100%",
+                        height: "100%",
+                        ...currentView.background.style
+                    }}
+                >
+                    {/* Render the background with its own styles */}
+                </div>
+            );
+            currentView = currentView.background;
+            zIndex -= 1;
+        }
+        return backgrounds.reverse(); // Render outermost background first
+    };
+
+    return (
+        <div style={{ position: 'relative' }}>
+            {renderBackgrounds(view)}
+            {children}
+        </div>
+    );
+});
+
 /**
  * SWBackgroundWrapper is a component that renders a background behind its children.
  * It supports SwiftUI-like background functionality where the background can be another view.
@@ -221,7 +307,7 @@ export const SWView: React.FC<{
  * @param {View} view - The view object which may contain a background view.
  * @param {React.ReactNode} children - The child elements to render on top of the background.
  */
-const SWBackgroundWrapper: React.FC<{
+const SWBackgroundWrapper2: React.FC<{
     view: View,
     children: React.ReactNode
 }> = React.memo(
@@ -234,7 +320,7 @@ const SWBackgroundWrapper: React.FC<{
     // It covers the entire parent container, similar to SwiftUI's background modifier.
     const RenderBackground = () => {
         // Check if a background view is defined
-        if (view.background) {
+        if (view.background !== undefined) {
             return (
                 <div style={{ // APPLY BACKGROUND STYLES
                     position: 'absolute',       // Absolute positioning to overlay the background
@@ -247,12 +333,13 @@ const SWBackgroundWrapper: React.FC<{
                     height: "100%",             // Ensures the background covers the full height of the container
                     ...view.background.style    // Applies custom styles defined for the background
                 }}
-                     { // APPLY BACKGROUND EVENTS
-                         ...view.background.events
-                     }
+                 { // APPLY BACKGROUND EVENTS
+                     ...view.background.events
+                 }
                 >
-                    {view.background.render && view.background.render()} { /* Renders the background content */ }
-                </div>
+                    {/* Render the background view */}
+                    {view.background.render && view.background.render()}
+                    </div>
             );
         }
         return null; // Returns null if no background is defined
@@ -263,7 +350,7 @@ const SWBackgroundWrapper: React.FC<{
             position: 'relative'
         }}
         >
-            <RenderBackground />  { /* Insert the rendered background */ }
+            {view.background && <RenderBackground />}  { /* Insert the rendered background */ }
             {children}            { /* Renders the children of the view */ }
         </div>
     );

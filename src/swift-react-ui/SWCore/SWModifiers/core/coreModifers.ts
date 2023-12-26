@@ -2,7 +2,7 @@
 
 import {Color, Gradient, SWColor} from "../../SWTypes";
 import View from "../../SWTypes/View";
-import {RoundedRectangleComponent} from "../../SWTypes/Components";
+import {ShapeComponent} from "../../SWTypes/Components";
 
 export type MaybeFunction<T> = T | (() => T);
 
@@ -207,12 +207,12 @@ export const coreModifiers = {
         }
     },
 
-    mask: function<T extends View>(this: T, mask: RoundedRectangleComponent): T {
+    mask: function<T extends View>(this: T, mask: ShapeComponent): T {
         // Assuming `mask` is a View with its own style that defines the masking effect,
         // such as using 'clip-path', 'mask-image', or similar CSS properties.
         // Assuming mask is a RoundedRectangle with a borderRadius property
         // Convert the borderRadius to a suitable clip-path value
-        const cornerRadius = mask.cornerRadius;
+        const cornerRadius = mask.style.borderRadius;
         console.log(cornerRadius)
 
         // Create a clip-path value - for example, a simple rectangle with rounded corners
