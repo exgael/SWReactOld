@@ -108,7 +108,7 @@ export type ForEachComponent = View
     // Base Modifiers
     & CoreModifiers<ForEachComponent>
     & AppBarModifiers<ForEachComponent>
-    & AbsoluteModifiers<TextComponent>
+    & AbsoluteModifiers<ForEachComponent>
 
     // Layout Modifiers
     & LayoutModifiers<ForEachComponent>
@@ -118,9 +118,60 @@ export type ForEachComponent = View
 }
 
 export type SpacerComponent = View
+    & CoreModifiers<SpacerComponent>
     & {
     size?: string;
 };
+
+
+
+
+
+
+
+
+
+
+
+export interface NavigationLink {
+    id: string;
+    title: string;
+    content: View;
+    quickLinks: QuickLink[];
+}
+
+export interface QuickLink {
+    id: string;
+    headline: string;
+}
+
+// export interface ThreePartLayoutProps {
+//     navigationLinks: NavigationLink[];
+//     quickLinks: QuickLink[];
+// }
+
+export type ThreePartLayoutComponent = View
+    // Base Modifiers
+    & CoreModifiers<ThreePartLayoutComponent>
+    & AppBarModifiers<ThreePartLayoutComponent>
+    & AbsoluteModifiers<TextComponent>
+
+    // Layout Modifiers
+    & LayoutModifiers<ThreePartLayoutComponent>
+
+    // ThreePartLayout Properties
+    & {
+    navigationLinks: NavigationLink[];
+    quickLinks: QuickLink[];
+};
+
+
+
+
+
+
+
+
 
 export type ShapeComponent = View
     // Base Modifiers
@@ -128,4 +179,136 @@ export type ShapeComponent = View
     & AppBarModifiers<ShapeComponent>
     & AbsoluteModifiers<TextComponent>
     & {
+};
+
+export type CircleComponent = View
+    // Base Modifiers
+    & CoreModifiers<CircleComponent>
+    & AppBarModifiers<CircleComponent>
+    & AbsoluteModifiers<TextComponent>
+    & {
+};
+
+export type SwitchComponent = View
+    // Base Modifiers
+    & CoreModifiers<SwitchComponent>
+    & AppBarModifiers<SwitchComponent>
+    & AbsoluteModifiers<TextComponent>
+
+    // Switch Properties
+    & {
+    isOn: boolean;
+    onToggle: () => void;
+};
+
+export type SliderComponent = View
+    // Base Modifiers
+    & CoreModifiers<SliderComponent>
+    & AppBarModifiers<SliderComponent>
+    & AbsoluteModifiers<TextComponent>
+
+    // Slider Properties
+    & {
+    value: number;
+    onValueChange: (value: number) => void;
+};
+
+export type TextFieldComponent = View
+    // Base Modifiers
+    & CoreModifiers<TextFieldComponent>
+    & AppBarModifiers<TextFieldComponent>
+    & AbsoluteModifiers<TextComponent>
+
+    // TextField Properties
+    & {
+    text: string;
+    onTextChange: (text: string) => void;
+};
+
+export type ImageComponent = View
+    // Base Modifiers
+    & CoreModifiers<ImageComponent>
+    & AppBarModifiers<ImageComponent>
+    & AbsoluteModifiers<TextComponent>
+
+    // Image Properties
+    & {
+    src: string;
+};
+
+/**
+ * It is a component that can be used to display a list of items using a sidebar.
+ * Each item in the list can be selected by the user.
+ * And it is possible to display a detail view for the selected item.
+ */
+export type SwitchSideBarComponent = View
+    // Base Modifiers
+    & CoreModifiers<SwitchSideBarComponent>
+    & AppBarModifiers<SwitchSideBarComponent>
+    & AbsoluteModifiers<SwitchSideBarComponent>
+
+    // SwitchSideBar Properties
+    & {
+    items: any[];
+    selectedItem: any;
+    onSelectItem: (item: any) => void;
+    detailView: (item: any) => View;
+};
+
+
+/**
+ * It is a component that is to display a list of items using a sidebar.
+ * Each item correspond to a section in the detailView
+ * And clicking on an item will scroll to the corresponding section in the detailView
+ */
+export type ScrollToSideBarComponent = View
+    // Base Modifiers
+    & CoreModifiers<ScrollToSideBarComponent>
+    & AppBarModifiers<ScrollToSideBarComponent>
+    & AbsoluteModifiers<ScrollToSideBarComponent>
+
+    // SideBar Properties
+    & {
+    items: any[];
+    detailView: (item: any) => View;
+};
+
+
+/**
+ * Component that is to display a list of items in a scroll view.
+ */
+export type ScrollViewComponent = View
+    // Base Modifiers
+    & CoreModifiers<ScrollViewComponent>
+    & AppBarModifiers<ScrollViewComponent>
+    & AbsoluteModifiers<ScrollViewComponent>
+
+    // ScrollView Properties
+    & {
+    children?: View[];
+};
+
+/**
+ * It is a component that is to display a list of items in a carousel.
+ */
+export type CarouselComponent = View
+    // Base Modifiers
+    & CoreModifiers<CarouselComponent>
+    & AppBarModifiers<CarouselComponent>
+    & AbsoluteModifiers<CarouselComponent>
+
+    // Carousel Properties
+    & {
+    children?: View[];
+};
+
+export type GridComponent = View
+    // Base Modifiers
+    & CoreModifiers<GridComponent>
+    & AppBarModifiers<GridComponent>
+    & AbsoluteModifiers<GridComponent>
+
+    // Grid Properties
+    & {
+    children?: View[];
 };

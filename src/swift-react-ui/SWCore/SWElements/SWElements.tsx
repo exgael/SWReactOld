@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef, useState} from "react";
+import React, {FC, ReactElement} from "react";
 import View from "../SWTypes/View";
 
 import {
@@ -208,25 +208,38 @@ export const SWView: React.FC<{
      }) => (
 
         <SWBackgroundWrapper view={view}>
-            <div style={{...view.style, ...overrideStyles }} {...view.events} {...overrideEvents}>
+            <div
+                id={view.id}
+                key={view.key}
+                ref={view.ref}
+                style={{...view.style, ...overrideStyles }} {...view.events} {...overrideEvents}>
                 {children}
             </div>
         </SWBackgroundWrapper>
     )
 );
 
-
-interface SWBackgroundWrapperProps {
-    view: View;
-    children: React.ReactNode;
+export function SWReactElement(component: View, template: View ): ReactElement {
+    return (
+        <SWView view={component}>
+            {template.render()}
+        </SWView>
+    )
 }
 
-const SWBackgroundWrapper: FC<SWBackgroundWrapperProps> = ({ view, children }) => {
+/**
+ * SWBackgroundWrapper is a component that renders a background behind its children.
+ * It supports SwiftUI-like background functionality where the background can be another view.
+ *
+ * @param {View} view - The view object containing style, events, and background information.
+ * @param {React.ReactNode} children - The child elements to be rendered within the view.
+ */
+const SWBackgroundWrapper: FC<{
+    view: View,
+    children: React.ReactNode,
+}> = React.memo(({ view, children }) => {
     const RenderBackground: FC = () => {
-        if (view.background) {
-            // The backgroundStyle here is only necessary to position the background
-            // within the parent container. Since view.background.render() handles
-            // all styling, we should not apply any additional styling here.
+        if (view.background?.render) {
             const backgroundPlacement: React.CSSProperties  = {
                 position: 'absolute',
                 top: 0,
@@ -253,111 +266,16 @@ const SWBackgroundWrapper: FC<SWBackgroundWrapperProps> = ({ view, children }) =
             {children}
         </div>
     );
-};
-
-const SWBackgroundWrapper3: React.FC<{
-    view: View,
-    children: React.ReactNode
-}> = React.memo(
-    ({
-         view,
-         children
-     }) => {
-    const renderBackgrounds = (currentView: View) => {
-        let backgrounds = [];
-        let zIndex = 0;
-        while (currentView && currentView.background) {
-            // Collect background elements with base styles
-            backgrounds.push(
-                <div
-                    key={zIndex}
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        zIndex: zIndex,
-                        width: "100%",
-                        height: "100%",
-                        ...currentView.background.style
-                    }}
-                >
-                    {/* Render the background with its own styles */}
-                </div>
-            );
-            currentView = currentView.background;
-            zIndex -= 1;
-        }
-        return backgrounds.reverse(); // Render outermost background first
-    };
-
-    return (
-        <div style={{ position: 'relative' }}>
-            {renderBackgrounds(view)}
-            {children}
-        </div>
-    );
-});
-
-/**
- * SWBackgroundWrapper is a component that renders a background behind its children.
- * It supports SwiftUI-like background functionality where the background can be another view.
- *
- * @param {View} view - The view object which may contain a background view.
- * @param {React.ReactNode} children - The child elements to render on top of the background.
- */
-const SWBackgroundWrapper2: React.FC<{
-    view: View,
-    children: React.ReactNode
-}> = React.memo(
-    ({
-          view,
-          children
-      }) => {
-
-    // RenderBackground renders the background view if it is specified in the view object.
-    // It covers the entire parent container, similar to SwiftUI's background modifier.
-    const RenderBackground = () => {
-        // Check if a background view is defined
-        if (view.background !== undefined) {
-            return (
-                <div style={{ // APPLY BACKGROUND STYLES
-                    position: 'absolute',       // Absolute positioning to overlay the background
-                    top: 0,                     // Aligns the top edge of the background with the container
-                    left: 0,                    // Aligns the left edge of the background with the container
-                    right: 0,                   // Ensures the background extends to the right edge of the container
-                    bottom: 0,                  // Ensures the background extends to the bottom edge of the container
-                    zIndex: 0,                  // Places the background behind the content MIGHT NEED MORE TESTING
-                    width: "100%",              // Ensures the background covers the full width of the container
-                    height: "100%",             // Ensures the background covers the full height of the container
-                    ...view.background.style    // Applies custom styles defined for the background
-                }}
-                 { // APPLY BACKGROUND EVENTS
-                     ...view.background.events
-                 }
-                >
-                    {/* Render the background view */}
-                    {view.background.render && view.background.render()}
-                    </div>
-            );
-        }
-        return null; // Returns null if no background is defined
-    };
-
-    return (
-        <div style={{ // RELATIVE POSITIONING - Anchor for Absolutely Positioned Background
-            position: 'relative'
-        }}
-        >
-            {view.background && <RenderBackground />}  { /* Insert the rendered background */ }
-            {children}            { /* Renders the children of the view */ }
-        </div>
-    );
 });
 
 function generateObjectHash(obj: Object, index?: number) {
-    const str = JSON.stringify(obj);
+    let str;
+    try {
+        str = JSON.stringify(obj);
+    } catch (e) {
+        str = Math.random().toString()
+    }
+
     if (index) {
         return generateHash(str + index);
     }

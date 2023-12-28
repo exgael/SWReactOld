@@ -11,7 +11,7 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
     const { goBack } = useNavigate();
     const titleText = Text(topBarStore.title);
     const appBarLayout = HStack(
-        ChevronBack( () => goBack(), Text("Back")),
+        ChevronBack( () => goBack()),
         Spacer(),
         topBarStore.isVisible ? titleText : Text(""),
         Spacer(),

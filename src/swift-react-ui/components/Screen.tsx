@@ -18,7 +18,7 @@ export function Screen(...children: any[]) {
                 display: "flex",
                 position: "relative",
                 flexDirection: "column",
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 alignItems: "center",
             }
         },

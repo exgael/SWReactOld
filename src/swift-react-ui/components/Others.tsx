@@ -1,6 +1,6 @@
 import {ForEachComponent, ScreenComponent} from "../SWCore/SWTypes/Components";
 import createComponent from "../SWCore/SWElements/componentFactory";
-import {SWForEach, SWScreen} from "../SWCore/SWElements/SWElements";
+import {SWForEach, SWScreen, SWView} from "../SWCore/SWElements/SWElements";
 import {layoutModifiers} from "../SWCore/SWModifiers/layout/layoutModifiers";
 import View from "../SWCore/SWTypes/View";
 import React from "react";
@@ -18,10 +18,34 @@ export function Group(...children: View[]): View {
     };
 }
 
-export function ForEach<T>(data: T[], viewBuilder: (item: T, index: number) => View): View {
+export function BView(children: View): View {
+    return {
+        render: () => (
+            <SWView view={children}>
+                {children.render()}
+            </SWView>
+        ),
+        style: {},
+        events: {},
+        properties: {},
+    }
+}
+
+
+export function ForEach<T>(data: T[], viewBuilder: (item: T, index: number) => View): ForEachComponent {
     return createComponent<ForEachComponent>(
         { render: function() { return <SWForEach view={this as ForEachComponent} /> }},
-        { data, viewBuilder },
+        {
+            data,
+            viewBuilder,
+            style: {
+                display: "flex",
+                position: "relative",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+            }
+        },
         layoutModifiers
     );
 }

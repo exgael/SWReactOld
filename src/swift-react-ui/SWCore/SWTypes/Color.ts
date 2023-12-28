@@ -107,6 +107,15 @@ export class Color {
     toString(): string {
         return this.value;
     }
+
+    static random(): Color {
+        const val = Math.random()
+        if ( val > 0.5) {
+            return Color.olive
+        } else {
+            return Color.aliceblue
+        }
+    }
 }
 
 // Gradient.ts

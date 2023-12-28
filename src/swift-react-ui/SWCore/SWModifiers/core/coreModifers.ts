@@ -3,10 +3,11 @@
 import {Color, Gradient, SWColor} from "../../SWTypes";
 import View from "../../SWTypes/View";
 import {ShapeComponent} from "../../SWTypes/Components";
+import {RefObject} from "react";
 
 export type MaybeFunction<T> = T | (() => T);
 
-const DEFAULT_SIZE: "100%" = "100%";
+const DEFAULT_SIZE: "0px" = "0px";
 
 // Utility function to evaluate MaybeFunction
 export function evaluate<T>(value: MaybeFunction<T>): T {
@@ -100,8 +101,22 @@ export type TextCaseModifier<T> = (textCase: 'uppercase' | 'lowercase' | 'capita
 export type TextContentTypeModifier<T> = (contentType: string) => T;
 export type TruncationModeModifier<T> = (mode: 'clip' | 'ellipsis') => T;
 
+export type SetId<T> = (id: string) => T;
+export type SetKey<T> = (key: string) => T;
+export type SetRef<T> = (ref:  RefObject<HTMLDivElement>) => T;
 
+export type DebugBorder<T> = (color?: Color) => T;
+
+export type SetAriaLabel<T> = (type: string) => T
 export interface CoreModifiers<T = any> {
+
+    setId: SetId<T>;
+    setKey: SetKey<T>;
+    setRef: SetRef<T>;
+
+    debugBorder: DebugBorder<T>;
+    setAriaLabel: SetAriaLabel<T>
+
 
     // Event SWTypes
     onClick: OnClickModifier<T>;
@@ -162,12 +177,43 @@ function applyCSSModifier<T extends View>(view: T, property: keyof typeof view.s
 
 export const coreModifiers = {
 
+    debugBorder: function<T extends View>(this: T, color?: Color): T {
+
+        // Evaluate width, style, and color
+        const width: string = "4px";
+        const style: BorderStyle = "solid";
+        const c = color ?? Color.random()
+
+        // Apply css styling
+        return applyCSSModifier(this, 'border', `${width} ${style} ${c}`);
+    },
+
+    setId: function<T extends View>(this: T, id: string): T {
+      this.id = id;
+      return this;
+    },
+
+    setKey: function<T extends View>(this: T, key: string): T {
+        this.key = key;
+        return this;
+    },
+
+    setRef: function<T extends View>(this: T, ref: RefObject<HTMLDivElement>): T {
+        this.ref = ref;
+        return this;
+    },
+
+    setAriaLabel: function<T extends View>(this: T, ariaLabel: string): T {
+        this.ariaLabel = ariaLabel;
+        return this;
+    },
+
     onClick: function<T extends View>(this: T, handler: () => void): T {
         this.events.onClick = handler;
 
-        console.log(handler);
+     //   console.log(handler);
 
-        console.log(this.events);
+     //   console.log(this.events);
 
         return this;
     },

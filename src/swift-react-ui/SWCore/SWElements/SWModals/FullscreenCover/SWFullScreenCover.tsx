@@ -14,6 +14,7 @@ export const SWFullScreenCover: React.FC<{ view: View }> = ({ view }) => {
             width: '100%',
             height: '100%',
             backgroundColor: 'rgba(0, 0, 0, 0.4)', // Semi-transparent background
+        //    filter: "blur(4px)",
             zIndex: 1000, // Ensure it covers other elements
             display: 'flex',
             flexDirection: 'column',
@@ -24,7 +25,7 @@ export const SWFullScreenCover: React.FC<{ view: View }> = ({ view }) => {
             <div style={{
                 ...view.style,
                 maxHeight: '100%',
-                overflowY: 'auto'  // If content is too long
+                overflowY: 'auto',  // If content is too long
             }} {...view.events}>
                 {toJS(fsContent)?.render()}
                 <button onClick={toJS(hideFs)} style={{

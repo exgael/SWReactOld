@@ -17,11 +17,14 @@ export type View = {
 
     background?: View;
 
+    id?: string
+    key?: string
+
     render: () => React.ReactElement;
     ariaLabel?: string;
     ariaRole?: string;
     type?: any;
-    ref?: RefObject<HTMLElement>;
+    ref?: RefObject<HTMLDivElement>;
     classNames?: string[];
 };
 
