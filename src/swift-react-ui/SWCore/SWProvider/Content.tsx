@@ -1,10 +1,10 @@
 import React, {ReactNode} from 'react';
-import {Body, Destination, NavigationContainer} from "./Navigation";
+import {Body, Destination, NavigationContainer} from "./useNavigate";
 import {useResponsive} from "./useResponsive";
-import PhoneContent from "./Layout/PhoneContent";
-import TabletContent from "./Layout/TabletContent";
-import DesktopContent from "./Layout/DesktopContent";
-import userBarStore from "../SWElements/SWBars/UserFlowBar/UserBarStore";
+import PhoneLayout from "./DeviceLayout/PhoneLayout";
+import TabletLayout from "./DeviceLayout/TabletLayout";
+import DesktopLayout from "./DeviceLayout/DesktopLayout";
+import userBarStore from "../SWTemplates/SWBars/UserFlowBar/UserBarStore";
 import {InstallNotification} from "../../components/install_notif";
 import {useObserver} from "mobx-react";
 import {sheet} from "../SWElements/SWModals/Sheet/SheetStore";
@@ -34,11 +34,11 @@ export const Content: React.FC<ContentProps> = ({ destinations }) => {
 
     // Define breakpoints and render components accordingly
     if (width < 576) {
-        contentComponent = <PhoneContent orientation={orientation}>{children}</PhoneContent>;
+        contentComponent = <PhoneLayout orientation={orientation}>{children}</PhoneLayout>;
     } else if (width >= 576 && width < 992) {
-        contentComponent = <TabletContent orientation={orientation}>{children}</TabletContent>;
+        contentComponent = <TabletLayout orientation={orientation}>{children}</TabletLayout>;
     } else {
-        contentComponent = <DesktopContent>{children}</DesktopContent>;
+        contentComponent = <DesktopLayout>{children}</DesktopLayout>;
     }
 
     return (

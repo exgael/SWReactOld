@@ -6,7 +6,7 @@ interface PhoneContentProps {
     children: ReactNode;
 }
 
-function PhoneContent( { orientation, children }: PhoneContentProps ): ReactElement {
+function PhoneLayout({ orientation, children }: PhoneContentProps ): ReactElement {
 
     let phoneContent;
 
@@ -34,4 +34,4 @@ function PhoneContent( { orientation, children }: PhoneContentProps ): ReactElem
     return phoneContent;
 }
 
-export default PhoneContent;
+export default PhoneLayout;

@@ -6,7 +6,7 @@ import {
 } from "../../SWTypes/Components";
 import {ForEach, HStack, Text, VStack} from "../../../components";
 import {Color, View} from "../../SWTypes";
-import {SWReactElement} from "../SWElements";
+import {SWReactElement} from "../../SWElements/SWElements";
 import {TabSelectContent} from "./TabSelectContent";
 import {useResponsive} from "../../SWProvider/useResponsive";
 

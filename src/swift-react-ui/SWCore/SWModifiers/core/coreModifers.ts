@@ -104,10 +104,13 @@ export type TruncationModeModifier<T> = (mode: 'clip' | 'ellipsis') => T;
 export type SetId<T> = (id: string) => T;
 export type SetKey<T> = (key: string) => T;
 export type SetRef<T> = (ref:  RefObject<HTMLDivElement>) => T;
+export type SetClassName<T> = (classNames: string[]) => T;
 
 export type DebugBorder<T> = (color?: Color) => T;
 
 export type SetAriaLabel<T> = (type: string) => T
+
+export type BackgroundBlurModifier<T> = (blurRadius: number) => T;
 export interface CoreModifiers<T = any> {
 
     setId: SetId<T>;
@@ -116,8 +119,9 @@ export interface CoreModifiers<T = any> {
 
     debugBorder: DebugBorder<T>;
     setAriaLabel: SetAriaLabel<T>
+    setClassName: SetClassName<T>
 
-
+    backgroundBlur: BackgroundBlurModifier<T>;
     // Event SWTypes
     onClick: OnClickModifier<T>;
     onMouseEnter: OnMouseEnterModifier<T>;
@@ -186,6 +190,15 @@ export const coreModifiers = {
 
         // Apply css styling
         return applyCSSModifier(this, 'border', `${width} ${style} ${c}`);
+    },
+
+    setClassName: function<T extends View>(this: T, classNames: string[]): T {
+        this.classNames = classNames;
+        return this;
+    },
+
+    backgroundBlur: function<T extends View>(this: T, blurRadius: number): T {
+        return applyCSSModifier(this, 'backdropFilter', `blur(${blurRadius}px)`);
     },
 
     setId: function<T extends View>(this: T, id: string): T {

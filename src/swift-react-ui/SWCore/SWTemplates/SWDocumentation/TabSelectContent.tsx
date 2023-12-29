@@ -5,34 +5,39 @@ import {
 } from "../../SWTypes/Components";
 import {ForEach, HStack, Text} from "../../../components";
 import {View} from "../../SWTypes";
-import {SWReactElement} from "../SWElements";
+import {SWReactElement} from "../../SWElements/SWElements";
 import {ChevronBack} from "../../../components/icons/chevrons";
-import createComponent from "../componentFactory";
+import createComponent from "../../SWElements/componentFactory";
 import {CoreModifiers} from "../../SWModifiers/core/coreModifers";
 import {useResponsive} from "../../SWProvider/useResponsive";
 import {FullscreenCover} from "../../../components/modals/FullscreenCover";
-export function TabSelectContent(sections: Section[], handleSectionSwitch: (contentId: string)=> void ): TabSelectContentComponent {
+
+export function TabSelectContent(sections: Section[], handleSectionSwitch: (contentId: string) => void): TabSelectContentComponent {
     return createComponent<TabSelectContentComponent>(
-        { render: function() { return (
-                <SWTabSelectContent view={this as TabSelectContentComponent}/>
-            )}},
-        { sections: sections, handleNavigation: handleSectionSwitch }
+        {
+            render: function () {
+                return (
+                    <SWTabSelectContent view={this as TabSelectContentComponent}/>
+                )
+            }
+        },
+        {sections: sections, handleNavigation: handleSectionSwitch}
     );
 }
 
 export type TabSelectContentComponent = View
     & CoreModifiers<TabSelectContentComponent> & {
     sections: Section[]
-    handleNavigation: (contentId: string)=> void
+    handleNavigation: (contentId: string) => void
 }
 
-const SWTabSelectContent: React.FC<{view : TabSelectContentComponent}> = ( {view} ) => {
+const SWTabSelectContent: React.FC<{ view: TabSelectContentComponent }> = ({view}) => {
     const [showSections, setShowSections] = useState(false);
     const toggleShowSections = () => {
         setShowSections(!showSections);
     };
 
-    const { isPhone, isTablet } = useResponsive();
+    const {isPhone, isTablet} = useResponsive();
 
     const handleSectionSwitch = (contentId: string): void => {
         view.handleNavigation(contentId)
@@ -53,7 +58,7 @@ const SWTabSelectContent: React.FC<{view : TabSelectContentComponent}> = ( {view
                 ChevronBack(() => toggleShowSections())
             )
 
-            ) : ( // Big device
+        ) : ( // Big device
             showSections ? (
                 ChevronBack(() => toggleShowSections())
             ) : (
@@ -69,7 +74,7 @@ const SWTabSelectContent: React.FC<{view : TabSelectContentComponent}> = ( {view
     )
 }
 
-export function SectionSelection(navigationLinks: Section[], handleNavigation: (contentId: string)=> void ): ForEachComponent {
+export function SectionSelection(navigationLinks: Section[], handleNavigation: (contentId: string) => void): ForEachComponent {
     return ForEach(
         navigationLinks,
         (navLink: Section) => (

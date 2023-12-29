@@ -6,7 +6,7 @@ import {CurriculumVitae} from "./pages/CurriculumVitae";
 import reportWebVitals from "./reportWebVitals";
 import {Content} from "./swift-react-ui/SWCore";
 import {ContactMe} from "./pages/ContactMe";
-import {Destination} from "./swift-react-ui/SWCore/SWProvider/Navigation";
+import {Destination} from "./swift-react-ui/SWCore/SWProvider/useNavigate";
 const root: ReactDOM.Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );

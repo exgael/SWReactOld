@@ -40,17 +40,24 @@ export const absoluteModifiers = {
         this.style.top = '0';
         this.style.left = '0';
         this.style.right = '0';
-        this.style.zIndex = '1000';
+        this.style.zIndex = '999';
+        this.style.transform = 'translate(0, 10)';
         return this;
     },
 
     // Modifier for BottomBar
     positionFixedBottom: function<T extends View>(this: T): T {
         this.style.position = 'fixed';
-        this.style.bottom = '0';
-        this.style.left = '0';
+        this.style.bottom = '2%';
+        this.style.left = '17.5%';
+        this.style.transform = 'translate(-17.5%)';
         this.style.right = '0';
-        this.style.zIndex = '1000';
+        this.style.zIndex = '999';
+
+        // TODO : Fix this to use auto instead of 17.5%
+
+   //     this.style.marginLeft = 'auto';
+   //     this.style.marginRight = 'auto';
         return this;
     },
 
@@ -60,7 +67,7 @@ export const absoluteModifiers = {
         this.style[side] = '0';
         this.style.top = '0';
         this.style.bottom = '0';
-        this.style.zIndex = '1000';
+        this.style.zIndex = '999';
         return this;
     },
 };

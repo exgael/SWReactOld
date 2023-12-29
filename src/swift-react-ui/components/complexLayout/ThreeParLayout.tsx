@@ -6,9 +6,9 @@ import {
     ThreePartLayoutComponent
 } from "../../SWCore/SWTypes/Components";
 import createComponent from "../../SWCore/SWElements/componentFactory";
-import SWThreePartLayout from "../../SWCore/SWElements/SWDocumentation/SWDocumentation";
+import SWThreePartLayout from "../../SWCore/SWTemplates/SWDocumentation/SWDocumentation";
 
-export function ThreePartLayout(...views: StackComponent[]): ThreePartLayoutComponent {
+export function DocumentationBySection(...views: StackComponent[]): ThreePartLayoutComponent {
 
     const sections: Section[] = buildNavigationAndQuickLinks(views);
 
@@ -47,7 +47,6 @@ function buildNavigationAndQuickLinks(views: StackComponent[]): Section[] {
             view, // View of the section
             quickLinks // For quick nav
         }
-
         return section;
     });
 }

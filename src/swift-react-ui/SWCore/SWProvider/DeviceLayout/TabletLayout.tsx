@@ -6,7 +6,7 @@ interface TabletContentProps {
     children: ReactNode;
 }
 
-function TabletContent( { orientation, children }: TabletContentProps ): ReactElement {
+function TabletLayout({ orientation, children }: TabletContentProps ): ReactElement {
     let tabletContent;
 
     if (orientation === 'portrait') {
@@ -30,4 +30,4 @@ function TabletContent( { orientation, children }: TabletContentProps ): ReactEl
     return tabletContent;
 }
 
-export default TabletContent;
+export default TabletLayout;

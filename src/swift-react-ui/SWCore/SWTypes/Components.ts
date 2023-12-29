@@ -79,7 +79,7 @@ export type StackComponent = View
     & AppBarModifiers<StackComponent>
     & AbsoluteModifiers<StackComponent>
 
-    // Layout Modifiers
+    // DeviceLayout Modifiers
     & LayoutModifiers<StackComponent>
 
     // Stack Properties
@@ -93,7 +93,7 @@ export type ScreenComponent = View
     & AppBarModifiers<ScreenComponent>
     & AbsoluteModifiers<TextComponent>
 
-    // Layout Modifiers
+    // DeviceLayout Modifiers
     & LayoutModifiers<ScreenComponent>
 
     // Screen Properties
@@ -108,7 +108,7 @@ export type ForEachComponent = View
     & AppBarModifiers<ForEachComponent>
     & AbsoluteModifiers<ForEachComponent>
 
-    // Layout Modifiers
+    // DeviceLayout Modifiers
     & LayoutModifiers<ForEachComponent>
     & {
     data: any[];
@@ -143,18 +143,13 @@ export interface QuickLink {
     headline: string;
 }
 
-// export interface ThreePartLayoutProps {
-//     navigationLinks: NavigationLink[];
-//     quickLinks: QuickLink[];
-// }
-
 export type ThreePartLayoutComponent = View
     // Base Modifiers
     & CoreModifiers<ThreePartLayoutComponent>
     & AppBarModifiers<ThreePartLayoutComponent>
     & AbsoluteModifiers<TextComponent>
 
-    // Layout Modifiers
+    // DeviceLayout Modifiers
     & LayoutModifiers<ThreePartLayoutComponent>
 
     // ThreePartLayout Properties

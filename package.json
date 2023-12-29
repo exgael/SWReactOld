@@ -11,6 +11,7 @@
     "@types/node": "^16.18.68",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
+    "framer-motion": "^10.16.16",
     "mobx": "^6.12.0",
     "mobx-react": "^9.1.0",
     "react": "^18.2.0",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.3",
+    "pwa-asset-generator": "^6.3.1"
   }
 }

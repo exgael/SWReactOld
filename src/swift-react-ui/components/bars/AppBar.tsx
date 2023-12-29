@@ -1,6 +1,6 @@
 import createComponent from "../../SWCore/SWElements/componentFactory";
 import View from "../../SWCore/SWTypes/View";
-import {SWAppBar} from "../../SWCore/SWElements/SWBars/UserFlowBar/SWAppBar";
+import {SWAppBar} from "../../SWCore/SWTemplates/SWBars/UserFlowBar/SWAppBar";
 import React from "react";
 import {BarComponent} from "../../SWCore/SWTypes/Components";
 

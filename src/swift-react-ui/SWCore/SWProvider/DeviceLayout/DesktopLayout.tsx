@@ -5,7 +5,7 @@ interface DesktopContentProps {
     children: ReactNode;
 }
 
-function DesktopContent( { children }: DesktopContentProps ): ReactElement {
+function DesktopLayout({ children }: DesktopContentProps ): ReactElement {
     return Screen(
         children
         ,
@@ -15,4 +15,4 @@ function DesktopContent( { children }: DesktopContentProps ): ReactElement {
     );
 }
 
-export default DesktopContent;
+export default DesktopLayout;

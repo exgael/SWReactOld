@@ -1,8 +1,8 @@
 import React from "react";
-import {HStack, NavigationLink, Text, ZStack} from "../../../../components";
+import {HStack, NavigationLink, RoundedRectangle, Text, ZStack} from "../../../../components";
 import {Color, View} from "../../../SWTypes";
 import {NavigationComponent} from "../../../SWTypes/Components";
-import {Destination} from "../../../SWProvider/Navigation";
+import {Destination} from "../../../SWProvider/useNavigate";
 import userBarStore from "./UserBarStore";
 
 export const SWBottomBar: React.FC<{ view: View }> = React.memo(
@@ -17,10 +17,15 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
         const appBarLayout = HStack({ alignment: "space-around" })(
                 ...navLinks
         )
-            .frame({ width: "100%", height: "80px" })
-            .background(Color.hex("#333"))
+            .frame({ width: "95vw", height: "80px" })
             .foregroundStyle(Color.white)
-            .opacity(0.9)
+            .background(Color.rgba(150, 150, 150, 0.5))
+            // .background(Color.hex("#333"))
+            .setClassName(["glass"])
+            .mask(
+                RoundedRectangle("35px")
+                    .frame({width: "100%", height: "100%"})
+            )
             .render();
 
         return (

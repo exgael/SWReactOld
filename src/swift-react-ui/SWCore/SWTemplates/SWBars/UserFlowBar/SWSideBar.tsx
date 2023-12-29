@@ -1,22 +1,25 @@
 import React from "react";
-import {HStack, NavigationLink, Text} from "../../../../components";
+import {NavigationLink, Text, VStack} from "../../../../components";
 import {Color, View} from "../../../SWTypes";
+import { useSelector } from 'react-redux';
 import {NavigationComponent} from "../../../SWTypes/Components";
-import {Destination} from "../../../SWProvider/Navigation";
+import {Destination} from "../../../SWProvider/useNavigate";
 import userBarStore from "./UserBarStore";
-export const SWAppBar: React.FC<{ view: View }> = React.memo(
+
+export const SWSideBar: React.FC<{ view: View }> = React.memo(
     ({ view }) => {
         const isVisible = userBarStore.isVisible;
         const destination: Destination[] = userBarStore.destinations;
+
         const navLinks: NavigationComponent[] = destination.map(
-            (item: Destination) => NavigationLink(item.path, Text(item.title))
+            (item) => NavigationLink(item.path, Text(item.title))
         );
 
         // Constructing the UserFlowBar layout
-        const appBarLayout = HStack({alignment:"space-around"})(
+        const appBarLayout = VStack({alignment: "space-around"})(
             ...navLinks
         )
-            .frame({ width: "100%", height: "65px" })
+            .frame({ width: "25vw", height: "100%" })
             .background(Color.hex("#333"))
             .foregroundStyle(Color.white)
             .render();

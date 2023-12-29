@@ -1,20 +1,18 @@
-import {Body, Color, HStack, RoundedRectangle, Spacer, Subheadline, Title, VStack} from "../swift-react-ui";
-import {Text} from "../swift-react-ui";
-import {ThreePartLayout} from "../swift-react-ui/components/complexLayout/ThreeParLayout";
-import {Section, QuickLink} from "../swift-react-ui/SWCore/SWTypes/Components";
+import {Body, Subheadline, Title, VStack} from "../swift-react-ui";
+import {DocumentationBySection} from "../swift-react-ui/components/complexLayout/ThreeParLayout";
 
 
 export function CurriculumVitae() {
     return VStack({})(
-        ThreePartLayout(
-            Section1(),
-            Section2(),
-            Section3()
+        DocumentationBySection(
+            Study(),
+            Stage(),
+            Work()
         )
     )
 }
 
-function Section1() {
+function Study() {
     return VStack({})(
         Title("Study")
         ,
@@ -39,7 +37,7 @@ function Section1() {
         .setAriaLabel("Section")
 }
 
-function Section2() {
+function Stage() {
     return VStack({})(
         Title("Stage")
         ,
@@ -52,7 +50,7 @@ function Section2() {
 
 
 
-function Section3() {
+function Work() {
     return VStack({})(
         Title("Work")
         ,

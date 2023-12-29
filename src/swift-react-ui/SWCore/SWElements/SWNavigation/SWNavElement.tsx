@@ -1,26 +1,8 @@
 import React, {useEffect} from "react";
 import {ButtonComponent, NavigationComponent} from "../../SWTypes/Components";
-import {useNavigate} from "../../SWProvider/Navigation";
+import {useNavigate} from "../../SWProvider/useNavigate";
 import {IoChevronBack} from "react-icons/io5";
-
-
-class RoutingManager {
-    // Holds the current route
-    currentRoute = '/';
-
-    // Method to navigate to a new route
-    navigateTo(route: string) {
-        this.currentRoute = route;
-        this.onRouteChange(this.currentRoute);
-    }
-
-    // Callback when route changes
-    onRouteChange = (route: string) => {
-        // To be implemented in the React component
-    };
-}
-
-const routingManager: RoutingManager = new RoutingManager();
+import routingManager from "./RoutingManager";
 
 export const SWNavigationLink: React.FC<{ view: NavigationComponent }> = React.memo(
     ({view}) => {

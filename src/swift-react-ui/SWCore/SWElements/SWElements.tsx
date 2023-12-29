@@ -212,6 +212,7 @@ export const SWView: React.FC<{
                 id={view.id}
                 key={view.key}
                 ref={view.ref}
+                className={view.classNames?.join(' ')}
                 style={{...view.style, ...overrideStyles }} {...view.events} {...overrideEvents}>
                 {children}
             </div>
