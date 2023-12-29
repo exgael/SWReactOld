@@ -11,59 +11,65 @@ import createComponent from "../componentFactory";
 import {CoreModifiers} from "../../SWModifiers/core/coreModifers";
 import {useResponsive} from "../../SWProvider/useResponsive";
 import {FullscreenCover} from "../../../components/modals/FullscreenCover";
-export function TabSelectContent(navigationLinks: Section[], handleNavigation: (contentId: string)=> void ): TabSelectContentComponent {
+export function TabSelectContent(sections: Section[], handleSectionSwitch: (contentId: string)=> void ): TabSelectContentComponent {
     return createComponent<TabSelectContentComponent>(
         { render: function() { return (
                 <SWTabSelectContent view={this as TabSelectContentComponent}/>
             )}},
-        { navigationLinks: navigationLinks, handleNavigation: handleNavigation }
+        { sections: sections, handleNavigation: handleSectionSwitch }
     );
 }
 
 export type TabSelectContentComponent = View
     & CoreModifiers<TabSelectContentComponent> & {
-    navigationLinks: Section[]
+    sections: Section[]
     handleNavigation: (contentId: string)=> void
 }
 
 const SWTabSelectContent: React.FC<{view : TabSelectContentComponent}> = ( {view} ) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [showSections, setShowSections] = useState(false);
+    const toggleShowSections = () => {
+        setShowSections(!showSections);
+    };
 
     const { isPhone, isTablet } = useResponsive();
 
-    const toggleSidebar = () => {
-        setIsCollapsed(!isCollapsed);
-    };
-
-    const handleNavigation = (contentId: string): void => {
+    const handleSectionSwitch = (contentId: string): void => {
         view.handleNavigation(contentId)
-        setIsCollapsed(true)
+        if (isPhone || isTablet) {
+            setShowSections(false)
+        }
     }
 
-    const contentSelection = ContentLinkSelection(view.navigationLinks, handleNavigation)
-
-    const renderSmallDevice = () => (
-        !isCollapsed
-            ? ChevronBack(toggleSidebar)
-            : FullscreenCover(contentSelection, toggleSidebar)
-    );
-
-    const renderBigDevice = () => (
-        isCollapsed
-            ? ChevronBack(toggleSidebar)
-            : HStack({ alignment: "flex-start" })(
-                contentSelection.positionFixedSide("left"),
-                ChevronBack(toggleSidebar)
-            ).crossAxisAlignment("baseline")
-    );
+    const sectionSelection = SectionSelection(view.sections, handleSectionSwitch)
 
     return SWReactElement(
         view,
-        (isPhone || isTablet) ? renderSmallDevice() : renderBigDevice()
-    );
+        (isPhone || isTablet) ? (
+
+            showSections ? (
+                FullscreenCover(sectionSelection, toggleShowSections)
+            ) : (
+                ChevronBack(() => toggleShowSections())
+            )
+
+            ) : ( // Big device
+            showSections ? (
+                ChevronBack(() => toggleShowSections())
+            ) : (
+                HStack({alignment: "flex-start"})(
+                    sectionSelection
+                        .positionFixedSide("left")
+                    ,
+                    ChevronBack(() => toggleShowSections())
+                )
+                    .crossAxisAlignment("baseline")
+            )
+        )
+    )
 }
 
-export function ContentLinkSelection(navigationLinks: Section[], handleNavigation: (contentId: string)=> void ): ForEachComponent {
+export function SectionSelection(navigationLinks: Section[], handleNavigation: (contentId: string)=> void ): ForEachComponent {
     return ForEach(
         navigationLinks,
         (navLink: Section) => (
