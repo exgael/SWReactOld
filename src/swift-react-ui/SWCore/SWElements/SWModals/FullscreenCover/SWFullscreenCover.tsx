@@ -1,36 +1,35 @@
 import React from 'react';
-import {useFullscreenCover} from "../../../SWProvider/Modals/FullscreenCoverContext";
+import {FullscreenCoverComponent} from "../../../SWTypes/Components";
 
-export const SWFullScreenCover: React.FC = () => {
-    const { content, hideCover } = useFullscreenCover();
-
-    if (!content) {
+export const SWFullScreenCover: React.FC<{ view: FullscreenCoverComponent }> = React.memo(
+    ({ view }) => {
+    if (!view.show) {
         return null;
     }
 
+    const defaultStyle: React.CSSProperties = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        zIndex: 1000,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        animation: 'slideIn 0.3s ease-out',
+    };
+
     return (
-            <div style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                backgroundColor: 'rgba(0, 0, 0, 0.4)', // Semi-transparent background
-                //    filter: "blur(4px)",
-                zIndex: 1000, // Ensure it covers other elements
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                animation: 'slideIn 0.3s ease-out',
-            }}>
+            <div style={defaultStyle}>
                 <div style={{
-                    //...view.style,
                     maxHeight: '100%',
-                    overflowY: 'auto',  // If content is too long
+                    overflowY: 'auto',
                 }}>
-                    {content.render()}
-                    <button onClick={hideCover} style={{
+                    {view.show.render()}
+                    <button onClick={view.onDismiss} style={{
                         position: 'absolute',
                         top: '10px',
                         left: '10px',
@@ -45,4 +44,4 @@ export const SWFullScreenCover: React.FC = () => {
                 </div>
             </div>
     );
-};
+});

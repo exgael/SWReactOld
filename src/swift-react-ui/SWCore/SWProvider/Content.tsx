@@ -9,10 +9,7 @@ import {InstallNotification} from "../../components/install_notif";
 import {useObserver} from "mobx-react";
 import {sheet} from "../SWElements/SWModals/Sheet/SheetStore";
 import {alert} from "../SWElements/SWModals/Alert/AlertStore";
-import {Sheet} from "../../components/modals/Sheet";
 import {Alert} from "../../components/modals/Alert";
-import {useFullscreenCover} from "./Modals/FullscreenCoverContext";
-import {SWFullScreenCover} from "../SWElements/SWModals/FullscreenCover/SWFullscreenCover";
 
 interface ContentProps {
     destinations: Destination[];
@@ -33,8 +30,6 @@ export const Content: React.FC<ContentProps> = ({ destinations }) => {
     const children = <Body destinations={destinations} />;
 
     // Modals
-
-    const { isPresented } = useFullscreenCover();
     const { isAlertPresented } = useAlert();
 
     // Define breakpoints and render components accordingly
@@ -51,8 +46,6 @@ export const Content: React.FC<ContentProps> = ({ destinations }) => {
                 {contentComponent} { /* Screen Content */}
                 <InstallNotification/> { /* Install Notification */}
                 {/* React component that uses the MobX state */}
-
-                { isPresented && <SWFullScreenCover/> }
                 { isAlertPresented && <Alert/> }
         </NavigationContainer>
     );

@@ -56,12 +56,10 @@ export type ButtonComponent = View
 export type ModalComponent = View
     & CoreModifiers<ButtonComponent>
     & {
-    show: View;
-    isPresented: boolean;
-    onClose: () => void;
+    onDismiss: () => void;
 };
 
-export type FullscreenCoverComponent = View & {
+export type FullscreenCoverComponent = ModalComponent & {
     show: View;
 }
 

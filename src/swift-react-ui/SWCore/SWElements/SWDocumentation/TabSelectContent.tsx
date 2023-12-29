@@ -10,8 +10,7 @@ import {ChevronBack} from "../../../components/icons/chevrons";
 import createComponent from "../componentFactory";
 import {CoreModifiers} from "../../SWModifiers/core/coreModifers";
 import {useResponsive} from "../../SWProvider/useResponsive";
-import {useFullscreenCover} from "../../SWProvider/Modals/FullscreenCoverContext";
-
+import {FullscreenCover} from "../../../components/modals/FullscreenCover";
 export function TabSelectContent(navigationLinks: Section[], handleNavigation: (contentId: string)=> void ): TabSelectContentComponent {
     return createComponent<TabSelectContentComponent>(
         { render: function() { return (
@@ -29,39 +28,39 @@ export type TabSelectContentComponent = View
 
 const SWTabSelectContent: React.FC<{view : TabSelectContentComponent}> = ( {view} ) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
+
     const { isPhone, isTablet } = useResponsive();
-    const { showCover, hideCover } = useFullscreenCover();
+
     const toggleSidebar = () => {
         setIsCollapsed(!isCollapsed);
     };
 
     const handleNavigation = (contentId: string): void => {
         view.handleNavigation(contentId)
-        hideCover()
+        setIsCollapsed(true)
     }
 
     const contentSelection = ContentLinkSelection(view.navigationLinks, handleNavigation)
 
+    const renderSmallDevice = () => (
+        !isCollapsed
+            ? ChevronBack(toggleSidebar)
+            : FullscreenCover(contentSelection, toggleSidebar)
+    );
+
+    const renderBigDevice = () => (
+        isCollapsed
+            ? ChevronBack(toggleSidebar)
+            : HStack({ alignment: "flex-start" })(
+                contentSelection.positionFixedSide("left"),
+                ChevronBack(toggleSidebar)
+            ).crossAxisAlignment("baseline")
+    );
+
     return SWReactElement(
         view,
-        (isPhone || isTablet) ? (
-            ChevronBack(() => showCover(contentSelection))
-        ) : ( // Big device
-            isCollapsed ? (
-                // Don't Show Tab
-                ChevronBack(() => toggleSidebar())
-            ) : (
-                // Show Tab
-                HStack({alignment: "flex-start"})(
-                    contentSelection
-                        .positionFixedSide("left")
-                    ,
-                    ChevronBack(() => toggleSidebar())
-                )
-                    .crossAxisAlignment("baseline")
-            )
-        )
-    )
+        (isPhone || isTablet) ? renderSmallDevice() : renderBigDevice()
+    );
 }
 
 export function ContentLinkSelection(navigationLinks: Section[], handleNavigation: (contentId: string)=> void ): ForEachComponent {

@@ -7,7 +7,6 @@ import reportWebVitals from "./reportWebVitals";
 import {Content} from "./swift-react-ui/SWCore";
 import {ContactMe} from "./pages/ContactMe";
 import {Destination} from "./swift-react-ui/SWCore/SWProvider/Navigation";
-import { FullscreenCoverProvider } from './swift-react-ui/SWCore/SWProvider/Modals/FullscreenCoverContext';
 const root: ReactDOM.Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
@@ -20,9 +19,7 @@ export const BarItems: Destination[] = [
 
 root.render(
     <React.StrictMode>
-        <FullscreenCoverProvider>
-            <Content destinations={BarItems} />
-        </FullscreenCoverProvider>
+        <Content destinations={BarItems} />
     </React.StrictMode>
 );
 
