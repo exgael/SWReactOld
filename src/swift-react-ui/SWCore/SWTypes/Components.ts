@@ -133,10 +133,10 @@ export type SpacerComponent = View
 
 
 
-export interface NavigationLink {
+export interface Section {
     id: string;
     title: string;
-    content: View;
+    view: View;
     quickLinks: QuickLink[];
 }
 
@@ -161,7 +161,7 @@ export type ThreePartLayoutComponent = View
 
     // ThreePartLayout Properties
     & {
-    navigationLinks: NavigationLink[];
+    sections: Section[];
     quickLinks: QuickLink[];
 };
 

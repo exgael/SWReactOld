@@ -1,0 +1,88 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --fs-xl: 2rem;
+  --fs-600: 1.5rem;
+  --fs-500: 1.25rem;
+  --fs-400: 1rem;
+
+  --top-padding-desktop-mobile: 65px;
+  --bottom-padding-mobile: 80px;
+  --left-padding-tablet: 25vw;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+
+body {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+  height: 100vh;
+  background-color: #dedcd5;
+
+  scrollbar-width: none; /* Firefox 64+ */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+@media (max-width: 576px) {
+  /* For phones */
+  :root {
+    --top-padding-desktop-mobile: 65px;
+    --bottom-padding-mobile: 80px;
+  }
+  body {
+    padding-top: var(--top-padding-desktop-mobile);
+    padding-bottom: var(--bottom-padding-mobile);
+    /* Adjust body styles for mobile */
+  }
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+  /* For tablets */
+  :root {
+    --left-padding-tablet: 25vw;
+  }
+  body {
+    padding-left: var(--left-padding-tablet);
+    /* Adjust body styles for tablet */
+  }
+}
+
+@media (min-width: 992px) {
+  /* For desktop */
+  :root {
+    --top-padding-desktop-mobile: 65px;
+  }
+  /* No additional padding adjustments needed for desktop */
+  body {
+    padding-top: var(--top-padding-desktop-mobile);
+  }
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* For Webkit browsers like Chrome, Safari */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;  /* For vertical scrollbars */
+  height: 0; /* For horizontal scrollbars */
+}

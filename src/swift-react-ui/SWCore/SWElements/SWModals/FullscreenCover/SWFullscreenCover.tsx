@@ -1,0 +1,48 @@
+import React from 'react';
+import {useFullscreenCover} from "../../../SWProvider/Modals/FullscreenCoverContext";
+
+export const SWFullScreenCover: React.FC = () => {
+    const { content, hideCover } = useFullscreenCover();
+
+    if (!content) {
+        return null;
+    }
+
+    return (
+            <div style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(0, 0, 0, 0.4)', // Semi-transparent background
+                //    filter: "blur(4px)",
+                zIndex: 1000, // Ensure it covers other elements
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                animation: 'slideIn 0.3s ease-out',
+            }}>
+                <div style={{
+                    //...view.style,
+                    maxHeight: '100%',
+                    overflowY: 'auto',  // If content is too long
+                }}>
+                    {content.render()}
+                    <button onClick={hideCover} style={{
+                        position: 'absolute',
+                        top: '10px',
+                        left: '10px',
+                        border: 'none',
+                        background: 'none',
+                        color: 'white',
+                        fontSize: '20px',
+                        cursor: 'pointer',
+                    }}>
+                        Hide
+                    </button>
+                </div>
+            </div>
+    );
+};

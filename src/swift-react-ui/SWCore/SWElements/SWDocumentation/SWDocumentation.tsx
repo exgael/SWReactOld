@@ -4,21 +4,21 @@ import {
     QuickLink,
     ThreePartLayoutComponent
 } from "../../SWTypes/Components";
-import {Button, ForEach, HStack, Text, VStack} from "../../../components";
+import {ForEach, HStack, Text, VStack} from "../../../components";
 import {Color, View} from "../../SWTypes";
 import {SWReactElement} from "../SWElements";
 import {TabSelectContent} from "./TabSelectContent";
 import {useResponsive} from "../../SWProvider/useResponsive";
 
 const SWThreePartLayout: React.FC<{view : ThreePartLayoutComponent}> = ( {view} ) => {
-    const [activeContent, setActiveContent] = useState<View>(view.navigationLinks[0]?.content);
-    const [quickLinks, setQuickLinks] = useState<QuickLink[]>(view.navigationLinks[0]?.quickLinks || []);
-
+    const [activeSectionID, setActiveSectionID] = useState<string>(view.sections[0]?.id);
+    const [quickLinks, setQuickLinks] = useState<QuickLink[]>(view.sections[0]?.quickLinks || []);
     const contentRef = useRef<HTMLDivElement>(null);
     const { isDesktop } = useResponsive();
-    const handleNavigation = (content: View) => {
-        setActiveContent(content);
-        const correspondingNavLink = view.navigationLinks.find(navLink => navLink.content === content);
+
+    const handleContentSwitch = (activeSectionID: string) => {
+        setActiveSectionID(activeSectionID)
+        const correspondingNavLink = view.sections.find(navLink => navLink.id === activeSectionID);
         setQuickLinks(correspondingNavLink?.quickLinks || []);
     };
 
@@ -28,18 +28,20 @@ const SWThreePartLayout: React.FC<{view : ThreePartLayoutComponent}> = ( {view} 
             element.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
     };
+
     return SWReactElement(
         view,
         HStack({alignment: "space-between"})(
-            TabSelectContent(view.navigationLinks, handleNavigation)
+            TabSelectContent(view.sections, handleContentSwitch)
             ,
 
-            ActiveContent(activeContent)
+            ActiveContent(view.sections.find(section => section.id === activeSectionID)!.view)
                 .setRef(contentRef)
             ,
 
             isDesktop ? (
                 TabQuickScroll(quickLinks, scrollToQuickLink)
+                    .positionFixedSide("right")
             ) : (
                 Text("")
             )
@@ -71,7 +73,6 @@ function TabQuickScroll(quickLinks: QuickLink[] , scrollToQuickLink: (id: string
         .gap("10px")
         .padding({right: "3vw"})
         .crossAxisAlignment("flex-end")
-
 }
 
 export default SWThreePartLayout;

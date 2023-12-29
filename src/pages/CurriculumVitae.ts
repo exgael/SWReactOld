@@ -1,7 +1,7 @@
 import {Body, Color, HStack, RoundedRectangle, Spacer, Subheadline, Title, VStack} from "../swift-react-ui";
 import {Text} from "../swift-react-ui";
 import {ThreePartLayout} from "../swift-react-ui/components/complexLayout/ThreeParLayout";
-import {NavigationLink, QuickLink} from "../swift-react-ui/SWCore/SWTypes/Components";
+import {Section, QuickLink} from "../swift-react-ui/SWCore/SWTypes/Components";
 
 
 export function CurriculumVitae() {
@@ -16,8 +16,6 @@ export function CurriculumVitae() {
 
 function Section1() {
     return VStack({})(
-
-
         Title("Study")
         ,
 

@@ -1,5 +1,5 @@
 import {
-    NavigationLink,
+    Section,
     QuickLink,
     StackComponent,
     TextComponent,
@@ -7,36 +7,27 @@ import {
 } from "../../SWCore/SWTypes/Components";
 import createComponent from "../../SWCore/SWElements/componentFactory";
 import SWThreePartLayout from "../../SWCore/SWElements/SWDocumentation/SWDocumentation";
-import {View} from "../../SWCore";
 
 export function ThreePartLayout(...views: StackComponent[]): ThreePartLayoutComponent {
 
-    // TODO -: Make it declarative. Easier said then done ? whatever, make it declarative.
-
-    const navigationLinks: NavigationLink[] = buildNavigationAndQuickLinks(views);
+    const sections: Section[] = buildNavigationAndQuickLinks(views);
 
     return createComponent<ThreePartLayoutComponent>(
         { render: function() { return (
                 <SWThreePartLayout view={this as ThreePartLayoutComponent}/>
             )}},
-        { navigationLinks: navigationLinks },
+        { sections: sections },
     );
 }
-
-function buildNavigationAndQuickLinks(sections: StackComponent[]): {
-    quickLinks: QuickLink[];
-    id: string;
-    title: string;
-    content: View
-}[] {
-    return sections.map(section => {
-        if (!section.ariaLabel?.startsWith('Section')) {
+function buildNavigationAndQuickLinks(views: StackComponent[]): Section[] {
+    return views.map(view => {
+        if (!view.ariaLabel?.startsWith('Section')) {
             throw new Error('Invalid section format');
         }
 
         let title = '';
         let quickLinks: QuickLink[] = [];
-        section.children?.forEach((child) => {
+        view.children?.forEach((child) => {
 
             switch (child.ariaLabel) {
                 case 'Title':
@@ -50,12 +41,14 @@ function buildNavigationAndQuickLinks(sections: StackComponent[]): {
             }
         });
 
-        return {
+        const section: Section = {
             id: generateId(),
-            title,
-            content: section,
-            quickLinks
-        };
+            title, // For Section nav
+            view, // View of the section
+            quickLinks // For quick nav
+        }
+
+        return section;
     });
 }
 
