@@ -60,9 +60,9 @@ export const absoluteModifiers = {
     // Modifier for BottomBar
     positionFixedBottom: function<T extends View>(this: T): T {
         this.style.position = 'fixed';
-        this.style.bottom = '2%';
-        this.style.left = '17.5%';
-        this.style.transform = 'translate(-17.5%)';
+        this.style.bottom = '0%';
+        this.style.left = '0%';
+      //  this.style.transform = 'translate(-50%)';
         this.style.right = '0';
         this.style.zIndex = '999';
 

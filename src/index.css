@@ -110,10 +110,15 @@ body {
   :root {
     --top-padding-phone: 10vh;
     --bottom-padding-phone: 7vh;
+    --bottom-bar-height: 8.5vh;
   }
   body {
-    padding-top: var(--top-padding-phone);
-    padding-bottom: var(--bottom-padding-phone);
+    padding-top: var(--top-padding-phone) !important;
+    padding-bottom: var(--bottom-padding-phone) !important;
+  }
+
+  .bottom-bar {
+    height: var(--bottom-bar-height) !important;
   }
 }
 
@@ -136,7 +141,7 @@ body {
     --left-padding-tablet: 20vw;
   }
   body {
-    padding-left: var(--left-padding-tablet);
+    padding-left: var(--left-padding-tablet) !important;
   }
 }
 
@@ -154,12 +159,22 @@ body {
   On desktops, where vertical space is less of a constraint,
   this padding helps in maintaining a balanced and accessible layout,
   particularly for navigation elements or branding headers.
+
+  @Explanation:
+
+  Border of the Screen (Browser Window)
+  ------------------------------------- (Top edge of the body)
+  |
+  | <-- max(5vh, 65px) padding-top inside the body
+  |
+  Content starts here pushed down by max(5vh, 65px)
+
   */
   :root {
-    --top-padding-desktop: 65px;
+    --top-padding-desktop: max(5vh, 65px);
   }
   body {
-    padding-top: var(--top-padding-desktop);
+    padding-top: var(--top-padding-desktop) !important;
   }
 }
 

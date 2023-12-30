@@ -17,10 +17,7 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
         const appBarLayout = HStack({ alignment: "space-around" })(
                 ...navLinks
         )
-            .frame({ width: "100vw", height: "60px" })
-            .foregroundStyle(Color.white)
-            .background(Color.rgba(150, 150, 150, 0.5))
-            .setClassName(["glass"])
+            .setClassName(["glass", "bottom-bar"])
             .render();
 
         return (
