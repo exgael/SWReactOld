@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Landing from "./pages/Landing";
+import {Landing} from "./pages/Landing";
 import {CurriculumVitae} from "./pages/CurriculumVitae";
 import reportWebVitals from "./reportWebVitals";
 import {Content} from "./swift-react-ui/SWCore";

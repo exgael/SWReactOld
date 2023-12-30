@@ -14,7 +14,7 @@ const SWThreePartLayout: React.FC<{view : ThreePartLayoutComponent}> = ( {view} 
     const [activeSectionID, setActiveSectionID] = useState<string>(view.sections[0]?.id);
     const [quickLinks, setQuickLinks] = useState<QuickLink[]>(view.sections[0]?.quickLinks || []);
     const contentRef = useRef<HTMLDivElement>(null);
-    const { isDesktop } = useResponsive();
+    const { isDesktop, isTablet } = useResponsive();
 
     const handleContentSwitch = (activeSectionID: string) => {
         setActiveSectionID(activeSectionID)
@@ -37,6 +37,7 @@ const SWThreePartLayout: React.FC<{view : ThreePartLayoutComponent}> = ( {view} 
 
             ActiveContent(view.sections.find(section => section.id === activeSectionID)!.view)
                 .setRef(contentRef)
+                .frame(isDesktop ? {width: "59vw", height: "100%"} : isTablet ?  {width: "65vw", height: "100%"} : {width: "80vw", height: "100%"})
             ,
 
             isDesktop ? (
@@ -48,7 +49,7 @@ const SWThreePartLayout: React.FC<{view : ThreePartLayoutComponent}> = ( {view} 
         )
             .frame({width: "100vw", height: "100%"})
             .crossAxisAlignment("baseline")
-            .margin({top: "5vh"})
+            .margin({top: "5vh", left: isTablet? "5vw" : "0px"})
     )
 }
 
@@ -56,7 +57,6 @@ function ActiveContent(activeContent: View) {
     return   VStack({gap: "10px"})(
         activeContent
     )
-        .frame({width: "59vw", height: "100%"})
 }
 
 function TabQuickScroll(quickLinks: QuickLink[] , scrollToQuickLink: (id: string)=> void ): ForEachComponent {

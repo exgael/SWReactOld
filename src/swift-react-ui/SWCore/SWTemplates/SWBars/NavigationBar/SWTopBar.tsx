@@ -12,8 +12,7 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
         .frame({ width: "100%" })
         .foregroundStyle(Color.white)
         .background(Color.rgba(150, 150, 150, 0.5))
-        .setClassName(["glass", "header"])
-        ;
+        .setClassName(["glass", "top-bar"])
 
     return (
             <div style={view.style} {...view.events}>

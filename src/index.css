@@ -1,17 +1,18 @@
+/*
+ ******************************************************
+ *                     Base Style                     *
+ ******************************************************
+ */
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-:root {
-  --fs-xl: 2rem;
-  --fs-600: 1.5rem;
-  --fs-500: 1.25rem;
-  --fs-400: 1rem;
-
-  --top-padding-desktop-mobile: 65px;
-  --bottom-padding-mobile: 80px;
-  --left-padding-tablet: 25vw;
-}
+/*
+ ******************************************************
+ *                     Animations                     *
+ ******************************************************
+ */
 
 @keyframes slideIn {
   from {
@@ -22,98 +23,172 @@
   }
 }
 
+/*
+ ******************************************************
+ *             Base HTML and Body Styles              *
+ ******************************************************
+ */
+
 html {
   min-height: calc(100% + env(safe-area-inset-top));
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 
+  /* This padding is Very Import (Also correct land mode on Phone devices) */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+
+  /* Remove default tap highlight from navigators */
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.backdrop-filter {
-  backdrop-filter: blur(10px);
- /* background-color: rgba(255, 255, 255, 0.5); */
-}
-
-.glass{
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
- /* border-radius: 20px; */
-  border:1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
-
 body {
-
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  /*
+  Resets the default margin of the body, which browsers apply by default.
+  This is a common practice in CSS resets to ensure consistency across browsers.
+  */
   margin: 0;
+
+  /*
+  Sets a list of font families for the content, providing fallbacks if the previous fonts aren't available.
+  */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+
+  /*
+  These are browser-specific properties to enhance the readability of text,
+  particularly on macOS and iOS.
+  */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100vw;
-  height: 100vh;
+
   background-color: #dedcd5;
 
   scrollbar-width: none; /* Firefox 64+ */
   -ms-overflow-style: none;  /* IE 10+ */
 }
 
+
+/*
+ ******************************************************
+ *               Reusable Components                  *
+ ******************************************************
+ */
+.glass, .glassBar {
+  /* Shared Styles */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border:1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glassBar {
+  /* Unique Styles */
+  border-radius: 20px;
+}
+
+/*
+ ******************************************************
+ *               Responsive Design                    *
+ ******************************************************
+ */
+
 @media (max-width: 576px) {
-  /* For phones */
+  /*
+  @Device:
+  Phone
+
+  @Description:
+  This ensures that the content is not flush against the edges of the screen,
+  making it more visually appealing and easier to interact with,
+  especially on touch devices.
+
+  @UseCase:
+  This padding might be particularly useful
+  if there are fixed headers or footers,
+  as it prevents content from being hidden behind these elements.
+  */
   :root {
-    --top-padding-desktop-mobile: 65px;
-    --bottom-padding-mobile: 80px;
+    --top-padding-phone: 10vh;
+    --bottom-padding-phone: 7vh;
   }
   body {
-    padding-top: var(--top-padding-desktop-mobile);
-    padding-bottom: var(--bottom-padding-mobile);
-    /* Adjust body styles for mobile */
+    padding-top: var(--top-padding-phone);
+    padding-bottom: var(--bottom-padding-phone);
   }
 }
 
 @media (min-width: 576px) and (max-width: 992px) {
-  /* For tablets */
+  /*
+  @Device:
+  Tablet
+
+  @Description:
+  This significant padding on the left side can create an asymmetrical layout,
+  which might be intended for specific design purposes
+  like sidebar navigation or to offset the main content for better focus.
+
+  @UseCase:
+  This is useful for layouts that require a distinct visual separation or alignment,
+  especially on tablet devices where screen real estate is more generous
+  than phones but less than desktops.
+  */
   :root {
-    --left-padding-tablet: 25vw;
+    --left-padding-tablet: 20vw;
   }
   body {
     padding-left: var(--left-padding-tablet);
-    /* Adjust body styles for tablet */
   }
 }
 
 @media (min-width: 992px) {
-  /* For desktop */
+  /*
+  @Device:
+  Desktop
+
+  @Description:
+  This creates a space at the top of the page,
+  which could be useful for designs with a fixed navigation bar
+  or header to ensure that the top content is not obscured.
+
+  @UseCase:
+  On desktops, where vertical space is less of a constraint,
+  this padding helps in maintaining a balanced and accessible layout,
+  particularly for navigation elements or branding headers.
+  */
   :root {
-    --top-padding-desktop-mobile: 65px;
+    --top-padding-desktop: 65px;
   }
-  /* No additional padding adjustments needed for desktop */
   body {
-    padding-top: var(--top-padding-desktop-mobile);
+    padding-top: var(--top-padding-desktop);
   }
 }
+
+/*
+ ******************************************************
+ *       Styles for Progressive Web Apps (PWA)        *
+ ******************************************************
+ */
 
 @media screen and (display-mode: standalone) {
-  /* Styles for Progressive Web App */
-  .header {
+  /*
+  @Class
+  .top-bar
+
+  @UseCase:
+  This is particularly useful for ensuring that the top bar
+  of your web app has consistent sizing in the PWA mode,
+  especially when the app might not have the usual browser chrome to account for.
+  */
+  .top-bar {
     height: 10vh !important;
-    /*padding-top: 10vh !important;*/
   }
 }
 
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-/* For Webkit browsers like Chrome, Safari */
+/*
+ ******************************************************
+ *               Scrollbar Styling                    *
+ ******************************************************
+ */
 ::-webkit-scrollbar {
   display: none;
   width: 0;  /* For vertical scrollbars */

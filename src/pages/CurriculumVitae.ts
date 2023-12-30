@@ -1,20 +1,87 @@
-import {Body, Subheadline, Title, VStack} from "../swift-react-ui";
+import {Body, Color, Subheadline, Title, VStack} from "../swift-react-ui";
 import {DocumentationBySection} from "../swift-react-ui/components/complexLayout/ThreeParLayout";
 
 
 export function CurriculumVitae() {
     return VStack({})(
         DocumentationBySection(
-            Study(),
-            Stage(),
-            Work()
+            Exemple(),
+            LanguageSkills(),
+            ProfessionalSkills(),
+            Interests(),
+            Education(),
+            ProfessionalExperience(),
+            Certifications()
         )
     )
 }
 
-function Study() {
-    return VStack({})(
-        Title("Study")
+function LanguageSkills() {
+    return VStack({gap: "20px"})(
+        CVTitle("Langues")
+        ,
+        Body("Arabe: Courant")
+        ,
+        Body("Français: Courant")
+        ,
+        Body("Anglais: Courant (TOEIC 885/990)")
+        ,
+        Body("Italien: Intermédiaire")
+        ,
+        Body("Allemand: Débutant")
+    ).setAriaLabel("Section");
+}
+
+function ProfessionalSkills() {
+    return VStack({gap: "20px"})(
+        CVTitle("Compétences"),
+        Body("Maîtrise des outils de résolution des problèmes"),
+        Body("Sens de l’écoute"),
+        Body("Autonomie"),
+        Body("Esprit d’équipe"),
+        Body("Rigueur"),
+        Body("Bon relationnel")
+    ).setAriaLabel("Section");
+}
+
+function Interests() {
+    return VStack({gap: "20px"})(
+        CVTitle("Centre d'Intérêt"),
+        Body("Randonnées"),
+        Body("Voyages"),
+        Body("Bénévolat: Restos du cœur, AFEV")
+    ).setAriaLabel("Section");
+}
+
+function Education() {
+    return VStack({gap: "20px"})(
+        CVTitle("Formation"),
+        Body("Master en management de la qualité, Université de Strasbourg, 2019-2021, Strasbourg"),
+        Body("Licence en économie et Gestion, Université de Strasbourg, 2016-2019, Strasbourg")
+    ).setAriaLabel("Section");
+}
+
+function ProfessionalExperience() {
+    return VStack({gap: "20px"})(
+        CVTitle("Parcours Professionnel"),
+        Subheadline("Astek, Ingénieur qualité projet"),
+        Body("Depuis mai 2022, Mondeville. [Description des activités]"),
+        Subheadline("Faurecia, Qualiticienne en alternance"),
+        Body("2020-2021, Marckolsheim. [Description des activités]")
+    ).setAriaLabel("Section");
+}
+
+function Certifications() {
+    return VStack({gap: "20px"})(
+        CVTitle("Certificats et Formation"),
+        Body("Green Belt Lean Six Sigma: Décerné le 1er septembre 2021 à l’université de Strasbourg"),
+        Body("Certificat Internet et Informatique: Obtention du C2i en 2018 à l’université de Strasbourg")
+    ).setAriaLabel("Section");
+}
+
+function Exemple() {
+    return VStack({gap: "4vh"})(
+        CVTitle("Study")
         ,
 
         Subheadline("What is Lorem Ipsum?")
@@ -38,8 +105,8 @@ function Study() {
 }
 
 function Stage() {
-    return VStack({})(
-        Title("Stage")
+    return VStack({gap: "4vh"})(
+        CVTitle("Stage")
         ,
         Subheadline("Sub2")
         ,
@@ -52,11 +119,19 @@ function Stage() {
 
 function Work() {
     return VStack({})(
-        Title("Work")
+        CVTitle("Work")
         ,
         Subheadline("Sub3")
         ,
         Body("Body3")
     )
         .setAriaLabel("Section")
+}
+
+
+
+function CVTitle(str: string) {
+    return Title(str)
+        .font("MerryWeather", "30px")
+        .foregroundStyle(Color.olive)
 }

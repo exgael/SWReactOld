@@ -13,10 +13,20 @@ export interface AbsoluteModifiers<T = any> {
     positionFixedTop: () => T; // For UserFlowBar and NavigationBar
     positionFixedBottom: () => T; // For BottomBar
     positionFixedSide: (side: 'left' | 'right') => T; // For SideBar
+    positionFixedTrailingTopBar: () => T; // For SideBar
 }
 
 // Implementing the modifiers
 export const absoluteModifiers = {
+
+    positionFixedTrailingTopBar: function<T extends View>(this: T): T {
+        this.style.position = 'absolute';
+        this.style.top = '0';
+        this.style.right = '5%';
+        this.style.zIndex = '999';
+        return this;
+    },
+
     absolutePosition: function<T extends View>(this: T, x: SWLength, y: SWLength): T {
         const xPos = evaluate(x);
         const yPos = evaluate(y);
@@ -44,6 +54,8 @@ export const absoluteModifiers = {
         this.style.transform = 'translate(0, 10)';
         return this;
     },
+
+
 
     // Modifier for BottomBar
     positionFixedBottom: function<T extends View>(this: T): T {

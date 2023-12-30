@@ -1,5 +1,6 @@
 import React from 'react';
 import {FullscreenCoverComponent} from "../../../SWTypes/Components";
+import {SWView} from "../../SWElements";
 
 export const SWFullScreenCover: React.FC<{ view: FullscreenCoverComponent }> = React.memo(
     ({ view }) => {
@@ -22,8 +23,13 @@ export const SWFullScreenCover: React.FC<{ view: FullscreenCoverComponent }> = R
         animation: 'slideIn 0.3s ease-out',
     };
 
+    view.style = {
+        ...defaultStyle,
+        ...view.style,
+    }
+
     return (
-            <div style={defaultStyle}>
+        <SWView view={view}>
                 <div style={{
                     maxHeight: '100%',
                     overflowY: 'auto',
@@ -42,6 +48,6 @@ export const SWFullScreenCover: React.FC<{ view: FullscreenCoverComponent }> = R
                         Hide
                     </button>
                 </div>
-            </div>
+        </SWView>
     );
 });

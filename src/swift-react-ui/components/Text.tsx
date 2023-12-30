@@ -9,7 +9,8 @@ export function Text(text: string): TextComponent {
         { render: function() { return (<SWText view={this as TextComponent} />); } },
         { text },
         textModifiers,
-    );
+    )
+        .textAlign("justify");
 }
 
 export function LargeTitle(string: string): TextComponent {

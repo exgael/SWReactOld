@@ -17,15 +17,10 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
         const appBarLayout = HStack({ alignment: "space-around" })(
                 ...navLinks
         )
-            .frame({ width: "95vw", height: "80px" })
+            .frame({ width: "100vw", height: "60px" })
             .foregroundStyle(Color.white)
             .background(Color.rgba(150, 150, 150, 0.5))
-            // .background(Color.hex("#333"))
             .setClassName(["glass"])
-            .mask(
-                RoundedRectangle("35px")
-                    .frame({width: "100%", height: "100%"})
-            )
             .render();
 
         return (

@@ -4,13 +4,14 @@ import {
     Section,
 } from "../../SWTypes/Components";
 import {ForEach, HStack, Text} from "../../../components";
-import {View} from "../../SWTypes";
+import {Color, View} from "../../SWTypes";
 import {SWReactElement} from "../../SWElements/SWElements";
 import {ChevronBack} from "../../../components/icons/chevrons";
 import createComponent from "../../SWElements/componentFactory";
 import {CoreModifiers} from "../../SWModifiers/core/coreModifers";
 import {useResponsive} from "../../SWProvider/useResponsive";
 import {FullscreenCover} from "../../../components/modals/FullscreenCover";
+import {MdOutlineMenuBook} from "../../../components/icons/menu";
 
 export function TabSelectContent(sections: Section[], handleSectionSwitch: (contentId: string) => void): TabSelectContentComponent {
     return createComponent<TabSelectContentComponent>(
@@ -37,7 +38,7 @@ const SWTabSelectContent: React.FC<{ view: TabSelectContentComponent }> = ({view
         setShowSections(!showSections);
     };
 
-    const {isPhone, isTablet} = useResponsive();
+    const {isPhone, isTablet, isDesktop} = useResponsive();
 
     const handleSectionSwitch = (contentId: string): void => {
         view.handleNavigation(contentId)
@@ -47,6 +48,7 @@ const SWTabSelectContent: React.FC<{ view: TabSelectContentComponent }> = ({view
     }
 
     const sectionSelection = SectionSelection(view.sections, handleSectionSwitch)
+        .crossAxisAlignment(isDesktop ? "flex-start" : "center")
 
     return SWReactElement(
         view,
@@ -54,19 +56,24 @@ const SWTabSelectContent: React.FC<{ view: TabSelectContentComponent }> = ({view
 
             showSections ? (
                 FullscreenCover(sectionSelection, toggleShowSections)
+                    .setClassName(["glass"])
             ) : (
-                ChevronBack(() => toggleShowSections())
+                MdOutlineMenuBook(() => toggleShowSections())
+                   // .position(0, 0)
+                    .positionFixedSide("left")
+                    .padding({left: "2vh", bottom: "5vh"})
+                    .positionFixedTrailingTopBar()
             )
 
         ) : ( // Big device
             showSections ? (
-                ChevronBack(() => toggleShowSections())
+                MdOutlineMenuBook(() => toggleShowSections())
             ) : (
                 HStack({alignment: "flex-start"})(
                     sectionSelection
                         .positionFixedSide("left")
                     ,
-                    ChevronBack(() => toggleShowSections())
+                  //  MdOutlineMenuBook(() => toggleShowSections())
                 )
                     .crossAxisAlignment("baseline")
             )
@@ -85,6 +92,6 @@ export function SectionSelection(navigationLinks: Section[], handleNavigation: (
     )
         .padding({left: "3vw"})
         .gap("4vh")
-        .crossAxisAlignment("flex-start")
-        .frame({width: "20vw", height: "100%"})
+        .foregroundStyle(Color.black)
+        .frame({width: "100%", height: "100%"})
 }

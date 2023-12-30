@@ -17,8 +17,8 @@ export const SWAppBar: React.FC<{ view: View }> = React.memo(
             ...navLinks
         )
             .frame({ width: "100%", height: "65px" })
-            .background(Color.hex("#333"))
-            .foregroundStyle(Color.white)
+            .setClassName(["glass"])
+            .foregroundStyle(Color.black)
             .render();
 
         return (

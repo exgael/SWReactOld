@@ -19,9 +19,9 @@ export const SWSideBar: React.FC<{ view: View }> = React.memo(
         const appBarLayout = VStack({alignment: "space-around"})(
             ...navLinks
         )
-            .frame({ width: "25vw", height: "100%" })
-            .background(Color.hex("#333"))
-            .foregroundStyle(Color.white)
+            .frame({ width: "20vw", height: "100%" })
+            .setClassName(["glassBar"])
+            .foregroundStyle(Color.navy)
             .render();
 
         return (
