@@ -1,27 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
 import {Landing} from "./pages/Landing";
 import {CurriculumVitae} from "./pages/CurriculumVitae";
 import reportWebVitals from "./reportWebVitals";
-import {Content} from "./swift-react-ui/SWCore";
 import {ContactMe} from "./pages/ContactMe";
-import {Destination} from "./swift-react-ui/SWCore/SWProvider/useNavigate";
-const root: ReactDOM.Root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-);
-
+import { Destination } from "./swift-react/SWCore/SWProvider/useNavigate";
+import { IoIosHome } from "react-icons/io";
+import { IoIosBook } from "react-icons/io";
+import { IoIosMail } from "react-icons/io";
+import {Content} from "./swift-react";
 export const BarItems: Destination[] = [
-    { title: "Home", path: '/', view: Landing },
-    { title: "CV", path: '/curriculum_vitae', view: CurriculumVitae },
-    { title: "Contact Me", path: '/contact_me', view: ContactMe },
+    { title: "Page 1", path: '/', view: Landing, icon: <IoIosHome size={28} />  },
+    { title: "CV", path: '/curriculum_vitae', view: CurriculumVitae, icon: <IoIosBook size={28} /> },
+    { title: "Page 3", path: '/contact_me', view: ContactMe, icon: <IoIosMail size={28} /> },
+    { title: "Page 4", path: '/contact_me', view: ContactMe, icon: <IoIosMail size={28} /> },
 ];
 
-root.render(
-    <React.StrictMode>
-        <Content destinations={BarItems} />
-    </React.StrictMode>
-);
+Content(BarItems);
 
 reportWebVitals();
 

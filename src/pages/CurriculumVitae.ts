@@ -1,5 +1,5 @@
-import {Body, Color, Subheadline, Title, VStack} from "../swift-react-ui";
-import {DocumentationBySection} from "../swift-react-ui/components/complexLayout/ThreeParLayout";
+import {Body, Color, Subheadline, Title, VStack} from "../swift-react";
+import {DocumentationBySection} from "../swift-react/components/complexLayout/ThreeParLayout";
 
 
 export function CurriculumVitae() {
@@ -81,7 +81,7 @@ function Certifications() {
 
 function Exemple() {
     return VStack({gap: "4vh"})(
-        CVTitle("Study")
+        CVTitle("Section Title")
         ,
 
         Subheadline("What is Lorem Ipsum?")

@@ -1,7 +1,7 @@
-import {Button, Color, RoundedRectangle, Spacer, View} from "../swift-react-ui";
-import {ForEach, Text, VStack} from "../swift-react-ui";
-import {sheet} from "../swift-react-ui/SWCore/SWElements/SWModals/Sheet/SheetStore";
-import {alert} from "../swift-react-ui/SWCore/SWElements/SWModals/Alert/AlertStore";
+import {Button, Color, RoundedRectangle, Spacer, View} from "../swift-react";
+import {ForEach, Text, VStack} from "../swift-react";
+import {sheet} from "../swift-react/SWCore/SWElements/SWModals/Sheet/SheetStore";
+import {alert} from "../swift-react/SWCore/SWElements/SWModals/Alert/AlertStore";
 export function Landing(): View {
     return (
         VStack({alignment: "center", gap: "10px" })(
