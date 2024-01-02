@@ -5,6 +5,7 @@ export type TabInfo = {
     key: string;
     title: string;
     icon: IconType;
+    iconActive: IconType;
 };
 
 type TabViewContextType = {

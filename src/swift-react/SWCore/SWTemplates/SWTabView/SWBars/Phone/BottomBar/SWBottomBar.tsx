@@ -16,13 +16,10 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
                 // If the current tab matches the key of the item, we want to highlight it
                 const isHighlighted = activeTabKey === tab.key;
 
-                return BottomBarItem(tab.title, tab.key, <tab.icon/>)
+                return BottomBarItem(tab.title, tab.key, isHighlighted ? <tab.iconActive/> : <tab.icon/>)
                     // Frame width is screen width divided by number of items
                     // For equal distribution of items
                     .frame({width: `${100 / tabs.length}vw`, height: "100%"})
-
-                    // Padding bottom to move the items up a bit
-                    .padding({bottom: "2vh"})
 
                     // Setting the background color of the item
                     .foregroundStyle(isHighlighted ? Color.olive : Color.grey)
@@ -30,7 +27,6 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
                     .onClick(() => {
                         // Navigate to the corresponding tab
                         setActiveTabKey(tab.key);
-
                     })
             });
 
@@ -39,7 +35,7 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
                 ...items
         )
             .setClassName(["glass", "bottom-bar"])
-            .crossAxisAlignment("center")
+            .crossAxisAlignment("flex-start")
 
         return (
             <SWView view={view}>

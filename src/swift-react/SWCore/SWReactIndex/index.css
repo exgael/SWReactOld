@@ -101,6 +101,9 @@ body {
         --top-padding-phone: 10vh;
         --bottom-padding-phone: 7vh;
         --bottom-bar-height: 8.5vh;
+
+        /* BottomBar icon offset */
+        --bottom-bar-icon-offset: 0.7vh;
     }
 
     /*
@@ -121,6 +124,7 @@ body {
 
     .bottom-bar {
         height: var(--bottom-bar-height) !important;
+        padding-top: var(--bottom-bar-icon-offset) !important; ;
     }
 }
 

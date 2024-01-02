@@ -8,7 +8,7 @@ type Icon = IconType;
 
 // Text Modifiers SWTypes
 export type SetTitleModifier  = (title: string) => TabItemComponent;
-export type SetIconModifier  = (icon: Icon) => TabItemComponent;
+export type SetIconModifier  = (icon: Icon, iconActive: Icon) => TabItemComponent;
 export type SetKeyModifier  = (key: string) => TabItemComponent;
 
 // Text Modifiers Interface
@@ -25,8 +25,9 @@ export const tabItemModifiers = {
         this.key = title;
         return this;
     },
-    setIcon: function(this: TabItemComponent, icon: Icon): TabItemComponent {
+    setIcon: function(this: TabItemComponent, icon: Icon, iconActive: Icon): TabItemComponent {
         this.icon = icon;
+        this.iconActive = iconActive;
         return this;
     },
     setKey: function(this: TabItemComponent, key: string): TabItemComponent {

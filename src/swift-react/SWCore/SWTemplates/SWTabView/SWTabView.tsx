@@ -27,6 +27,7 @@ export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
                 key: tabItem.key!,
                 title: tabItem.title,
                 icon: tabItem.icon,
+                iconActive: tabItem.iconActive
             }));
 
             setTabs(tabInfo);
@@ -87,6 +88,7 @@ export type TabItemComponent = View
     title: string
     view: View
     icon: IconType
+    iconActive: IconType
 }
 
 

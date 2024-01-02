@@ -1,9 +1,9 @@
-import {Landing} from "./pages/Landing";
-import {CurriculumVitae} from "./pages/CurriculumVitae";
-import {ContactMe} from "./pages/ContactMe";
-import { IoIosHome } from "react-icons/io";
-import { IoIosPerson } from "react-icons/io";
-import { IoIosMail } from "react-icons/io";
+import { Landing } from "./pages/Landing";
+import { CurriculumVitae } from "./pages/CurriculumVitae";
+import { ContactMe } from "./pages/ContactMe";
+import { IoHome, IoHomeOutline } from "react-icons/io5";
+import { IoPerson, IoPersonOutline } from "react-icons/io5";
+import { IoMail, IoMailOutline } from "react-icons/io5";
 import {
     Content,
     NavigationLink,
@@ -16,20 +16,18 @@ import {
 Content(
     TabView(
         TabItem(
-            VStack({})(
-                Landing(),
+                // Landing(),
                 NestedView()
-            )
         )
             .setTitle("Home")
-            .setIcon(IoIosHome)
+            .setIcon(IoHomeOutline, IoHome)
         ,
 
         TabItem(
             CurriculumVitae()
         )
             .setTitle("Tab Item 2")
-            .setIcon(IoIosPerson)
+            .setIcon(IoPersonOutline, IoPerson)
         ,
 
         TabItem(
@@ -39,7 +37,7 @@ Content(
             )
         )
             .setTitle("Tab Item 3")
-            .setIcon(IoIosMail)
+            .setIcon(IoMailOutline, IoMail)
     )
 );
 
