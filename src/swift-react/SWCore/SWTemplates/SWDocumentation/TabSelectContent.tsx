@@ -16,7 +16,7 @@ import {MdOutlineMenuBook} from "../../../components/icons/menu";
 export function TabSelectContent(sections: Section[], handleSectionSwitch: (contentId: string) => void): TabSelectContentComponent {
     return createComponent<TabSelectContentComponent>(
         {
-            render: function () {
+            toJSX: function () {
                 return (
                     <SWTabSelectContent view={this as TabSelectContentComponent}/>
                 )

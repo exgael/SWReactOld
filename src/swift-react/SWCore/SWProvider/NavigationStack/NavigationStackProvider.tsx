@@ -14,7 +14,7 @@ interface StackProviderProps {
     children: ReactNode;
 }
 
-export const StackProvider = ({ children }: StackProviderProps) => {
+export const NavigationStackProvider = ({ children }: StackProviderProps) => {
     const [stacks, setStacks] = useState<Record<string, string[]>>({});
 
     const push = (stackName: string, path: string) => {

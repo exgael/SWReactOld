@@ -5,8 +5,8 @@ import {SWSheet} from "../../SWCore/SWElements/SWModals/Sheet/SWSheet";
 
 export function Sheet() {
     return createComponent<View>(
-        { render: function() { return <SWSheet view={this as View} />; } },
+        { toJSX: function() { return <SWSheet view={this as View} />; } },
         {}
     )
-        .render();
+        .toJSX();
 }

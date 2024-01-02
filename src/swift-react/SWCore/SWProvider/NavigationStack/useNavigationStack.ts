@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { StackContext } from './StackProvider'; // Adjust the import path as needed
+import { StackContext } from './NavigationStackProvider'; // Adjust the import path as needed
 
 interface StackManager {
     stacks: Record<string, string[]>;
@@ -11,7 +11,7 @@ interface StackManager {
 export const useStackManager = (): StackManager => {
     const context = useContext(StackContext);
     if (!context) {
-        throw new Error('useStackManager must be used within a StackProvider');
+        throw new Error('useStackManager must be used within a NavigationStackProvider');
     }
     const { stacks, push, pop, replace, switchStack } = context;
     const navigate = useNavigate();

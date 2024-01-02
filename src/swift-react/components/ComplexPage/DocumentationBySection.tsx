@@ -13,7 +13,7 @@ export function DocumentationBySection(...views: StackComponent[]): ThreePartLay
     const sections: Section[] = buildNavigationAndQuickLinks(views);
 
     return createComponent<ThreePartLayoutComponent>(
-        { render: function() { return (
+        { toJSX: function() { return (
                 <SWDocumentationBySection view={this as ThreePartLayoutComponent}/>
             )}},
         { sections: sections },

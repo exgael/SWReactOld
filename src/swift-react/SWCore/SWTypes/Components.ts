@@ -26,19 +26,19 @@ export type TextComponent = View
     text: string;
 };
 
-export type NavigationComponent = View
+export type NavigationLinkComponent = View
     // Base Modifiers
-    & CoreModifiers<NavigationComponent>
-    & AppBarModifiers<NavigationComponent>
-    & AbsoluteModifiers<NavigationComponent>
+    & CoreModifiers<NavigationLinkComponent>
+    & AppBarModifiers<NavigationLinkComponent>
+    & AbsoluteModifiers<NavigationLinkComponent>
 
     // Text Modifiers
-    & TextModifiers<NavigationComponent>
+    & TextModifiers<NavigationLinkComponent>
 
     // Navigation Properties
     & {
-    destination: string;
     label: View;
+    destination: View;
 };
 
 export type ButtonComponent = View
@@ -82,7 +82,7 @@ export type StackComponent = View
     // DeviceLayout Modifiers
     & LayoutModifiers<StackComponent>
 
-    // Stack Properties
+    // NavigationStack Properties
     & {
     children?: View[];
 }

@@ -1,1 +1,1 @@
-export * from "./ContentSWReact"
+export * from "./SWReact"

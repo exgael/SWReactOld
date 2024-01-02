@@ -1,5 +1,5 @@
 import View from "../../SWTypes/View";
-import topBarStore from "../../SWTemplates/SWBars/NavigationBar/TopBarStore";
+import topBarStore from "../../SWTemplates/SWTabView/SWBars/Phone/TopBar/TopBarStore";
 
 // Text Modifiers SWTypes
 export type SetTrailingView<T>  = (item: View) => T;

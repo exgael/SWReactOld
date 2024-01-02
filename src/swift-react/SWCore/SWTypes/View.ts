@@ -20,7 +20,7 @@ export type View = {
     id?: string
     key?: string
 
-    render: () => React.ReactElement;
+    toJSX: () => React.ReactElement;
     ariaLabel?: string;
     ariaRole?: string;
     type?: any;

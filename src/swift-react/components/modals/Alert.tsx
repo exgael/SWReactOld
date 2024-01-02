@@ -5,8 +5,8 @@ import {SWAlert} from "../../SWCore/SWElements/SWModals/Alert/SWAlert";
 
 export function Alert() {
     return createComponent<View>(
-        { render: function() { return <SWAlert view={this as View} />; } },
+        { toJSX: function() { return <SWAlert view={this as View} />; } },
         {}
     )
-        .render();
+        .toJSX();
 }

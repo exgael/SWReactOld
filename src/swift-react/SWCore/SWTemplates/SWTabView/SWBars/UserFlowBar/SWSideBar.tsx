@@ -1,18 +1,19 @@
 import React from "react";
-import {NavigationLink, Text, VStack} from "../../../../components";
-import {Color, View} from "../../../SWTypes";
+import {NavigationLink, Text, VStack} from "../../../../../components";
+import {Color, View} from "../../../../SWTypes";
 import { useSelector } from 'react-redux';
-import {NavigationComponent} from "../../../SWTypes/Components";
-import {Destination} from "../../../SWProvider/useNavigate";
+import {NavigationLinkComponent} from "../../../../SWTypes/Components";
+import {Destination} from "../../../../SWProvider/useNavigate";
 import userBarStore from "./UserBarStore";
+import {TabInfo, useTabView} from "../../SWTabViewProvider";
 
 export const SWSideBar: React.FC<{ view: View }> = React.memo(
     ({ view }) => {
-        const isVisible = userBarStore.isVisible;
-        const destination: Destination[] = userBarStore.destinations;
 
-        const navLinks: NavigationComponent[] = destination.map(
-            (item) => NavigationLink(item.path, Text(item.title))
+        const { tabs, activeTab, setActiveTab } = useTabView()
+
+        const navLinks: NavigationLinkComponent[] = tabs.map(
+            (tab: TabInfo) => NavigationLink(Text(tab.title), Text(tab.key))
         );
 
         // Constructing the UserFlowBar layout
@@ -21,7 +22,7 @@ export const SWSideBar: React.FC<{ view: View }> = React.memo(
         )
             .setClassName(["glass", "sidebar"])
             .foregroundStyle(Color.navy)
-            .render();
+            .toJSX();
 
         return (
             <div style={view.style}  {...view.events}>

@@ -8,7 +8,7 @@ import React from "react";
 export function ZStack(...children: View[]): StackComponent {
     return createComponent<StackComponent>(
         {
-            render: function() {
+            toJSX: function() {
                 return <SZStack view={this as StackComponent} />;
             }
         },
@@ -79,7 +79,7 @@ export function HStack(...args: any[]): any {
 
 export const Spacer = ({ flexGrow = 1, flexShrink = 1, flexBasis = 'auto' } = {}): SpacerComponent => createComponent<SpacerComponent>(
     {
-        render: function() {
+        toJSX: function() {
             return <SWSpacer view={this as SpacerComponent} />;
         }
     },
@@ -97,7 +97,7 @@ function createStack(flexDirection: 'row' | 'column', options: StackOptions = {}
         const { alignment = 'center', gap = '0px' } = options;
         return createComponent<StackComponent>(
             {
-                render: function() {
+                toJSX: function() {
                     return <SWStack view={this as StackComponent} />;
                 }
             },

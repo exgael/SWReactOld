@@ -52,7 +52,7 @@ export const SWForEach: React.FC<{ view: ForEachComponent }> = React.memo(
             <SWView view={view} overrideStyles={foreachStyle} overrideEvents={foreachEvents}>
                 {view.data && view.data.map((item: any, index: number) => (
                     <div key={generateObjectHash(item + index)}>
-                        {view.viewBuilder(item, index).render()} { /* Render each item using the viewBuilder */ }
+                        {view.viewBuilder(item, index).toJSX()} { /* Render each item using the viewBuilder */ }
                     </div>
                 ))}
             </SWView>
@@ -67,11 +67,11 @@ export const SWScreen: React.FC<{ view: ScreenComponent }> = React.memo(
     ({ view }) => (
         <div style={{ ...view.style, position: 'relative' }} {...view.events}>
             {view.children && view.children.map((child, index) => {
-                if ('render' in child) {
+                if ('toJSX' in child) {
                     // If the child is a View type, call its render method with a div wrapper for ZStack
                     return (
                         <div key={generateObjectHash(child, index)} style={{position: 'absolute'}}>
-                            {child.render()}
+                            {child.toJSX()}
                         </div>
                     );
                 } else {
@@ -104,7 +104,7 @@ export const SZStack: React.FC<{ view: StackComponent }> = React.memo(
             <SWView view={view} overrideStyles={stackStyle} overrideEvents={stackEvents}>
                 {view.children && view.children.map((child: View, index: number) => (
                     <div key={generateObjectHash(child)} style={{ position: 'absolute' }}>
-                        {child.render()}
+                        {child.toJSX()}
                     </div>
                 ))}
             </SWView>
@@ -130,7 +130,7 @@ export const SWStack: React.FC<{ view: StackComponent }> = React.memo(
                 {view.children && view.children.map((child: View, index: number) => {
                     return (
                     <div key={generateObjectHash(child, index)}>
-                        {child.render()}
+                        {child.toJSX()}
                     </div>
                 )})}
             </SWView>
@@ -155,7 +155,7 @@ export const SWButton: React.FC<{ view: ButtonComponent }> = React.memo(
                 <button
                     onClick={view.action} // COMPONENT SPECIFIC PROPERTY
                 >
-                    {view.label.render()} {/* COMPONENT SPECIFIC PROPERTY */ }
+                    {view.label.toJSX()} {/* COMPONENT SPECIFIC PROPERTY */ }
                 </button>
             </SWView >
         )
@@ -223,7 +223,7 @@ export const SWView: React.FC<{
 export function SWReactElement(component: View, template: View ): ReactElement {
     return (
         <SWView view={component}>
-            {template.render()}
+            {template.toJSX()}
         </SWView>
     )
 }
@@ -240,7 +240,7 @@ const SWBackgroundWrapper: FC<{
     children: React.ReactNode,
 }> = React.memo(({ view, children }) => {
     const RenderBackground: FC = () => {
-        if (view.background?.render) {
+        if (view.background?.toJSX) {
             const backgroundPlacement: React.CSSProperties  = {
                 position: 'absolute',
                 top: 0,
@@ -254,7 +254,7 @@ const SWBackgroundWrapper: FC<{
 
             return (
                 <div style={backgroundPlacement}>
-                    {view.background.render ? view.background.render() : null}
+                    {view.background.toJSX ? view.background.toJSX() : null}
                 </div>
             );
         }

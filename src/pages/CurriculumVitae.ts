@@ -1,5 +1,5 @@
 import {Body, Color, Subheadline, Title, VStack} from "../swift-react";
-import {DocumentationBySection} from "../swift-react/components/complexLayout/ThreeParLayout";
+import {DocumentationBySection} from "../swift-react/components/ComplexPage/DocumentationBySection";
 
 
 export function CurriculumVitae() {

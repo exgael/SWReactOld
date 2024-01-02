@@ -2,19 +2,32 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from "../../../reportWebVitals";
-import { ContentSWReact } from "../SWProvider";
-import {Destination} from "../SWProvider/useNavigate";
+import { SWReact } from "../SWProvider";
+import View from '../SWTypes/View';
 
 const root: ReactDOM.Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-export function Content(destinations: Destination[]) {
-    root.render(
-        <React.StrictMode>
-            <ContentSWReact destinations={destinations} />
-        </React.StrictMode>
-    );
+/**
+ * Entry point for the Views to be rendered
+ * @param content - View to be rendered
+ */
+export function Content( content: View ): void {
+
+    const isStrictMode: boolean = false
+
+    if (isStrictMode){
+        root.render(
+            <React.StrictMode>
+                <SWReact content={content} />
+            </React.StrictMode>
+        );
+    } else {
+        root.render(
+            <SWReact content={content} />
+        );
+    }
 }
 
 reportWebVitals();

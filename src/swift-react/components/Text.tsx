@@ -6,7 +6,7 @@ import React from "react";
 
 export function Text(text: string): TextComponent {
     return createComponent<TextComponent>(
-        { render: function() { return (<SWText view={this as TextComponent} />); } },
+        { toJSX: function() { return (<SWText view={this as TextComponent} />); } },
         { text },
         textModifiers,
     )

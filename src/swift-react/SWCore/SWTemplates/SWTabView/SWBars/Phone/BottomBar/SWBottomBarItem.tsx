@@ -1,9 +1,9 @@
 import React, {ReactElement} from "react";
-import {Text, VStack} from "../../../../../components";
-import {View} from "../../../../SWTypes";
-import createComponent from "../../../../SWElements/componentFactory";
-import {SWView} from "../../../../SWElements/SWElements";
-import {CoreModifiers} from "../../../../SWModifiers/core/coreModifers";
+import {Text, VStack} from "../../../../../../components";
+import {View} from "../../../../../SWTypes";
+import createComponent from "../../../../../SWElements/componentFactory";
+import {SWView} from "../../../../../SWElements/SWElements";
+import {CoreModifiers} from "../../../../../SWModifiers/core/coreModifers";
 
 // BOTTOM BAR ITEM DEFINITION
 type BottomBarItemComponent = View & CoreModifiers<BottomBarItemComponent> & {
@@ -14,7 +14,7 @@ type BottomBarItemComponent = View & CoreModifiers<BottomBarItemComponent> & {
 
 export function BottomBarItem(title: string, path: string, icon: ReactElement): BottomBarItemComponent {
     return createComponent<BottomBarItemComponent>(
-        { render: function() { return <SWBottomBarItem view={this as BottomBarItemComponent} />; } },
+        { toJSX: function() { return <SWBottomBarItem view={this as BottomBarItemComponent} />; } },
         { title: title, path: path, icon: icon },
     );
 }
@@ -29,7 +29,7 @@ export const SWBottomBarItem: React.FC<{ view: BottomBarItemComponent }> = React
 
         return (
             <SWView view={view}>
-                {itemLayout.render()}
+                {itemLayout.toJSX()}
             </SWView>
         );
     }
@@ -43,7 +43,7 @@ type BottomBarIconComponent = View & {
 
 export function BottomBarIcon(icon: ReactElement): BottomBarIconComponent {
     return createComponent<BottomBarIconComponent>(
-        { render: function() { return <SWBottomBarIcon view={this as BottomBarIconComponent} />; } },
+        { toJSX: function() { return <SWBottomBarIcon view={this as BottomBarIconComponent} />; } },
         { icon: icon },
     );
 }
@@ -52,7 +52,7 @@ const SWBottomBarIcon: React.FC<{ view: BottomBarIconComponent }> = React.memo(
     ({ view }) => {
         return (
             <SWView view={view}>
-                {Icon(view.icon).render()}
+                {Icon(view.icon).toJSX()}
             </SWView>
         );
     }
@@ -65,7 +65,7 @@ type IconComponent = View & {
 
 export function Icon(icon: ReactElement): IconComponent {
     return createComponent<IconComponent>(
-        { render: function() { return <SWIcon view={this as IconComponent} />; } },
+        { toJSX: function() { return <SWIcon view={this as IconComponent} />; } },
         { icon: icon },
     );
 }

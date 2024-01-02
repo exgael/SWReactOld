@@ -3,12 +3,12 @@ import {coreModifiers} from "../SWModifiers/core/coreModifers";
 import {absoluteModifiers} from "../SWModifiers/absolutePositionning/absoluteModifier";
 import {appbarModifiers} from "../SWModifiers/appbar/appbarModifiers";
 
-const createComponent = <T extends View>(render: Partial<View>, overrides: Partial<T>, ...modifiers: any[]): T => {
+const createComponent = <T extends View>(toJSX: Partial<View>, overrides: Partial<T>, ...modifiers: any[]): T => {
 
     return {
         style: {},
         events: {},
-        ...render,
+        ...toJSX,
         ...overrides,
         ...coreModifiers,
         ...absoluteModifiers,

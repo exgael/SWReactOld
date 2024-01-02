@@ -5,7 +5,7 @@ import {SWChevronBack} from "../../SWCore/SWElements/SWNavigation/SWNavElement";
 
 export function ChevronBack(action: () => void): ButtonComponent {
     return createComponent<ButtonComponent>(
-        { render: function() { return <SWChevronBack view={this as ButtonComponent}/>; } },
+        { toJSX: function() { return <SWChevronBack view={this as ButtonComponent}/>; } },
                 {action},
     )
 }

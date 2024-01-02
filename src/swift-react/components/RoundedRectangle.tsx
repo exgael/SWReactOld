@@ -6,7 +6,7 @@ import {SWRoundedRectangle} from "../SWCore/SWElements/SWElements";
 
 export function RoundedRectangle(cornerRadius: string): ShapeComponent {
     return createComponent<ShapeComponent>(
-        { render: function() { return <SWRoundedRectangle view={this as ShapeComponent} />; } },
+        { toJSX: function() { return <SWRoundedRectangle view={this as ShapeComponent} />; } },
         { style: { borderRadius: cornerRadius }},
     );
 }

@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { View } from "../../../SWTypes";
+import { View } from "../../../../../SWTypes";
 
 class TopBarStore {
     title = 'Default Title';

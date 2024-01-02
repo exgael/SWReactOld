@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from "framer-motion"
 // Define a type for the route configuration
 export interface Destination {
     title: string;
-    icon: ReactElement;
+  //  icon: ReactElement;
     path: string;
     view: () => View;
 }
@@ -110,7 +110,7 @@ export const Body: React.FC<NavigationRoutesProps> = ({ destinations }) => {
                         path={route.path}
                         element={
                             <AnimatedRoute transitionType="fade">
-                                {route.view().render()}
+                                {route.view().toJSX()}
                             </AnimatedRoute>
                         }
                     />

@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import {Destination} from "../../../SWProvider/useNavigate";
+import {Destination} from "../../../../SWProvider/useNavigate";
 
 class UserBarStore {
     isVisible: boolean = true;

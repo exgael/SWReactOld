@@ -1,12 +1,16 @@
-import React, {ReactElement, ReactNode} from 'react';
+import {ReactElement, ReactNode} from 'react';
 import {BottomBar, Screen, SideBar, Spacer, TopBar} from "../../../components";
+import {useResponsive} from "../useResponsive";
+import {TabItemComponent} from "../../SWTemplates/SWTabView/SWTabView";
 
 interface PhoneContentProps {
-    orientation: 'portrait' | 'landscape';
+    tabItems?: TabItemComponent[];
     children: ReactNode;
 }
 
-function PhoneLayout({ orientation, children }: PhoneContentProps ): ReactElement {
+function PhoneLayout({ children, tabItems }: PhoneContentProps ): ReactElement {
+
+    const { orientation } = useResponsive();
 
     let phoneContent;
 

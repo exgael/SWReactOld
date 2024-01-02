@@ -1,30 +1,30 @@
 import React, {useEffect} from "react";
-import {ButtonComponent, NavigationComponent} from "../../SWTypes/Components";
+import {ButtonComponent, NavigationLinkComponent} from "../../SWTypes/Components";
 import {useNavigate} from "../../SWProvider/useNavigate";
 import {IoChevronBack} from "react-icons/io5";
 import routingManager from "./RoutingManager";
 
-export const SWNavigationLink: React.FC<{ view: NavigationComponent }> = React.memo(
+export const SWNavigationLink: React.FC<{ view: NavigationLinkComponent }> = React.memo(
     ({view}) => {
         const { navigate } = useNavigate();
 
 
-        useEffect(() => {
-            // Set up a listener for route changes
-            routingManager.onRouteChange = (route: string): void => {
-                navigate(route);
-            };
-
-            return () => {
-                routingManager.onRouteChange = () => {};
-            };
-        }, [navigate]);
+        // useEffect(() => {
+        //     // Set up a listener for route changes
+        //     routingManager.onRouteChange = (route: string): void => {
+        //         navigate(route);
+        //     };
+        //
+        //     return () => {
+        //         routingManager.onRouteChange = () => {};
+        //     };
+        // }, [navigate]);
 
         return (
             <span style={view.style} {...view.events} onClick={() => {
-                routingManager.navigateTo(view.destination);
+                routingManager.navigateTo("TODO");
             } }>
-                {view.label.render()}
+                {view.label.toJSX()}
             </span>
         );
     }

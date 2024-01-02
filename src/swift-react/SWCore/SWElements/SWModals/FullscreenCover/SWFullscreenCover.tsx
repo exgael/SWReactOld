@@ -34,7 +34,7 @@ export const SWFullScreenCover: React.FC<{ view: FullscreenCoverComponent }> = R
                     maxHeight: '100%',
                     overflowY: 'auto',
                 }}>
-                    {view.show.render()}
+                    {view.show.toJSX()}
                     <button onClick={view.onDismiss} style={{
                         position: 'absolute',
                         top: '10px',

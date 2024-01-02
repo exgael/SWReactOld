@@ -7,7 +7,7 @@ import React from "react";
 export function Screen(...children: any[]) {
     return createComponent<ScreenComponent>(
         {
-            render: function() {
+            toJSX: function() {
                 return <SWScreen view={this as ScreenComponent} />;
             }
         },
@@ -25,5 +25,5 @@ export function Screen(...children: any[]) {
         layoutModifiers
     )
         .frame({width: "100vw", height: "100vh"})
-        .render()
+        .toJSX()
 }

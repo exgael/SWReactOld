@@ -8,9 +8,9 @@ import {CoreModifiers} from "../SWCore/SWModifiers/core/coreModifers";
 
 export function Group(...children: View[]): View {
     return {
-        render: () => (
+        toJSX: () => (
             <div>
-                {children.map((child, index) => child.render())}
+                {children.map((child, index) => child.toJSX())}
             </div>
         ),
         style: {},
@@ -25,10 +25,10 @@ type BViewComponent = View & CoreModifiers<BViewComponent> & {
 
 export function BView(children: View): BViewComponent {
     return createComponent<BViewComponent>(
-        { render: function() {
+        { toJSX: function() {
                 return (
                     <SWView view={this as BViewComponent}>
-                        {children.render()}
+                        {children.toJSX()}
                     </SWView>
                 )
             }},
@@ -40,7 +40,7 @@ export function BView(children: View): BViewComponent {
 
 export function ForEach<T>(data: T[], viewBuilder: (item: T, index: number) => View): ForEachComponent {
     return createComponent<ForEachComponent>(
-        { render: function() { return <SWForEach view={this as ForEachComponent} /> }},
+        { toJSX: function() { return <SWForEach view={this as ForEachComponent} /> }},
         {
             data,
             viewBuilder,
@@ -62,9 +62,9 @@ type ViewBuilderBlock = (conditions: Record<string, any>) => View | View[];
 export function viewBuilder(conditions: Record<string, any>, block: ViewBuilderBlock): React.ReactElement[] {
     const views = block(conditions);
     if (Array.isArray(views)) {
-        return views.map(view => view.render());
+        return views.map(view => view.toJSX());
     } else {
-        return [views.render()];
+        return [views.toJSX()];
     }
 }
 
