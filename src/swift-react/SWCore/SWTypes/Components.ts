@@ -3,7 +3,7 @@ import {TextModifiers} from "../SWModifiers/text/textModifiers";
 import {CoreModifiers} from "../SWModifiers/core/coreModifers";
 import {LayoutModifiers} from "../SWModifiers/layout/layoutModifiers";
 import {AbsoluteModifiers} from "../SWModifiers/absolutePositionning/absoluteModifier";
-import {AppBarModifiers} from "../SWModifiers/appbar/appbarModifiers";
+import {TopBarModifiers} from "../SWModifiers/topBar/topBarModifiers";
 
 export type BarComponent = View
     // Base Modifiers
@@ -15,7 +15,7 @@ export type BarComponent = View
 export type TextComponent = View
     // Base Modifiers
     & CoreModifiers<TextComponent>
-    & AppBarModifiers<TextComponent>
+    & TopBarModifiers<TextComponent>
     & AbsoluteModifiers<TextComponent>
 
     // Text Modifiers
@@ -29,7 +29,7 @@ export type TextComponent = View
 export type NavigationLinkComponent = View
     // Base Modifiers
     & CoreModifiers<NavigationLinkComponent>
-    & AppBarModifiers<NavigationLinkComponent>
+    & TopBarModifiers<NavigationLinkComponent>
     & AbsoluteModifiers<NavigationLinkComponent>
 
     // Text Modifiers
@@ -44,7 +44,7 @@ export type NavigationLinkComponent = View
 export type ButtonComponent = View
     // Base Modifiers
     & CoreModifiers<ButtonComponent>
-    & AppBarModifiers<ButtonComponent>
+    & TopBarModifiers<ButtonComponent>
     & AbsoluteModifiers<ButtonComponent>
 
     // Button Properties
@@ -76,7 +76,7 @@ export type AlertComponent = ModalComponent & {
 export type StackComponent = View
     // Base Modifiers
     & CoreModifiers<StackComponent>
-    & AppBarModifiers<StackComponent>
+    & TopBarModifiers<StackComponent>
     & AbsoluteModifiers<StackComponent>
 
     // DeviceLayout Modifiers
@@ -90,7 +90,7 @@ export type StackComponent = View
 export type ScreenComponent = View
     // Base Modifiers
     & CoreModifiers<ScreenComponent>
-    & AppBarModifiers<ScreenComponent>
+    & TopBarModifiers<ScreenComponent>
     & AbsoluteModifiers<TextComponent>
 
     // DeviceLayout Modifiers
@@ -105,7 +105,7 @@ export type ScreenComponent = View
 export type ForEachComponent = View
     // Base Modifiers
     & CoreModifiers<ForEachComponent>
-    & AppBarModifiers<ForEachComponent>
+    & TopBarModifiers<ForEachComponent>
     & AbsoluteModifiers<ForEachComponent>
 
     // DeviceLayout Modifiers
@@ -146,7 +146,7 @@ export interface QuickLink {
 export type ThreePartLayoutComponent = View
     // Base Modifiers
     & CoreModifiers<ThreePartLayoutComponent>
-    & AppBarModifiers<ThreePartLayoutComponent>
+    & TopBarModifiers<ThreePartLayoutComponent>
     & AbsoluteModifiers<TextComponent>
 
     // DeviceLayout Modifiers
@@ -169,7 +169,7 @@ export type ThreePartLayoutComponent = View
 export type ShapeComponent = View
     // Base Modifiers
     & CoreModifiers<ShapeComponent>
-    & AppBarModifiers<ShapeComponent>
+    & TopBarModifiers<ShapeComponent>
     & AbsoluteModifiers<TextComponent>
     & {
 };
@@ -177,7 +177,7 @@ export type ShapeComponent = View
 export type CircleComponent = View
     // Base Modifiers
     & CoreModifiers<CircleComponent>
-    & AppBarModifiers<CircleComponent>
+    & TopBarModifiers<CircleComponent>
     & AbsoluteModifiers<TextComponent>
     & {
 };
@@ -185,7 +185,7 @@ export type CircleComponent = View
 export type SwitchComponent = View
     // Base Modifiers
     & CoreModifiers<SwitchComponent>
-    & AppBarModifiers<SwitchComponent>
+    & TopBarModifiers<SwitchComponent>
     & AbsoluteModifiers<TextComponent>
 
     // Switch Properties
@@ -197,7 +197,7 @@ export type SwitchComponent = View
 export type SliderComponent = View
     // Base Modifiers
     & CoreModifiers<SliderComponent>
-    & AppBarModifiers<SliderComponent>
+    & TopBarModifiers<SliderComponent>
     & AbsoluteModifiers<TextComponent>
 
     // Slider Properties
@@ -209,7 +209,7 @@ export type SliderComponent = View
 export type TextFieldComponent = View
     // Base Modifiers
     & CoreModifiers<TextFieldComponent>
-    & AppBarModifiers<TextFieldComponent>
+    & TopBarModifiers<TextFieldComponent>
     & AbsoluteModifiers<TextComponent>
 
     // TextField Properties
@@ -221,7 +221,7 @@ export type TextFieldComponent = View
 export type ImageComponent = View
     // Base Modifiers
     & CoreModifiers<ImageComponent>
-    & AppBarModifiers<ImageComponent>
+    & TopBarModifiers<ImageComponent>
     & AbsoluteModifiers<TextComponent>
 
     // Image Properties
@@ -237,7 +237,7 @@ export type ImageComponent = View
 export type SwitchSideBarComponent = View
     // Base Modifiers
     & CoreModifiers<SwitchSideBarComponent>
-    & AppBarModifiers<SwitchSideBarComponent>
+    & TopBarModifiers<SwitchSideBarComponent>
     & AbsoluteModifiers<SwitchSideBarComponent>
 
     // SwitchSideBar Properties
@@ -257,7 +257,7 @@ export type SwitchSideBarComponent = View
 export type ScrollToSideBarComponent = View
     // Base Modifiers
     & CoreModifiers<ScrollToSideBarComponent>
-    & AppBarModifiers<ScrollToSideBarComponent>
+    & TopBarModifiers<ScrollToSideBarComponent>
     & AbsoluteModifiers<ScrollToSideBarComponent>
 
     // SideBar Properties
@@ -273,7 +273,7 @@ export type ScrollToSideBarComponent = View
 export type ScrollViewComponent = View
     // Base Modifiers
     & CoreModifiers<ScrollViewComponent>
-    & AppBarModifiers<ScrollViewComponent>
+    & TopBarModifiers<ScrollViewComponent>
     & AbsoluteModifiers<ScrollViewComponent>
 
     // ScrollView Properties
@@ -287,7 +287,7 @@ export type ScrollViewComponent = View
 export type CarouselComponent = View
     // Base Modifiers
     & CoreModifiers<CarouselComponent>
-    & AppBarModifiers<CarouselComponent>
+    & TopBarModifiers<CarouselComponent>
     & AbsoluteModifiers<CarouselComponent>
 
     // Carousel Properties
@@ -298,7 +298,7 @@ export type CarouselComponent = View
 export type GridComponent = View
     // Base Modifiers
     & CoreModifiers<GridComponent>
-    & AppBarModifiers<GridComponent>
+    & TopBarModifiers<GridComponent>
     & AbsoluteModifiers<GridComponent>
 
     // Grid Properties

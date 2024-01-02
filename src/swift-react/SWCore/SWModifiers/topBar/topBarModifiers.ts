@@ -10,7 +10,7 @@ export type SetBackButtonHidden<T> = (isHidden: boolean) => T;
 export type SetLargeTitle<T> = (useLargeTitle: boolean) => T;
 
 // Text Modifiers Interface
-export interface AppBarModifiers<T = any> {
+export interface TopBarModifiers<T = any> {
     setTrailingView: SetTrailingView<T>;
     setNavigationTitle: SetNavigationTitle<T>;
     setLeadingView: SetLeadingView<T>;

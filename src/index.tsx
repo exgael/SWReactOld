@@ -16,7 +16,10 @@ import {
 Content(
     TabView(
         TabItem(
-            Landing(),
+            VStack({})(
+                Landing(),
+                NestedView()
+            )
         )
             .setTitle("Home")
             .setIcon(IoIosHome)
@@ -31,7 +34,7 @@ Content(
 
         TabItem(
             VStack(
-                NavigationLink(Text("View 1"), CurriculumVitae()),
+                NavigationLink(Text("View 1"), NestedView()),
                 NavigationLink(Text("View 2"), ContactMe())
             )
         )
@@ -39,6 +42,16 @@ Content(
             .setIcon(IoIosMail)
     )
 );
+
+
+function NestedView() {
+    return (
+        NavigationLink(
+            Text("View 2"),
+            NavigationLink(Text("View 3"), Text("View 4"))
+        )
+    )
+}
 
 
 

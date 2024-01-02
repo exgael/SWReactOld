@@ -6,6 +6,7 @@ import {View} from "../../SWTypes";
 interface NavigationStackItem {
     component: View;
     key: string;
+    title?: string;
 }
 
 // Define the structure of each navigation stack
@@ -21,7 +22,7 @@ interface NavigationStacks {
 // Context Props
 interface NavigationStackContextProps {
     stacks: NavigationStacks;
-    push: (component: View, tabKey?: string) => void;
+    push: (component: View, title?: string, tabKey?: string) => void;
     pop: (tabKey?: string) => void;
     reset: (tabKey?: string) => void; // Resets the stack to its initial state
 }
@@ -39,10 +40,10 @@ export const NavigationStackProvider: React.FC<NavigationStackProviderProps> = (
     const [stacks, setStacks] = useState<NavigationStacks>({});
     const { activeTabKey } = useTabView()
 
-    const push = (component: View, tabKey: string = activeTabKey ) => {
+    const push = (component: View, title?: string,  tabKey: string = activeTabKey ) => {
         if (!tabKey) return; // Ensure activeTabKey is set
         const stack = stacks[tabKey] || { items: [] };
-        stack.items.push({ component, key: Math.random().toString(36).substring(7) });
+        stack.items.push({ component, key: Math.random().toString(36).substring(7), title });
         setStacks({ ...stacks, [tabKey]: stack });
     };
 

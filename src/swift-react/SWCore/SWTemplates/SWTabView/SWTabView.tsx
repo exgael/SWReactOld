@@ -17,7 +17,7 @@ export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
     ({ view }) => {
 
         const { activeTabKey, setActiveTabKey, setTabs } =  useTabView();
-        const { stacks } = useNavigationStack();
+        const { stacks, push } = useNavigationStack();
         const {isPhone} = useResponsive();
 
         useEffect(() => {
@@ -42,14 +42,13 @@ export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
         const currentStack = stacks[activeTabKey];
         const topItem = currentStack?.items[currentStack.items.length - 1];
 
-
         let content;
         if (topItem) {
             content = (
                 <>
-                    <AnimatedRoute transitionType="fade" key={topItem.key}>
+                    {/*<AnimatedRoute transitionType="fade" key={topItem.key}>*/}
                         {topItem.component.toJSX()}
-                    </AnimatedRoute>
+                    {/*</AnimatedRoute>*/}
                 </>
             );
         } else {
@@ -58,11 +57,13 @@ export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
             const tabItem = view.tabItems.find(tab => tab.key === activeTabKey);
             if (!tabItem) return <div>Tab not found</div>;
 
+            push(tabItem.view, tabItem.title, tabItem.key);
+
             content = (
                 <>
-                    <AnimatedRoute transitionType="fade" key={tabItem?.key}>
+                    {/*<AnimatedRoute transitionType="fade" key={tabItem?.key}>*/}
                         {tabItem?.view.toJSX()}
-                    </AnimatedRoute>
+                    {/*</AnimatedRoute>*/}
                 </>
             );
         }
