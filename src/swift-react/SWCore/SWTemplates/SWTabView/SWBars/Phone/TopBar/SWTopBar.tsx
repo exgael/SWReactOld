@@ -2,10 +2,14 @@ import React, {FC} from 'react';
 import { observer } from 'mobx-react';
 import { View, Color } from '../../../../../SWTypes';
 import {Title, VStack} from "../../../../../../components";
+import {useTabView} from "../../../SWTabViewProvider";
 
 export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
+
+    const { activeTab} = useTabView()
+
     const appBarLayout = VStack({alignment: "flex-end"})(
-        Title("Yousra Chriette")
+        Title(activeTab.title)
             .foregroundStyle(Color.black)
             .fontSize("1.25rem")
             .padding({bottom:"1vh"})

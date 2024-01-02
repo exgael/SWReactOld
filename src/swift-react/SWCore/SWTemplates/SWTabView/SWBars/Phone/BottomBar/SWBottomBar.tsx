@@ -8,13 +8,13 @@ import {TabInfo, useTabView} from "../../../SWTabViewProvider";
 
 export const SWBottomBar: React.FC<{ view: View }> = React.memo(
     ({ view }) => {
-        const { tabs, activeTab, setActiveTab } = useTabView()
+        const { tabs, activeTabKey, setActiveTabKey } = useTabView()
 
         const items= tabs.map(
             (tab: TabInfo) => {
 
                 // If the current tab matches the key of the item, we want to highlight it
-                const isHighlighted = activeTab === tab.key;
+                const isHighlighted = activeTabKey === tab.key;
 
                 return BottomBarItem(tab.title, tab.key, <tab.icon/>)
                     // Frame width is screen width divided by number of items
@@ -29,7 +29,7 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
 
                     .onClick(() => {
                         // Navigate to the corresponding tab
-                        setActiveTab(tab.key);
+                        setActiveTabKey(tab.key);
 
                     })
             });

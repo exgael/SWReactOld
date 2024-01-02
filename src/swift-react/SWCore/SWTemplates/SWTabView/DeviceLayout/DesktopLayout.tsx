@@ -1,5 +1,5 @@
 import { ReactNode, ReactElement } from 'react';
-import { AppBar, Screen } from "../../../components";
+import { AppBar, Screen } from "../../../../components";
 
 interface DesktopContentProps {
     children: ReactNode;

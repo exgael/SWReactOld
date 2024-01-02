@@ -8,8 +8,9 @@ export type TabInfo = {
 };
 
 type TabViewContextType = {
-    activeTab: string;
-    setActiveTab: (tabKey: string) => void;
+    activeTab: TabInfo;
+    activeTabKey: string;
+    setActiveTabKey: (tabKey: string) => void;
     tabs: TabInfo[];
     setTabs: (tabs: TabInfo[]) => void;
 };
@@ -17,11 +18,13 @@ type TabViewContextType = {
 const TabViewContext = createContext<TabViewContextType | undefined>(undefined);
 
 export const TabViewProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [activeTab, setActiveTab] = useState<string>("");
+    const [activeTabKey, setActiveTabKey] = useState<string>("");
     const [tabs, setTabs] = useState<TabInfo[]>([]);
 
+    const activeTab = tabs.find(tab => tab.key === activeTabKey)!;
+
     return (
-        <TabViewContext.Provider value={{ activeTab, setActiveTab, tabs, setTabs }}>
+        <TabViewContext.Provider value={{ activeTabKey, setActiveTabKey, tabs, setTabs, activeTab }}>
             {children}
         </TabViewContext.Provider>
     );

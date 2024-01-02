@@ -10,7 +10,7 @@ import {TabInfo, useTabView} from "../../SWTabViewProvider";
 export const SWSideBar: React.FC<{ view: View }> = React.memo(
     ({ view }) => {
 
-        const { tabs, activeTab, setActiveTab } = useTabView()
+        const { tabs, activeTabKey, setActiveTabKey } = useTabView()
 
         const navLinks: NavigationLinkComponent[] = tabs.map(
             (tab: TabInfo) => NavigationLink(Text(tab.title), Text(tab.key))

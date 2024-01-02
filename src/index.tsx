@@ -7,7 +7,6 @@ import { IoIosMail } from "react-icons/io";
 import {
     Content,
     NavigationLink,
-    NavigationStack,
     TabItem,
     TabView,
     VStack,
@@ -31,11 +30,9 @@ Content(
         ,
 
         TabItem(
-            NavigationStack(
-                VStack(
-                    NavigationLink(Text("View 1"), CurriculumVitae()),
-                    NavigationLink(Text("View 2"), ContactMe())
-                )
+            VStack(
+                NavigationLink(Text("View 1"), CurriculumVitae()),
+                NavigationLink(Text("View 2"), ContactMe())
             )
         )
             .setTitle("Tab Item 3")

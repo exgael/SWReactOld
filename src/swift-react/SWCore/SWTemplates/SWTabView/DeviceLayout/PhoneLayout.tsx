@@ -1,7 +1,7 @@
 import {ReactElement, ReactNode} from 'react';
-import {BottomBar, Screen, SideBar, Spacer, TopBar} from "../../../components";
-import {useResponsive} from "../useResponsive";
-import {TabItemComponent} from "../../SWTemplates/SWTabView/SWTabView";
+import {BottomBar, Screen, SideBar, Spacer, TopBar} from "../../../../components";
+import {useResponsive} from "../../../SWProvider/useResponsive";
+import {TabItemComponent} from "../SWTabView";
 
 interface PhoneContentProps {
     tabItems?: TabItemComponent[];

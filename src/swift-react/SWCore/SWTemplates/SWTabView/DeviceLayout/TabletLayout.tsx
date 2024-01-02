@@ -1,5 +1,5 @@
 import {ReactElement, ReactNode} from 'react';
-import {TopBar, SideBar, Screen, Spacer, AppBar} from "../../../components";
+import {TopBar, SideBar, Screen, Spacer, AppBar} from "../../../../components";
 
 interface TabletContentProps {
     orientation: 'portrait' | 'landscape';

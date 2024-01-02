@@ -4,12 +4,15 @@ import React from "react";
 import {SWTabView, TabItemComponent, TabViewComponent} from "../../SWCore/SWTemplates/SWTabView/SWTabView";
 import {tabItemModifiers} from "../../SWCore/SWModifiers/tabViewModifier/tabItemModifiers";
 import {TabViewProvider} from "../../SWCore/SWTemplates/SWTabView/SWTabViewProvider";
+import {NavigationStackProvider} from "../../SWCore/SWProvider/NavigationStack/NavigationStackContext";
 
 export function TabView(...tabItems: TabItemComponent[]): TabViewComponent {
     return createComponent<TabViewComponent>(
         { toJSX: function() { return (
             <TabViewProvider>
-                <SWTabView view={this as TabViewComponent} />
+                <NavigationStackProvider>
+                    <SWTabView view={this as TabViewComponent} />
+                </NavigationStackProvider>
             </TabViewProvider>
             )}},
         { tabItems },
