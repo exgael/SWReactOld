@@ -4,9 +4,9 @@ import createComponent from "../../SWCore/SWElements/componentFactory";
 import {SWNavigationLink} from "../../SWCore/SWElements/SWNavigation/SWNavElement";
 import React from "react";
 
-export function NavigationLink(label: View, destination: View): NavigationLinkComponent {
+export function NavigationLink(label: View, destination: View, title?: string): NavigationLinkComponent {
     return createComponent<NavigationLinkComponent>(
         { toJSX: function() { return <SWNavigationLink view={this as NavigationLinkComponent} />; } },
-        { label, destination }
+        { label, destination, title }
     );
 }

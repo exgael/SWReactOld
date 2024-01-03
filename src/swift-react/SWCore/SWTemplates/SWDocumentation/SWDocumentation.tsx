@@ -1,14 +1,16 @@
 import React, {useRef, useState} from 'react';
 import {
     ForEachComponent,
-    QuickLink,
+    QuickLink, Section,
     ThreePartLayoutComponent
 } from "../../SWTypes/Components";
-import {ForEach, HStack, Text, VStack} from "../../../components";
+import {ForEach, HStack, NavigationLink, RoundedRectangle, Text, VStack} from "../../../components";
 import {Color, View} from "../../SWTypes";
 import {SWReactElement} from "../../SWElements/SWElements";
 import {TabSelectContent} from "./TabSelectContent";
 import {useResponsive} from "../../SWProvider/useResponsive";
+import {useNavigate} from "../../SWProvider/useNavigate";
+import {useNavigationStack} from "../../SWProvider/NavigationStack/NavigationStackContext";
 
 const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({view} ) => {
     const [activeSectionID, setActiveSectionID] = useState<string>(view.sections[0]?.id);
@@ -29,27 +31,55 @@ const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({
         }
     };
 
+    const NavLinkLabel = (section: Section) => {
+        return Text(section.title)
+            .setNavigationTitle(section.title)
+            .frame({width: "100%", height: "100%"})
+            .opacity(1)
+            .background(
+                RoundedRectangle("15%")
+                    .frame({width: "100%", height: "100%"})
+                    .background(Color.olive)
+                    .opacity(1)
+            )
+    }
+
+    const Links = ForEach(
+        view.sections,
+        (section) => (
+           NavigationLink(NavLinkLabel(section), section.view, section.title)
+        )
+    )
+
     return SWReactElement(
         view,
-        HStack({alignment: "space-between"})(
-            TabSelectContent(view.sections, handleContentSwitch)
-            ,
-
-            ActiveContent(view.sections.find(section => section.id === activeSectionID)!.view)
-                .setRef(contentRef)
-                .frame(isDesktop ? {width: "59vw", height: "100%"} : isTablet ?  {width: "65vw", height: "100%"} : {width: "80vw", height: "100%"})
-            ,
-
-            isDesktop ? (
-                TabQuickScroll(quickLinks, scrollToQuickLink)
-                    .positionFixedSide("right")
-            ) : (
-                Text("")
-            )
-        )
+        Links
+            .crossAxisAlignment("center")
+            .gap("50px")
+            .padding({left: "3vw"})
+            .padding({top: "5vh"})
             .frame({width: "100vw", height: "100%"})
-            .crossAxisAlignment("baseline")
-            .margin({left: isTablet? "5vw" : "0px"})
+
+
+        // HStack({alignment: "space-between"})(
+        //     TabSelectContent(view.sections, handleContentSwitch)
+        //     ,
+        //
+        //     ActiveContent(view.sections.find(section => section.id === activeSectionID)!.view)
+        //         .setRef(contentRef)
+        //         .frame(isDesktop ? {width: "59vw", height: "100%"} : isTablet ?  {width: "65vw", height: "100%"} : {width: "80vw", height: "100%"})
+        //     ,
+        //
+        //     isDesktop ? (
+        //         TabQuickScroll(quickLinks, scrollToQuickLink)
+        //             .positionFixedSide("right")
+        //     ) : (
+        //         Text("")
+        //     )
+        // )
+        //     .frame({width: "100vw", height: "100%"})
+        //     .crossAxisAlignment("baseline")
+        //     .margin({left: isTablet? "5vw" : "0px"})
     )
 }
 

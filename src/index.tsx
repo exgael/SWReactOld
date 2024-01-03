@@ -26,7 +26,7 @@ Content(
         TabItem(
             CurriculumVitae()
         )
-            .setTitle("Curriculum Vitae")
+            .setTitle("CV")
             .setIcon(IoPersonOutline, IoPerson)
         ,
 

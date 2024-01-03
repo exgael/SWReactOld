@@ -38,6 +38,8 @@ html {
 
     /* Remove default tap highlight from navigators */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -93,6 +95,8 @@ body {
     border-radius: 20px;
 }
 
+.enforce-clicks { pointer-events: auto; }
+
 /*
  ******************************************************
  *               Responsive Design                    *
@@ -139,6 +143,7 @@ body {
 
     .content {
         padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        height: calc(100vh - var(--top-padding-phone));
     }
 
     /*.LargeTitle {*/

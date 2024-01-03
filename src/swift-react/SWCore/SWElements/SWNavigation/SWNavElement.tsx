@@ -11,7 +11,7 @@ export const SWNavigationLink: React.FC<{ view: NavigationLinkComponent }> = Rea
 
         return (
             <span style={view.style} {...view.events} onClick={() => {
-                push(view.destination);
+                push(view.destination, view.title);
             } }>
                 {view.label.toJSX()}
             </span>
@@ -21,20 +21,6 @@ export const SWNavigationLink: React.FC<{ view: NavigationLinkComponent }> = Rea
 
 export const SWChevronBack: React.FC<{ view: ButtonComponent }> = React.memo(
     ({view}) => {
-
-        const { goBack } = useNavigate();
-
-        useEffect(() => {
-            // Set up a listener for route changes
-            routingManager.onRouteChange = (route: string): void => {
-                goBack();
-            };
-
-            return () => {
-                routingManager.onRouteChange = () => {};
-            };
-        }, []);
-
         return (
             <div style={view.style} {...view.events} onClick={view.action}>
                 <IoChevronBack/>

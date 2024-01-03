@@ -24,6 +24,5 @@ export function Screen(...children: any[]) {
         },
         layoutModifiers
     )
-    //    .frame({width: "100vw", height: "100vh"})
         .toJSX()
 }

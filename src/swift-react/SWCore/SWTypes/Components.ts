@@ -39,6 +39,7 @@ export type NavigationLinkComponent = View
     & {
     label: View;
     destination: View;
+    title?: string;
 };
 
 export type ButtonComponent = View

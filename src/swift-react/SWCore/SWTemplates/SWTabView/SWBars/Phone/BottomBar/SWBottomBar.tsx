@@ -28,6 +28,7 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
                         // Navigate to the corresponding tab
                         setActiveTabKey(tab.key);
                     })
+                    .setClassName(["enforce-clicks"])
             });
 
         // Constructing the BottomBar layout

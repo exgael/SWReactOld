@@ -25,6 +25,10 @@ interface NavigationStackContextProps {
     push: (component: View, title?: string, tabKey?: string) => void;
     pop: (tabKey?: string) => void;
     reset: (tabKey?: string) => void; // Resets the stack to its initial state
+    currentStackItem: NavigationStackItem;
+    currentStack: NavigationStack;
+    canPop: boolean; // length > 1
+    previousStackItem: NavigationStackItem;
 }
 
 // Create the context
@@ -65,8 +69,13 @@ export const NavigationStackProvider: React.FC<NavigationStackProviderProps> = (
         }
     };
 
+    const currentStack = stacks[activeTabKey];
+    const currentStackItem = currentStack?.items[currentStack.items.length - 1];
+    const canPop = currentStack?.items.length > 1;
+    const previousStackItem = currentStack?.items[currentStack.items.length - 2];
+
     return (
-        <NavigationStackContext.Provider value={{ stacks, push, pop, reset }}>
+        <NavigationStackContext.Provider value={{ stacks, push, pop, reset, currentStackItem, currentStack, canPop, previousStackItem }}>
             {children}
         </NavigationStackContext.Provider>
     );

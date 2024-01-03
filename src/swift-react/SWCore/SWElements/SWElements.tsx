@@ -67,6 +67,12 @@ export const SWScreen: React.FC<{ view: ScreenComponent }> = React.memo(
     ({ view }) => (
         <div style={{ ...view.style, position: 'relative' }} {...view.events}>
             {view.children && view.children.map((child, index) => {
+
+                // undefined check
+                if (!child) {
+                    return null;
+                }
+
                 if ('toJSX' in child) {
                     // If the child is a View type, call its render method with a div wrapper for ZStack
                     return (
