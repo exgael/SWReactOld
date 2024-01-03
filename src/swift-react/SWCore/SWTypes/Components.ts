@@ -305,3 +305,19 @@ export type GridComponent = View
     & {
     children?: View[];
 };
+
+export type AnimationComponent = View
+    // Base Modifiers
+    & CoreModifiers<AnimationComponent>
+    & TopBarModifiers<AnimationComponent>
+    & AbsoluteModifiers<AnimationComponent>
+
+    // Animation Properties
+    & {
+    child: View;
+    initial: any;
+    animate: any;
+    exit: any;
+    transition: any;
+};
+

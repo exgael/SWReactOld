@@ -131,14 +131,14 @@ body {
         font-size: var(--bottom-bar-icon-text-size) !important;
     }
 
-    .LargeTitle {
-        position: relative; /* Or absolute, depending on your layout */
-        /*top: var(--top-padding-phone); !* Adjust based on the height of your top bar *!*/
-        z-index: -1;
-        left: 5vw;
-        width: 100%;
-        transition: transform 150ms, opacity 0.2s;  /*Smooth transition for scrolling effect */
-    }
+    /*.LargeTitle {*/
+    /*    position: relative; !* Or absolute, depending on your layout *!*/
+    /*    !*top: var(--top-padding-phone); !* Adjust based on the height of your top bar *!*!*/
+    /*    z-index: -1;*/
+    /*    left: 5vw;*/
+    /*    width: 100%;*/
+    /*    transition: transform 150ms, opacity 0.2s;  !*Smooth transition for scrolling effect *!*/
+    /*}*/
 
 }
 
