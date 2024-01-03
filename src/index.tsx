@@ -26,14 +26,16 @@ Content(
         TabItem(
             CurriculumVitae()
         )
-            .setTitle("Tab Item 2")
+            .setTitle("Curriculum Vitae")
             .setIcon(IoPersonOutline, IoPerson)
         ,
 
         TabItem(
             VStack(
                 NavigationLink(Text("View 1"), NestedView()),
-                NavigationLink(Text("View 2"), ContactMe())
+                NavigationLink(Text("View 2"), ContactMe()
+                    .setNavigationTitle("Contact Me")
+                )
             )
         )
             .setTitle("Tab Item 3")
@@ -46,7 +48,7 @@ function NestedView() {
     return (
         NavigationLink(
             Text("View 2"),
-            NavigationLink(Text("View 3"), Text("View 4"))
+            NavigationLink(Text("View 3"), Text("View 4")   .setNavigationTitle("View 4"))
         )
     )
 }

@@ -5,9 +5,11 @@ import {TabItemModifiers} from "../../SWModifiers/tabViewModifier/tabItemModifie
 import {useResponsive} from "../../SWProvider/useResponsive";
 import PhoneLayout from "./DeviceLayout/PhoneLayout";
 import DesktopLayout from "./DeviceLayout/DesktopLayout";
+import TabletLayout from "./DeviceLayout/TabletLayout";
 import {useTabView} from "./SWTabViewProvider";
 import { motion } from "framer-motion"
 import {useNavigationStack} from "../../SWProvider/NavigationStack/NavigationStackContext";
+
 
 export type TabViewComponent = View & {
     tabItems: TabItemComponent[];
@@ -18,7 +20,7 @@ export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
 
         const { activeTabKey, setActiveTabKey, setTabs } =  useTabView();
         const { stacks, push } = useNavigationStack();
-        const {isPhone} = useResponsive();
+        const {isPhone, isTablet} = useResponsive();
 
         useEffect(() => {
 
@@ -47,9 +49,9 @@ export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
         if (topItem) {
             content = (
                 <>
-                    {/*<AnimatedRoute transitionType="fade" key={topItem.key}>*/}
+                    <AnimatedRoute transitionType="fade" key={topItem.key}>
                         {topItem.component.toJSX()}
-                    {/*</AnimatedRoute>*/}
+                    </AnimatedRoute>
                 </>
             );
         } else {
@@ -62,9 +64,9 @@ export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
 
             content = (
                 <>
-                    {/*<AnimatedRoute transitionType="fade" key={tabItem?.key}>*/}
+                    <AnimatedRoute transitionType="fade" key={tabItem?.key}>
                         {tabItem?.view.toJSX()}
-                    {/*</AnimatedRoute>*/}
+                    </AnimatedRoute>
                 </>
             );
         }
@@ -73,6 +75,8 @@ export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
         let screen: ReactNode;
         if (isPhone) {
             screen = <PhoneLayout>{content}</PhoneLayout>
+        } else if (isTablet) {
+            screen = <TabletLayout>{content}</TabletLayout>;
         } else {
             screen = <DesktopLayout>{content}</DesktopLayout>;
         }

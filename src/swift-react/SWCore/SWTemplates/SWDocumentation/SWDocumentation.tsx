@@ -49,7 +49,7 @@ const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({
         )
             .frame({width: "100vw", height: "100%"})
             .crossAxisAlignment("baseline")
-            .margin({top: "5vh", left: isTablet? "5vw" : "0px"})
+            .margin({left: isTablet? "5vw" : "0px"})
     )
 }
 

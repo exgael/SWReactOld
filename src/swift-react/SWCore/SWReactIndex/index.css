@@ -30,9 +30,10 @@
  */
 
 html {
+    margin: 0;
+
     min-height: calc(100% + env(safe-area-inset-top));
 
-    /* This padding is Very Import (Also correct land mode on Phone devices) */
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 
     /* Remove default tap highlight from navigators */
@@ -45,6 +46,7 @@ body {
     This is a common practice in CSS resets to ensure consistency across browsers.
     */
     margin: 0;
+    padding: 0;
 
     /*
     Sets a list of font families for the content, providing fallbacks if the previous fonts aren't available.
@@ -60,7 +62,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    background-color: #dedcd5;
+    background-color: #F8F7F2;
 
     scrollbar-width: none; /* Firefox 64+ */
     -ms-overflow-style: none; /* IE 10+ */
@@ -74,11 +76,10 @@ body {
  */
 .glass, .glassBar {
     /* Shared Styles */
-    background: linear-gradient(135deg, rgba(21, 142, 211, 0.1), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    background: rgba(248, 247, 242, 0.69);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    /*border: 1px solid rgba(150, 150, 150, 0.4);*/
 }
 
 .glassBar {
@@ -99,11 +100,12 @@ body {
 
     :root {
         --top-padding-phone: 10vh;
-        --bottom-padding-phone: 7vh;
-        --bottom-bar-height: 8.5vh;
+        --bottom-padding-phone: 5vh;
+        --bottom-bar-height: max(min(8.5vh, 80px ), 45px);
 
-        /* BottomBar icon offset */
-        --bottom-bar-icon-offset: 0.7vh;
+        /* BottomBar icon and text setup */
+        --bottom-bar-icon-offset: 0.8vh;
+        --bottom-bar-icon-text-size: 0.7rem;
     }
 
     /*
@@ -120,12 +122,24 @@ body {
     body {
         padding-top: var(--top-padding-phone) !important;
         padding-bottom: var(--bottom-padding-phone) !important;
+        overflow-y: auto;
     }
 
     .bottom-bar {
         height: var(--bottom-bar-height) !important;
-        padding-top: var(--bottom-bar-icon-offset) !important; ;
+        padding-top: var(--bottom-bar-icon-offset) !important;
+        font-size: var(--bottom-bar-icon-text-size) !important;
     }
+
+    .LargeTitle {
+        position: relative; /* Or absolute, depending on your layout */
+        /*top: var(--top-padding-phone); !* Adjust based on the height of your top bar *!*/
+        z-index: -1;
+        left: 5vw;
+        width: 100vw;
+        transition: transform 0.1s, opacity 0.1s;  /*Smooth transition for scrolling effect */
+    }
+
 }
 
 /*
