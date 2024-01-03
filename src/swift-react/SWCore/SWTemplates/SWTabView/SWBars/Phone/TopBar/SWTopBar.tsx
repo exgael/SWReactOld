@@ -31,20 +31,13 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollThreshold = 31; // Threshold for the transition
+            const scrollThreshold = 31;
             const scrollPosition = window.scrollY;
-            if (scrollPosition > scrollThreshold) {
-                setIsLargeTitleHidden(true);
-            } else {
-                setIsLargeTitleHidden(false);
-            }
+            setIsLargeTitleHidden(scrollPosition > scrollThreshold);
         };
 
         window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const { stacks, pop } = useNavigationStack();
@@ -53,6 +46,8 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
 
     const showBackButton = currentStack && currentStack.items.length > 1;
     const title = topItem?.title || 'Default Title';
+
+    const titleAnimation = isLargeTitleHidden ? fadeInOutAnimation.animate : fadeInOutAnimation.initial;
 
     const appBarLayout = (
         VStack({alignment: "flex-start"})(
@@ -74,8 +69,8 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
             ,
 
             withAnimation(
-                isLargeTitleHidden ? fadeInOutAnimation.initial : fadeInOutAnimation.animate,
-                isLargeTitleHidden ? fadeInOutAnimation.animate : fadeInOutAnimation.initial,
+                titleAnimation,
+                titleAnimation,
                 fadeInOutAnimation.exit,
                 fadeInOutAnimation.transition
             )(
