@@ -34,7 +34,7 @@ html {
 
     min-height: calc(100% + env(safe-area-inset-top));
 
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    /*padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);*/
 
     /* Remove default tap highlight from navigators */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -80,6 +80,12 @@ body {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     /*border: 1px solid rgba(150, 150, 150, 0.4);*/
+}
+
+.no-glass {
+    /* Shared Styles */
+    background: rgba(248, 247, 242, 0.69);
+    backdrop-filter: blur(20px);
 }
 
 .glassBar {
@@ -129,6 +135,10 @@ body {
         height: var(--bottom-bar-height) !important;
         padding-top: var(--bottom-bar-icon-offset) !important;
         font-size: var(--bottom-bar-icon-text-size) !important;
+    }
+
+    .content {
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
     /*.LargeTitle {*/

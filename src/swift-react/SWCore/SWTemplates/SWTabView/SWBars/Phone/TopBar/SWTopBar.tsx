@@ -12,7 +12,7 @@ const fadeInOutAnimation = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
     exit: { opacity: 0 },
-    transition: { duration: 0.2 }
+    transition: { duration: 0.3 }
 };
 
 const largeTitleAnimation = {
@@ -26,12 +26,12 @@ const largeTitleAnimation = {
 export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
 
     const { activeTab, activeTabKey} = useTabView()
-    const { stacks, pop } = useNavigationStack();
+
     const [isLargeTitleHidden, setIsLargeTitleHidden] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollThreshold = 0; // Threshold for the transition
+            const scrollThreshold = 31; // Threshold for the transition
             const scrollPosition = window.scrollY;
             if (scrollPosition > scrollThreshold) {
                 setIsLargeTitleHidden(true);
@@ -47,6 +47,7 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
         };
     }, []);
 
+    const { stacks, pop } = useNavigationStack();
     const currentStack = stacks[activeTabKey];
     const topItem = currentStack?.items[currentStack.items.length - 1];
 
@@ -90,21 +91,10 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
                 .background(Color.clear)
                 .frame({width: `${100 / 3}vw`, height: "100%"})
         )
-            .setClassName(["glass", "top-bar"])
-            .border({color: Color.rgba(150, 150, 150, isLargeTitleHidden ? 0.4 : 0), style: "solid", width:  "1px"})
+            .setClassName([ isLargeTitleHidden ? "glass" : "no-glass", "top-bar"])
+            .border({color: Color.rgba(150, 150, 150, isLargeTitleHidden ? 0.3 : 0), style: "solid", width:  "0.1px"})
             .crossAxisAlignment("flex-end")
         ,
-            withAnimation(
-                isLargeTitleHidden ? largeTitleAnimation.initial : largeTitleAnimation.animate,
-                isLargeTitleHidden ? largeTitleAnimation.animate : largeTitleAnimation.initial,
-                largeTitleAnimation.exit,
-                largeTitleAnimation.transition
-            )(
-                LargeTitle(title)
-                    .textAlign("left")
-                    .padding({left: "3vw"})
-                    .frame({width: "100vw", height: "100%"})
-            )
     ))
 
     return (
