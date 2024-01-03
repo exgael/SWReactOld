@@ -14,27 +14,27 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
 
     useEffect(() => {
         const handleScroll = () => {
+            const scrollThreshold = 1; // Threshold for the transition
             const scrollPosition = window.scrollY;
             const largeTitle = document.querySelector('.LargeTitle') as HTMLElement;
 
             if (!largeTitle) return;
 
-            const isHidden = scrollPosition > 5; // Adjust this value based on your needs
-            setIsLargeTitleHidden(isHidden);
-
-            if (scrollPosition > 5) {
-                largeTitle.style.transform = `translateY(${-scrollPosition}px)`;
-                largeTitle.style.opacity = String(Math.max(1 - scrollPosition / 100, 0));
+            if (scrollPosition > scrollThreshold) {
+                // Apply transformation instantly
+                largeTitle.style.transform = `translateY(-100%)`;
+                largeTitle.style.opacity = '0';
+                setIsLargeTitleHidden(true);
             } else {
-                largeTitle.style.transform = 'translateY(0)';
-                largeTitle.style.opacity = String(1);
+                // Reset styles when below the threshold
+                largeTitle.style.transform = '';
+                largeTitle.style.opacity = '';
+                setIsLargeTitleHidden(false);
             }
         };
 
-        // Attach the event listener
         window.addEventListener('scroll', handleScroll);
 
-        // Clean up the event listener
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -65,8 +65,7 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
 
             Title(activeTab.title || title || "")
                 .frame({width: `${100 / 3}vw`, height: "100%"})
-                .border({color: Color.rgba(150, 150, 150, 0.4), style: "solid", width: "1px"})
-                .opacity(0)
+                .opacity(isLargeTitleHidden ? 1 : 0)
                 .foregroundStyle(Color.black)
                 .textAlign("center")
                 .fontSize("1rem")
@@ -83,7 +82,6 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
 
             LargeTitle(title)
                 .textAlign("left")
-                // .padding({left: "5vw"})
                 .setClassName(["LargeTitle"])
                 .frame({width: "100vw", height: "100%"})
     )
