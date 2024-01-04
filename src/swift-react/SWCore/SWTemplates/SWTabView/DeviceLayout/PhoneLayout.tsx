@@ -3,9 +3,7 @@ import {BottomBar, LargeTitle, Screen, SideBar, TopBar} from "../../../../compon
 import {useResponsive} from "../../../SWProvider/useResponsive";
 import {TabItemComponent} from "../SWTabView";
 import {useNavigationStack} from "../../../SWProvider/NavigationStack/NavigationStackContext";
-import { useSwipeable } from 'react-swipeable';
-import {useSpring} from "react-spring";
-
+import { useSwipeable, SwipeableProps } from 'react-swipeable';
 interface PhoneContentProps {
     tabItems?: TabItemComponent[];
     children: ReactNode;
@@ -13,34 +11,53 @@ interface PhoneContentProps {
 
 function PhoneLayout({ children, tabItems }: PhoneContentProps ): ReactElement {
 
-    const [position, setPosition] = useState(0); // Track swipe position
-    const threshold = 60; // Define swipe threshold
+    const [blur, setBlur] = useState(0); // Track blur amount
 
-    const { orientation } = useResponsive();
-    const { currentStackItem, canPop, pop } = useNavigationStack();
+    const {orientation} = useResponsive();
+    const {currentStackItem, canPop, pop} = useNavigationStack();
     const title = currentStackItem?.title || undefined;
 
-    // Set up the swipe handler
+    const swipeProps: SwipeableProps = {
+        delta: { right: 10 },
+        preventScrollOnSwipe: false,
+        trackTouch: true,
+        trackMouse: false,
+        swipeDuration: 250,
+    }
+
+    const [stopScroll, setStopScroll] = useState(false);
     const handlers = useSwipeable({
-        onSwiping: (eventData) => {
-            if (eventData.dir === 'Right') {
-                setPosition(Math.min(eventData.deltaX, window.innerWidth));
-            }
+        onSwipeStart: () => setStopScroll(true),
+        onSwiped: () => setStopScroll(false),
+        onSwipedRight: (): void => {
+            if (canPop) pop();
         },
-        onSwiped: (eventData) => {
-            if (eventData.dir === 'Right' && position > threshold) {
-                if (canPop) pop(); // Trigger pop if swipe exceeds threshold and direction is right
-            }
-            setPosition(0); // Reset position regardless of swipe direction
-        },
-        trackMouse: true
+        ...swipeProps
     });
+
+    // Set up the swipe handler
+    // const handlers2 = useSwipeable({
+    //     onSwiping: (eventData) => {
+    //         if (!isScrolling) {
+    //             const deltaX = Math.min(eventData.deltaX, window.innerWidth);
+    //             setPosition(deltaX);
+    //             setBlur(Math.min(5 * (deltaX / window.innerWidth), 5)); // Example: Max blur at 5px
+    //         }
+    //     },
+    //     onSwipedRight: (eventData) => {
+    //         if (!isScrolling) {
+    //             if (canPop) pop(); // Trigger pop if swipe exceeds threshold and direction is right
+    //         }
+    //         setPosition(0); // Reset position regardless of swipe direction
+    //         setBlur(0); // Reset blur
+    //     },
+    //     trackMouse: true,
+    // });
 
     let phoneContent;
 
     if (orientation === 'portrait') {
         phoneContent = Screen(
-
             // If pop is possible, then we do not display the large title (current is not root of navigation stack)
             // If pop is not possible and title is defined, then we display the large title
 
@@ -51,7 +68,16 @@ function PhoneLayout({ children, tabItems }: PhoneContentProps ): ReactElement {
                     .textAlign("left")
             ) : undefined
             ,
-            <div className={"content"} style={{ paddingBottom:"10vh" }}>{children}</div>
+            <div className={"content"} style={{
+                paddingBottom: "10vh",
+                filter: `blur(${blur}px)`,
+                transition: 'filter 0.1s',
+                touchAction: stopScroll ? 'none' : 'pan-y',
+
+
+            }} {...handlers}>
+                {children}
+            </div>
             ,
             TopBar()
                 .positionFixedTop()
@@ -70,7 +96,9 @@ function PhoneLayout({ children, tabItems }: PhoneContentProps ): ReactElement {
         );
     }
 
-    return <div style={{ height: "100%", width: "100%" } } {...handlers}> {phoneContent} </div>;
+    return <div style={{height: "100%", width: "100%", }} >
+        {phoneContent}
+    </div>;
 }
 
 export default PhoneLayout;

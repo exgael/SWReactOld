@@ -35,13 +35,6 @@ const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({
         return Text(section.title)
             .setNavigationTitle(section.title)
             .frame({width: "100%", height: "100%"})
-            .opacity(1)
-            .background(
-                RoundedRectangle("15%")
-                    .frame({width: "100%", height: "100%"})
-                    .background(Color.olive)
-                    .opacity(1)
-            )
     }
 
     const Links = ForEach(
