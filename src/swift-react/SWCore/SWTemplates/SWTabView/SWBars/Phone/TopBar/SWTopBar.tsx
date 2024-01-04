@@ -92,7 +92,7 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
 
                 Trailing()
         )
-            .setClassName([ isLargeTitleHidden ? "glass" : "no-glass", "top-bar"])
+            .setClassName([ isLargeTitleHidden ? "glass" : "no-glass", "navigation-bar"])
             .border({color: Color.rgba(150, 150, 150, isLargeTitleHidden ? 0.3 : 0), style: "solid", width:  "0.1px"})
             .crossAxisAlignment("flex-end")
     )

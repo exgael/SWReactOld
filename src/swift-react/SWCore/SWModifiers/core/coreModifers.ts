@@ -114,11 +114,18 @@ export type BackgroundBlurModifier<T> = (blurRadius: number) => T;
 
 export type TakeEvenSpaceModifier<T> = () => T;
 
+export type onTouchStartModifier<T> = (onTouchStartCallback: (event: any) => void) => T;
+export type onTouchEndModifier<T> = (onTouchEndCallback: (event: any) => void) => T;
+
+export type userSelectModifier<T> = (userSelect: string) => T;
+
 export interface CoreModifiers<T = any> {
 
     setId: SetId<T>;
     setKey: SetKey<T>;
     setRef: SetRef<T>;
+
+    userSelect: userSelectModifier<T>;
 
     debugBorder: DebugBorder<T>;
     setAriaLabel: SetAriaLabel<T>
@@ -179,6 +186,9 @@ export interface CoreModifiers<T = any> {
     textCase: TextCaseModifier<T>;
     textContentType: TextContentTypeModifier<T>;
     truncationMode: TruncationModeModifier<T>;
+
+    onTouchStart: onTouchStartModifier<T>;
+    onTouchEnd: onTouchEndModifier<T>;
 }
 
 function applyCSSModifier<T extends View>(view: T, property: keyof typeof view.style, value: MaybeFunctionString): T {
@@ -187,6 +197,10 @@ function applyCSSModifier<T extends View>(view: T, property: keyof typeof view.s
 }
 
 export const coreModifiers = {
+
+    userSelect: function<T extends View>(this: T, userSelect: string): T {
+        return applyCSSModifier(this, 'userSelect', userSelect);
+    },
 
     debugBorder: function<T extends View>(this: T, color?: Color): T {
 
@@ -568,7 +582,7 @@ export const coreModifiers = {
 
     onRotate: function<T extends View>(this: T, rotateCallback: (rotationAngle: number) => void): T {
         let initialAngle = 0;
-        this.events.touchStart =(event) => {
+        this.events.onTouchStart =(event) => {
             if (event.touches.length === 2) {
                 initialAngle = Math.atan2(event.touches[1].clientY - event.touches[0].clientY, event.touches[1].clientX - event.touches[0].clientX) * (180 / Math.PI);
             }
@@ -585,9 +599,19 @@ export const coreModifiers = {
         return this;
     },
 
+    onTouchStart: function<T extends View>(this: T, onTouchStartCallback: (event: any) => void): T {
+        this.events.onTouchStart = onTouchStartCallback;
+        return this;
+    },
+
+    onTouchEnd: function<T extends View>(this: T, onTouchEndCallback: (event: any) => void): T {
+        this.events.onTouchEnd = onTouchEndCallback;
+        return this;
+    },
+
     onScale: function<T extends View>(this: T, scaleCallback: (scaleFactor: number) => void): T {
         let initialDistance = 0;
-        this.events.touchStart = (event) => {
+        this.events.onTouchStart = (event) => {
             if (event.touches.length === 2) {
                 initialDistance = Math.hypot(event.touches[1].clientX - event.touches[0].clientX, event.touches[1].clientY - event.touches[0].clientY);
             }

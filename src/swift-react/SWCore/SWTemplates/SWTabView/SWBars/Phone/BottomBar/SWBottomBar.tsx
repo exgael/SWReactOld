@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {HStack} from "../../../../../../components";
 import {Color, View} from "../../../../../SWTypes";
 import {BottomBarItem} from "./SWBottomBarItem";
@@ -24,18 +24,23 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
                     // Setting the background color of the item
                     .foregroundStyle(isHighlighted ? Color.olive: Color.grey)
 
+                    .onTouchEnd(() => {
+                        // Navigate to the corresponding tab
+                        setActiveTabKey(tab.key);
+                    })
                     .onClick(() => {
                         // Navigate to the corresponding tab
                         setActiveTabKey(tab.key);
                     })
-                    .setClassName(["enforce-clicks"])
+
+                    .userSelect("none")
             });
 
         // Constructing the BottomBar layout
         const bottomBarLayout = HStack({ alignment: "space-between" })(
                 ...items
         )
-            .setClassName(["glass", "bottom-bar"])
+            .setClassName(["glass", "tab-bar"])
             .crossAxisAlignment("flex-start")
 
         return (

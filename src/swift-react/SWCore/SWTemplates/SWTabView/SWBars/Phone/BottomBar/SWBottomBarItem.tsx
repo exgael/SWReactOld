@@ -26,6 +26,7 @@ export const SWBottomBarItem: React.FC<{ view: BottomBarItemComponent }> = React
             ,
             Text(view.title)
         )
+            .setClassName(["tab-bar-icon"])
             .crossAxisAlignment("center")
 
         return (

@@ -1,4 +1,4 @@
-import {ReactElement, ReactNode, useState} from 'react';
+import {ReactElement, ReactNode, useEffect, useRef, useState} from 'react';
 import {BottomBar, LargeTitle, Screen, SideBar, TopBar} from "../../../../components";
 import {useResponsive} from "../../../SWProvider/useResponsive";
 import {TabItemComponent} from "../SWTabView";
@@ -11,18 +11,19 @@ interface PhoneContentProps {
 
 function PhoneLayout({ children, tabItems }: PhoneContentProps ): ReactElement {
 
-    const [blur, setBlur] = useState(0); // Track blur amount
-
     const {orientation} = useResponsive();
     const {currentStackItem, canPop, pop} = useNavigationStack();
     const title = currentStackItem?.title || undefined;
+
+
+    // Swipe
 
     const swipeProps: SwipeableProps = {
         delta: { right: 10 },
         preventScrollOnSwipe: false,
         trackTouch: true,
         trackMouse: false,
-        swipeDuration: 250,
+        swipeDuration: 1000,
     }
 
     const [stopScroll, setStopScroll] = useState(false);
@@ -35,27 +36,37 @@ function PhoneLayout({ children, tabItems }: PhoneContentProps ): ReactElement {
         ...swipeProps
     });
 
-    // Set up the swipe handler
-    // const handlers2 = useSwipeable({
-    //     onSwiping: (eventData) => {
-    //         if (!isScrolling) {
-    //             const deltaX = Math.min(eventData.deltaX, window.innerWidth);
-    //             setPosition(deltaX);
-    //             setBlur(Math.min(5 * (deltaX / window.innerWidth), 5)); // Example: Max blur at 5px
-    //         }
-    //     },
-    //     onSwipedRight: (eventData) => {
-    //         if (!isScrolling) {
-    //             if (canPop) pop(); // Trigger pop if swipe exceeds threshold and direction is right
-    //         }
-    //         setPosition(0); // Reset position regardless of swipe direction
-    //         setBlur(0); // Reset blur
-    //     },
-    //     trackMouse: true,
-    // });
+    // Tab bar during scroll
+
+    const tabRef = useRef<HTMLDivElement>(null); // Reference to the tab bar
+    const [scrollInterrupted, setScrollInterrupted] = useState(false);
+
+    useEffect(() => {
+        const handleTabTouchStart = () => {
+            // Temporarily disable scrolling
+            setScrollInterrupted(true);
+
+            // Re-enable scrolling after a short delay
+            setTimeout(() => {
+                setScrollInterrupted(false);
+            }, 130); // Adjust this delay as needed
+        };
+
+        const tabBarElement = tabRef.current;
+        if (tabBarElement) {
+            tabBarElement.addEventListener('touchstart', handleTabTouchStart, { passive: false });
+        }
+
+        return () => {
+            if (tabBarElement) {
+                tabBarElement.removeEventListener('touchstart', handleTabTouchStart);
+            }
+        };
+    }, []);
+
+    // Constructing the PhoneLayout
 
     let phoneContent;
-
     if (orientation === 'portrait') {
         phoneContent = Screen(
             // If pop is possible, then we do not display the large title (current is not root of navigation stack)
@@ -63,27 +74,21 @@ function PhoneLayout({ children, tabItems }: PhoneContentProps ): ReactElement {
 
             !canPop && title ? (
                 LargeTitle(title)
-                    .frame({width: "100vw"})
-                    .padding({left: "5vw"})
-                    .textAlign("left")
+                    .setClassName(["large-navigation-title"])
             ) : undefined
             ,
-            <div className={"content"} style={{
-                paddingBottom: "10vh",
-                filter: `blur(${blur}px)`,
-                transition: 'filter 0.1s',
+            <div className={!canPop? "main-content-with-large-title" : "main-content"} style={{
                 touchAction: stopScroll ? 'none' : 'pan-y',
-
 
             }} {...handlers}>
                 {children}
             </div>
+
             ,
             TopBar()
-                .positionFixedTop()
             ,
             BottomBar()
-                .positionFixedBottom()
+                .setRef(tabRef)
             ,
         );
     } else {
@@ -96,9 +101,7 @@ function PhoneLayout({ children, tabItems }: PhoneContentProps ): ReactElement {
         );
     }
 
-    return <div style={{height: "100%", width: "100%", }} >
-        {phoneContent}
-    </div>;
+    return phoneContent;
 }
 
 export default PhoneLayout;

@@ -8,6 +8,66 @@
     box-sizing: border-box;
 }
 
+:root {
+    --const-nav-bar-height: 44px;
+    --const-large-title-height: 52px;
+    --const-tab-bar-height: 49px;
+
+    /*
+     Navigation Bar Height:
+     - Standard height for iOS navigation bar.
+     - Additional height is considered when in large title mode.
+    */
+    --navigation-bar-height: var(--const-nav-bar-height);
+    --large-title-height: var(--const-large-title-height);
+
+    /*
+     Tab Bar Height:
+     - Standard height for iOS tab bar.
+    */
+    --tab-bar-height: var(--const-tab-bar-height);
+
+    /*
+     Safe Area Insets:
+     - These values ensure that content is not obscured by hardware features like the notch or home indicator.
+     - `env()` function is used to obtain safe area values provided by iOS.
+    */
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    --safe-area-inset-left: max(12px, env(safe-area-inset-left));
+    --safe-area-inset-right: max(12px, env(safe-area-inset-right));
+
+    /* Tab Bar icon shift */
+    --tab-bar-icon-offset: 10px;
+
+    /* Icon Sizes */
+
+    --tab-bar-icon-size: 25px; /* Size @1x */
+    --toolbar-icon-size: 22px; /* Size @1x */
+    --navigation-bar-icon-size: 22px; /* Size @1x */
+
+    /* Typography*/
+
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+
+    --navigation-title-size: 17px; /* Size @1x */
+    --navigation-title-weight: 600; /* semi bold */
+
+    --navigation-title-size-large: 34px; /* Size @1x */
+    --navigation-title-weight-large: 700; /* bold */
+
+    --buttons-size: 17px; /* Size @1x */
+    --buttons-weight: 400; /* regular */
+
+    --search-bar-size: 17px; /* Size @1x */
+    --search-bar-weight: 400; /* regular */
+
+    --tab-bar-label-size: 10px; /* Size @1x */
+    --tab-bar-label-weight: 400; /* regular */
+}
+
 /*
  ******************************************************
  *                     Animations                     *
@@ -29,34 +89,42 @@
  ******************************************************
  */
 
-html {
-    margin: 0;
-
-    min-height: calc(100% + env(safe-area-inset-top));
-
-    /*padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);*/
-
-    /* Remove default tap highlight from navigators */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
-    -webkit-overflow-scrolling: touch;
-}
-
-body {
+html, body {
     /*
-    Resets the default margin of the body, which browsers apply by default.
-    This is a common practice in CSS resets to ensure consistency across browsers.
+     Resets the default margin of the body, which browsers apply by default.
+     This is a common practice in CSS resets to ensure consistency across browsers.
     */
     margin: 0;
     padding: 0;
 
-    /*
-    Sets a list of font families for the content, providing fallbacks if the previous fonts aren't available.
-    */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    font-family: var(--font-family);
 
+    /* Prevents scrolling */
+    overflow: hidden;
+
+    /* Full height */
+    height: 100%;
+}
+
+html {
+    /*
+     Sets the height of the html element to 100% of the viewport height.
+     This ensures that the html element is always at least the height of the viewport.
+     This is a common practice in CSS resets to ensure consistency across browsers.
+
+     Note: This is not the same as setting the height to 100vh, which would be 100% of the viewport height
+    */
+    /*min-height: calc(100% + var(--safe-area-inset-top) + var(--safe-area-inset-bottom));*/
+
+    /*
+     Native behavior
+     Remove default tap highlight from navigators
+    */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-overflow-scrolling: touch !important;
+}
+
+body {
     /*
     These are browser-specific properties to enhance the readability of text,
     particularly on macOS and iOS.
@@ -65,11 +133,239 @@ body {
     -moz-osx-font-smoothing: grayscale;
 
     background-color: #F8F7F2;
-
     scrollbar-width: none; /* Firefox 64+ */
     -ms-overflow-style: none; /* IE 10+ */
 }
 
+/*
+ ******************************************************
+ *       Responsive Design By Phone resolution        *
+ ******************************************************
+ */
+
+/*
+ 1179×2556 pixels at 460ppi:
+ - For
+ iPhone 14 Pro
+ iPhone 15
+ iPhone 15 Pro
+*/
+@media only screen
+and (width: 393px)
+/*and (height: 852px)*/
+and (-webkit-device-pixel-ratio: 3) {
+    :root {
+        --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
+        --large-title-height: calc(var(--const-large-title-height) * 2);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 2);
+    }
+}
+
+/*
+ 1284×2778 pixels at 460ppi
+ - For
+ iPhone 14 Pro Max
+ iPhone 15 Plus
+ iPhone 15 Pro Max
+*/
+@media only screen
+and (width: 430px)
+/*and (height: 932px)*/
+and (-webkit-device-pixel-ratio: 3) {
+    :root {
+        --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
+        --large-title-height: calc(var(--const-large-title-height) * 2);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+    }
+}
+
+/*
+ 1170×2532 pixels at 460ppi:
+ - For
+ iPhone 12
+ iPhone 12 Pro
+ iPhone 13 Pro Max
+ iPhone 13 Pro Max
+ iPhone 14
+*/
+@media only screen
+and (width: 390px)
+/*and (height: 844px)*/
+and (-webkit-device-pixel-ratio: 3) {
+    :root {
+        --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
+        --large-title-height: calc(var(--const-large-title-height) * 2);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+    }
+}
+
+/*
+ 1284×2778 pixels at 460ppi:
+ - For
+ iPhone 12 Pro Max
+ iPhone 13 Pro Max
+ iPhone 14 Plus
+*/
+@media only screen
+and (width: 428px)
+/*and (height: 926px)*/
+and (-webkit-device-pixel-ratio: 3) {
+    :root {
+        --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
+        --large-title-height: calc(var(--const-large-title-height) * 2);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+    }
+}
+
+/*
+ 1080×2340 pixels at 476ppi
+ - For
+ iPhone X
+ iPhone Xs
+ iPhone 11 Pro
+ iPhone 12 Mini
+ iPhone 13 Mini
+*/
+@media only screen
+and (width: 375px)
+/*and (height: 812px)*/
+and (-webkit-device-pixel-ratio: 3) {
+    :root {
+        --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
+        --large-title-height: calc(var(--const-large-title-height) * 2);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+    }
+}
+
+/*
+ 828×1792 pixels at 326ppi
+ - For
+ iPhone XR
+ iPhone 11
+*/
+@media only screen
+and (width: 414px)
+/*and (height: 896px)*/
+and (-webkit-device-pixel-ratio: 2) {
+    :root {
+        --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
+        --large-title-height: calc(var(--const-large-title-height) * 2);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+    }
+}
+
+/*
+ 1242×2688 pixels at 458ppi
+ - For
+ iPhone Xs Max
+ iPhone 11 Pro Max
+*/
+@media only screen
+and (width: 414px)
+/*and (height: 896px)*/
+and (-webkit-device-pixel-ratio: 3) {
+    :root {
+        --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
+        --large-title-height: calc(var(--const-large-title-height) * 2);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+    }
+}
+
+/*
+ 750×1334 pixels at 326ppi
+ - For
+ iPhone 7 (2016)
+ iPhone 8 (2017)
+ iPhone SE (1st to 3rd gen)
+*/
+@media only screen
+and (width: 375px)
+/*and (height: 667px)*/
+and (-webkit-device-pixel-ratio: 2) {
+    :root {
+        --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
+        --large-title-height: calc(var(--const-large-title-height) * 2);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+    }
+}
+
+.navigation-bar {
+    /* Positioning */
+    position: fixed !important; /* Ensures the navigation bar is always at the top of the viewport */
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 999 !important; /* Ensures the navigation bar is always on top of other content */
+    height: var(--navigation-bar-height) !important; /* Sets the height of the navigation bar */
+    padding-top: var(--safe-area-inset-top) !important; /* Adds padding to avoid overlapping with the status bar */
+
+    /* Typography */
+    font-size: var(--navigation-title-size) !important; /* Sets the font size of the navigation title */
+    font-weight: var(--navigation-title-weight) !important; /* Sets the font weight of the navigation title */
+}
+
+.large-navigation-title {
+
+    /* Positioning */
+    position: relative !important; /* Ensures the navigation bar is always at the top of the viewport */
+    width: 85vw; /* TODO This is a hack */
+    padding-top: calc( var(--navigation-bar-height)) !important; /* Adds padding to avoid overlapping with the status bar */
+    z-index: 0 !important; /* Ensures the large navigation title fits in the flow */
+    height: var(--large-title-height) !important; /* Total height when using large title */
+
+    /* Typography */
+    font-size: var(--navigation-title-size-large) !important; /* Sets the font size of the navigation title */
+    font-weight: var(--navigation-title-weight-large) !important; /* Sets the font weight of the navigation title */
+}
+
+.tab-bar {
+    /* Positioning */
+    position: fixed !important; /* Ensures the tab bar is always at the bottom of the viewport */
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 999 !important;
+    height: var(--tab-bar-height) !important; /* Sets the height of the tab bar */
+    padding-bottom: var(--safe-area-inset-bottom) !important; /* Adds padding to avoid overlapping with home indicator */
+
+    /* Typography */
+    font-size: var(--tab-bar-label-size);
+    font-weight: var(--tab-bar-label-weight) !important; /* Sets the font weight of the tab bar labels */
+}
+
+.tab-bar-icon {
+    /* Positioning */
+    position: relative !important;
+    width: var(--tab-bar-icon-size);
+    height: var(--tab-bar-icon-size);
+    top: var(--tab-bar-icon-offset);
+}
+
+.main-content, .main-content-with-large-title {
+    padding-top: calc(var(--navigation-bar-height) + var(--safe-area-inset-bottom)); /* Ensures content starts below the navigation bar */
+    padding-bottom: calc(var(--tab-bar-height) + var(--safe-area-inset-bottom)); /* Ensures content does not underlap the tab bar */
+    padding-left: var(--safe-area-inset-left); /* Ensures content does not underlap the notch */
+    padding-right: var(--safe-area-inset-right); /* Ensures content does not underlap the notch */
+
+    /* Prevents scrolling */
+    overflow: hidden;
+}
+
+.main-content-with-large-title {
+    /* Ensures content starts below the large navigation title */
+    padding-top: calc(var(--large-title-height) + var(--safe-area-inset-bottom));
+}
+
+/*
+ ******************************************************
+ *               Scrollbar Styling                    *
+ ******************************************************
+ */
+::-webkit-scrollbar {
+    display: none;
+    width: 0; /* For vertical scrollbars */
+    height: 0; /* For horizontal scrollbars */
+}
 
 /*
  ******************************************************
@@ -93,165 +389,4 @@ body {
 .glassBar {
     /* Unique Styles */
     border-radius: 20px;
-}
-
-.enforce-clicks { pointer-events: auto; }
-
-/*
- ******************************************************
- *               Responsive Design                    *
- ******************************************************
- */
-
-/*
- @Device: Phone
-*/
-@media (max-width: 576px) {
-
-    :root {
-        --top-padding-phone: 10vh;
-        --bottom-padding-phone: 5vh;
-        --bottom-bar-height: max(min(8.5vh, 80px ), 45px);
-
-        /* BottomBar icon and text setup */
-        --bottom-bar-icon-offset: 0.8vh;
-        --bottom-bar-icon-text-size: 0.7rem;
-    }
-
-    /*
-      @Description:
-      This ensures that the content is not flush against the edges of the screen,
-      making it more visually appealing and easier to interact with,
-      especially on touch devices.
-
-      @UseCase:
-      This padding might be particularly useful
-      if there are fixed headers or footers,
-      as it prevents content from being hidden behind these elements.
-    */
-    body {
-        padding-top: var(--top-padding-phone) !important;
-        padding-bottom: var(--bottom-padding-phone) !important;
-        overflow-y: auto;
-    }
-
-    .bottom-bar {
-        height: var(--bottom-bar-height) !important;
-        padding-top: var(--bottom-bar-icon-offset) !important;
-        font-size: var(--bottom-bar-icon-text-size) !important;
-    }
-
-    .content {
-        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        height: calc(100vh - var(--top-padding-phone));
-    }
-
-    /*.LargeTitle {*/
-    /*    position: relative; !* Or absolute, depending on your layout *!*/
-    /*    !*top: var(--top-padding-phone); !* Adjust based on the height of your top bar *!*!*/
-    /*    z-index: -1;*/
-    /*    left: 5vw;*/
-    /*    width: 100%;*/
-    /*    transition: transform 150ms, opacity 0.2s;  !*Smooth transition for scrolling effect *!*/
-    /*}*/
-
-}
-
-/*
- @Device: Tablet
-*/
-@media (min-width: 576px) and (max-width: 992px) {
-    :root {
-        --left-padding-tablet: 20vw;
-        --sidebar-width-tablet: min(20vw, 200px);
-    }
-
-    body {
-        /*
-         @Description:
-         This significant padding on the left side can create an asymmetrical layout,
-         which might be intended for specific design purposes
-         like sidebar navigation or to offset the main content for better focus.
-
-         @UseCase:
-         This is useful for layouts that require a distinct visual separation or alignment,
-         especially on tablet devices where screen real estate is more generous
-         than phones but less than desktops.
-        */
-        padding-left: var(--left-padding-tablet) !important;
-    }
-
-    .sidebar {
-        width: var(--sidebar-width-tablet) !important;
-    }
-}
-
-/*
- @Device: Desktop
-*/
-@media (min-width: 992px) {
-    :root {
-        --top-padding-desktop: max(5vh, 65px);
-        --header-bar-height: 65px;
-    }
-
-    body {
-        /*
-          @Description:
-          This creates a space at the top of the page,
-          which could be useful for designs with a fixed navigation bar
-          or header to ensure that the top content is not obscured.
-
-          @UseCase:
-          On desktops, where vertical space is less of a constraint,
-          this padding helps in maintaining a balanced and accessible layout,
-          particularly for navigation elements or branding headers.
-
-          @Explanation:
-
-          Border of the Screen (Browser Window)
-          ------------------------------------- (Top edge of the body)
-          |
-          | <-- Value padding-top inside the body
-          |
-          Content starts here
-        */
-        padding-top: var(--top-padding-desktop) !important;
-    }
-
-    .header-bar {
-        height: var(--header-bar-height) !important;
-    }
-}
-
-/*
- ******************************************************
- *       Styles for Progressive Web Apps (PWA)        *
- ******************************************************
- */
-
-@media screen and (display-mode: standalone) {
-    /*
-    @Class
-    .top-bar
-
-    @UseCase:
-    This is particularly useful for ensuring that the top bar
-    of your web app has consistent sizing in the PWA mode,
-    especially when the app might not have the usual browser chrome to account for.
-    */
-    .top-bar {
-        height: 10vh !important;
-    }
-}
-
-/*
- ******************************************************
- *               Scrollbar Styling                    *
- ******************************************************
- */
-::-webkit-scrollbar {
-    display: none;
-    width: 0; /* For vertical scrollbars */
-    height: 0; /* For horizontal scrollbars */
 }
