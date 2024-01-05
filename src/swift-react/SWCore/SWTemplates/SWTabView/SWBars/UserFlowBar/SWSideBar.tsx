@@ -17,10 +17,11 @@ export const SWSideBar: React.FC<{ view: View }> = React.memo(
         );
 
         // Constructing the UserFlowBar layout
-        const appBarLayout = VStack({alignment: "space-around"})(
+        const appBarLayout = VStack(
             ...navLinks
         )
             .setClassName(["glass", "sidebar"])
+            .mainAxisAlignment("space-between")
             .foregroundStyle(Color.navy)
             .toJSX();
 

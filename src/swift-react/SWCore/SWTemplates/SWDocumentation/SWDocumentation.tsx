@@ -11,6 +11,7 @@ import {TabSelectContent} from "./TabSelectContent";
 import {useResponsive} from "../../SWProvider/useResponsive";
 import {useNavigate} from "../../SWProvider/useNavigate";
 import {useNavigationStack} from "../../SWProvider/NavigationStack/NavigationStackContext";
+import {ScrollView} from "../../../components/ScrollView";
 
 const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({view} ) => {
     const [activeSectionID, setActiveSectionID] = useState<string>(view.sections[0]?.id);
@@ -40,7 +41,11 @@ const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({
     const Links = ForEach(
         view.sections,
         (section) => (
-           NavigationLink(NavLinkLabel(section), section.view, section.title)
+           NavigationLink(
+               NavLinkLabel(section),
+               section.view,
+               section.title
+           )
         )
     )
 
@@ -52,6 +57,8 @@ const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({
             .padding({left: "3vw"})
             .padding({top: "5vh"})
             .frame({width: "100vw", height: "100%"})
+
+
 
 
         // HStack({alignment: "space-between"})(
@@ -77,9 +84,10 @@ const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({
 }
 
 function ActiveContent(activeContent: View) {
-    return   VStack({gap: "10px"})(
+    return   VStack(
         activeContent
     )
+        .gap("10px")
 }
 
 function TabQuickScroll(quickLinks: QuickLink[] , scrollToQuickLink: (id: string)=> void ): ForEachComponent {

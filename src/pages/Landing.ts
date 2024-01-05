@@ -1,15 +1,16 @@
-import {Button, Color, RoundedRectangle, Spacer, View} from "../swift-react";
+import {Button, Color, NavigationLink, RoundedRectangle, Spacer, View} from "../swift-react";
 import {ForEach, Text, VStack} from "../swift-react";
 import {sheet} from "../swift-react/SWCore/SWElements/SWModals/Sheet/SheetStore";
 import {alert} from "../swift-react/SWCore/SWElements/SWModals/Alert/AlertStore";
 export function Landing(): View {
     return (
-        VStack({alignment: "center", gap: "10px" })(
+        VStack(
             EducationSection(),
             Spacer(),
             ExperienceSection(),
             Spacer(),
         )
+            .gap("10px")
             .frame({height: "100%", width: "100%"})
             .background(Color.hex("#dedcd5"))
             .setNavigationTitle("Landing Page")

@@ -3,12 +3,12 @@ import {
     QuickLink,
     StackComponent,
     TextComponent,
-    ThreePartLayoutComponent
+    ThreePartLayoutComponent, ScrollViewComponent
 } from "../../SWCore/SWTypes/Components";
 import createComponent from "../../SWCore/SWElements/componentFactory";
 import SWDocumentationBySection from "../../SWCore/SWTemplates/SWDocumentation/SWDocumentation";
 
-export function DocumentationBySection(...views: StackComponent[]): ThreePartLayoutComponent {
+export function DocumentationBySection(...views: (StackComponent | ScrollViewComponent) []): ThreePartLayoutComponent {
 
     const sections: Section[] = buildNavigationAndQuickLinks(views);
 
@@ -19,7 +19,7 @@ export function DocumentationBySection(...views: StackComponent[]): ThreePartLay
         { sections: sections },
     );
 }
-function buildNavigationAndQuickLinks(views: StackComponent[]): Section[] {
+function buildNavigationAndQuickLinks(views: (StackComponent | ScrollViewComponent)[]): Section[] {
     return views.map(view => {
         if (!view.ariaLabel?.startsWith('Section')) {
             throw new Error('Invalid section format');

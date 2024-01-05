@@ -3,7 +3,7 @@ import {DocumentationBySection} from "../swift-react/components/ComplexPage/Docu
 
 
 export function CurriculumVitae() {
-    return VStack({})(
+    return VStack(
         DocumentationBySection(
             Exemple(),
             LanguageSkills(),
@@ -17,7 +17,7 @@ export function CurriculumVitae() {
 }
 
 function LanguageSkills() {
-    return VStack({gap: "20px"})(
+    return VStack(
         CVTitle("Langues")
         ,
         Body("Arabe: Courant")
@@ -29,11 +29,11 @@ function LanguageSkills() {
         Body("Italien: Intermédiaire")
         ,
         Body("Allemand: Débutant")
-    ).setAriaLabel("Section");
+    ).gap("20px").setAriaLabel("Section");
 }
 
 function ProfessionalSkills() {
-    return VStack({gap: "20px"})(
+    return VStack(
         CVTitle("Compétences"),
         Body("Maîtrise des outils de résolution des problèmes"),
         Body("Sens de l’écoute"),
@@ -41,46 +41,46 @@ function ProfessionalSkills() {
         Body("Esprit d’équipe"),
         Body("Rigueur"),
         Body("Bon relationnel")
-    ).setAriaLabel("Section");
+    ).gap("20px").setAriaLabel("Section");
 }
 
 function Interests() {
-    return VStack({gap: "20px"})(
+    return VStack(
         CVTitle("Centre d'Intérêt"),
         Body("Randonnées"),
         Body("Voyages"),
         Body("Bénévolat: Restos du cœur, AFEV")
-    ).setAriaLabel("Section");
+    ).gap("20px").setAriaLabel("Section");
 }
 
 function Education() {
-    return VStack({gap: "20px"})(
+    return VStack(
         CVTitle("Formation"),
         Body("Master en management de la qualité, Université de Strasbourg, 2019-2021, Strasbourg"),
         Body("Licence en économie et Gestion, Université de Strasbourg, 2016-2019, Strasbourg")
-    ).setAriaLabel("Section");
+    ).gap("20px").setAriaLabel("Section");
 }
 
 function ProfessionalExperience() {
-    return VStack({gap: "20px"})(
+    return VStack(
         CVTitle("Parcours Professionnel"),
         Subheadline("Astek, Ingénieur qualité projet"),
         Body("Depuis mai 2022, Mondeville. [Description des activités]"),
         Subheadline("Faurecia, Qualiticienne en alternance"),
         Body("2020-2021, Marckolsheim. [Description des activités]")
-    ).setAriaLabel("Section");
+    ).gap("20px").setAriaLabel("Section");
 }
 
 function Certifications() {
-    return VStack({gap: "20px"})(
+    return VStack(
         CVTitle("Certificats et Formation"),
         Body("Green Belt Lean Six Sigma: Décerné le 1er septembre 2021 à l’université de Strasbourg"),
         Body("Certificat Internet et Informatique: Obtention du C2i en 2018 à l’université de Strasbourg")
-    ).setAriaLabel("Section");
+    ) .gap("20px").setAriaLabel("Section");
 }
 
 function Exemple() {
-    return VStack({gap: "4vh"})(
+    return VStack(
         CVTitle("Section Title")
         ,
 
@@ -101,24 +101,26 @@ function Exemple() {
         Body("There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.")
         ,
     )
+        .gap("4vh")
         .setAriaLabel("Section")
 }
 
 function Stage() {
-    return VStack({gap: "4vh"})(
+    return VStack(
         CVTitle("Stage")
         ,
         Subheadline("Sub2")
         ,
         Body("Body2")
     )
+        .gap("4vh")
         .setAriaLabel("Section")
 }
 
 
 
 function Work() {
-    return VStack({})(
+    return VStack(
         CVTitle("Work")
         ,
         Subheadline("Sub3")

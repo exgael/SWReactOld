@@ -40,6 +40,7 @@ export type Border = {
     width: SWLength
     style: SWBorderStyle
     color: SWColor
+    side?: 'top' | 'right' | 'bottom' | 'left'
 }
 // Extend native SWTypes
 export type MaybeFunctionString = MaybeFunction<string>;
@@ -382,9 +383,12 @@ export const coreModifiers = {
         const width: string = evaluate(evaluatedSWBorder.width);
         const style: BorderStyle = evaluate(evaluatedSWBorder.style);
         const color: SWColor = evaluate(evaluatedSWBorder.color);
+        const side: 'top' | 'right' | 'bottom' | 'left' | 'all' = evaluate(evaluatedSWBorder.side) ?? 'all';
+
+        const property: string = side === 'all' ? 'border' : `border${side.charAt(0).toUpperCase() + side.slice(1)}`;
 
         // Apply css styling
-        return applyCSSModifier(this, 'border', `${width} ${style} ${color}`);
+        return applyCSSModifier(this, property, `${width} ${style} ${color}`);
     },
 
     // TODO : Implement on reload function capabilities for modifiers below (AKA,  SW...)

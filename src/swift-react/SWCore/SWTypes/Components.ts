@@ -322,3 +322,17 @@ export type AnimationComponent = View
     transition: any;
 };
 
+
+export type InputComponent = View
+    // Base Modifiers
+    & CoreModifiers<InputComponent>
+    & TopBarModifiers<InputComponent>
+    & AbsoluteModifiers<InputComponent>
+
+    // Input Properties
+    & {
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+};
+

@@ -19,9 +19,10 @@ export const SWAppBar: React.FC<{ view: View }> = React.memo(
         ));
 
         // Constructing the UserFlowBar layout
-        const appBarLayout = HStack({alignment:"space-around"})(
+        const appBarLayout = HStack(
             ...links
         )
+            .mainAxisAlignment("space-between")
             .setClassName(["glass", "header-bar"])
             .foregroundStyle(Color.black)
 

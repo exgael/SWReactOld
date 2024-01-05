@@ -69,12 +69,13 @@ const SWTabSelectContent: React.FC<{ view: TabSelectContentComponent }> = ({view
             showSections ? (
                 MdOutlineMenuBook(() => toggleShowSections())
             ) : (
-                HStack({alignment: "flex-start"})(
+                HStack(
                     sectionSelection
                         .positionFixedSide("left")
                     ,
                   //  MdOutlineMenuBook(() => toggleShowSections())
                 )
+                    .mainAxisAlignment("flex-start")
                     .crossAxisAlignment("baseline")
             )
         )

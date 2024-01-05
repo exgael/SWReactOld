@@ -66,6 +66,9 @@
 
     --tab-bar-label-size: 10px; /* Size @1x */
     --tab-bar-label-weight: 400; /* regular */
+
+    /* Device height */
+    --device-height: 100vh;
 }
 
 /*
@@ -97,44 +100,43 @@ html, body {
     margin: 0;
     padding: 0;
 
-    font-family: var(--font-family);
+    /*
+       Sets the height of the html element to 100% of the viewport height.
+       This ensures that the html element is always at least the height of the viewport.
+       This is a common practice in CSS resets to ensure consistency across browsers.
+
+       Note: This is not the same as setting the height to 100vh, which would be 100% of the viewport height
+      */
+    min-height: 100vh;
 
     /* Prevents scrolling */
-    overflow: hidden;
+    /*overflow: hidden;*/
 
-    /* Full height */
-    height: 100%;
-}
-
-html {
-    /*
-     Sets the height of the html element to 100% of the viewport height.
-     This ensures that the html element is always at least the height of the viewport.
-     This is a common practice in CSS resets to ensure consistency across browsers.
-
-     Note: This is not the same as setting the height to 100vh, which would be 100% of the viewport height
-    */
-    /*min-height: calc(100% + var(--safe-area-inset-top) + var(--safe-area-inset-bottom));*/
+    font-family: var(--font-family);
 
     /*
-     Native behavior
-     Remove default tap highlight from navigators
-    */
+      Native behavior
+      Remove default tap highlight from navigators
+     */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-overflow-scrolling: touch !important;
-}
+    -webkit-overflow-scrolling: touch;
 
-body {
     /*
-    These are browser-specific properties to enhance the readability of text,
-    particularly on macOS and iOS.
-    */
+      These are browser-specific properties to enhance the readability of text,
+      particularly on macOS and iOS.
+     */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
 
     background-color: #F8F7F2;
     scrollbar-width: none; /* Firefox 64+ */
     -ms-overflow-style: none; /* IE 10+ */
+
+    /* Scrolling  */
+    scroll-behavior: smooth;
+
+    overflow: hidden;
 }
 
 /*
@@ -156,8 +158,10 @@ and (width: 393px)
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
-        --large-title-height: calc(var(--const-large-title-height) * 2);
-        --tab-bar-height: calc(var(--const-tab-bar-height) * 2);
+        --large-title-height: calc(var(--const-large-title-height) * 1.5);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1.5);
+        --tab-bar-icon-size: calc(var(--tab-bar-icon-size) * 1.5);
+        --tab-bar-label-size: calc(var(--tab-bar-label-size) * 1.5);
     }
 }
 
@@ -174,8 +178,11 @@ and (width: 430px)
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
-        --large-title-height: calc(var(--const-large-title-height) * 2);
-        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+        --large-title-height: calc(var(--const-large-title-height) * 1);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 2);
+        --tab-bar-icon-size: calc(var(--tab-bar-icon-size) * 1.5);
+        --tab-bar-label-size: calc(var(--tab-bar-label-size) * 1.5);
+        --device-height: 932px;
     }
 }
 
@@ -194,8 +201,11 @@ and (width: 390px)
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
-        --large-title-height: calc(var(--const-large-title-height) * 2);
-        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+        --large-title-height: calc(var(--const-large-title-height) * 1);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1.1);
+        --tab-bar-icon-size: calc(var(--tab-bar-icon-size) * 1.5);
+        --tab-bar-label-size: calc(var(--tab-bar-label-size) * 1.5);
+        --device-height: 844px;
     }
 }
 
@@ -212,8 +222,11 @@ and (width: 428px)
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
-        --large-title-height: calc(var(--const-large-title-height) * 2);
-        --tab-bar-height: calc(var(--const-tab-bar-height) * 1);
+        --large-title-height: calc(var(--const-large-title-height) * 1);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 2);
+        --tab-bar-icon-size: calc(var(--tab-bar-icon-size) * 1.5);
+        --tab-bar-label-size: calc(var(--tab-bar-label-size) * 1.5);
+        --device-height: 926px;
     }
 }
 
@@ -291,13 +304,13 @@ and (-webkit-device-pixel-ratio: 2) {
 
 .navigation-bar {
     /* Positioning */
-    position: fixed !important; /* Ensures the navigation bar is always at the top of the viewport */
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 999 !important; /* Ensures the navigation bar is always on top of other content */
-    height: var(--navigation-bar-height) !important; /* Sets the height of the navigation bar */
-    padding-top: var(--safe-area-inset-top) !important; /* Adds padding to avoid overlapping with the status bar */
+    position: fixed; /* Ensures the navigation bar is always at the top of the viewport */
+    top: 0 ;
+    left: 0;
+    right: 0;
+    z-index: 999; /* Ensures the navigation bar is always on top of other content */
+    height: var(--navigation-bar-height); /* Sets the height of the navigation bar */
+    padding-top: var(--safe-area-inset-top); /* Adds padding to avoid overlapping with the status bar */
 
     /* Typography */
     font-size: var(--navigation-title-size) !important; /* Sets the font size of the navigation title */
@@ -305,13 +318,13 @@ and (-webkit-device-pixel-ratio: 2) {
 }
 
 .large-navigation-title {
-
     /* Positioning */
-    position: relative !important; /* Ensures the navigation bar is always at the top of the viewport */
-    width: 85vw; /* TODO This is a hack */
-    padding-top: calc( var(--navigation-bar-height)) !important; /* Adds padding to avoid overlapping with the status bar */
-    z-index: 0 !important; /* Ensures the large navigation title fits in the flow */
-    height: var(--large-title-height) !important; /* Total height when using large title */
+    position: static; /* Ensures the navigation bar follow page flow */
+    padding-top: calc( var(--navigation-bar-height)); /* Adds padding to avoid overlapping with the status bar */
+    padding-left: var(--safe-area-inset-left); /* Ensures title does not underlap the notch */
+
+    z-index: 0; /* Ensures the large navigation title fits in the flow */
+    height: var(--large-title-height); /* Total height when using large title */
 
     /* Typography */
     font-size: var(--navigation-title-size-large) !important; /* Sets the font size of the navigation title */
@@ -320,22 +333,22 @@ and (-webkit-device-pixel-ratio: 2) {
 
 .tab-bar {
     /* Positioning */
-    position: fixed !important; /* Ensures the tab bar is always at the bottom of the viewport */
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 999 !important;
-    height: var(--tab-bar-height) !important; /* Sets the height of the tab bar */
-    padding-bottom: var(--safe-area-inset-bottom) !important; /* Adds padding to avoid overlapping with home indicator */
+    position: fixed;  /* Ensures the tab bar is always at the bottom of the viewport */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    height: var(--tab-bar-height); /* Sets the height of the tab bar */
+    padding-bottom: var(--safe-area-inset-bottom); /* Adds padding to avoid overlapping with home indicator */
 
     /* Typography */
-    font-size: var(--tab-bar-label-size);
+    font-size: var(--tab-bar-label-size) !important;
     font-weight: var(--tab-bar-label-weight) !important; /* Sets the font weight of the tab bar labels */
 }
 
 .tab-bar-icon {
     /* Positioning */
-    position: relative !important;
+    position: relative;
     width: var(--tab-bar-icon-size);
     height: var(--tab-bar-icon-size);
     top: var(--tab-bar-icon-offset);
@@ -346,9 +359,6 @@ and (-webkit-device-pixel-ratio: 2) {
     padding-bottom: calc(var(--tab-bar-height) + var(--safe-area-inset-bottom)); /* Ensures content does not underlap the tab bar */
     padding-left: var(--safe-area-inset-left); /* Ensures content does not underlap the notch */
     padding-right: var(--safe-area-inset-right); /* Ensures content does not underlap the notch */
-
-    /* Prevents scrolling */
-    overflow: hidden;
 }
 
 .main-content-with-large-title {

@@ -3,7 +3,7 @@ import {Text} from "../swift-react";
 
 export function ContactMe() {
     return (
-        VStack({alignment: "center"})(
+        VStack(
             Text("Yousra Chriette"),
             Text("Contact information"),
             Text("Phone: +213 555 555 555"),

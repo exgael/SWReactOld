@@ -4,7 +4,7 @@ import View from "../SWTypes/View";
 import {
     ButtonComponent, ForEachComponent, ShapeComponent, ScreenComponent,
     StackComponent,
-    TextComponent
+    TextComponent, ScrollViewComponent, InputComponent
 } from "../SWTypes/Components";
 
 
@@ -94,6 +94,24 @@ export const SWScreen: React.FC<{ view: ScreenComponent }> = React.memo(
 );
 
 /**
+ * SWScrollView renders a scrollable view of components.
+ * It allows vertical scrolling for its children components.
+ *
+ * @param {ScrollViewComponent} view - The ScrollViewComponent object containing children and styles.
+ */
+export const SWScrollView: React.FC<{ view: ScrollViewComponent }> = React.memo(
+    ({ view }) => {
+        return (
+            <div style={{ ...view.style, height: '100%', width: '100%' }}>
+                {view.children && view.children.map((child: View, index: number) => {
+                    return <div key={`scroll-item-${generateObjectHash(child, index)}`}>{child.toJSX()}</div>;
+                })}
+            </div>
+        )
+    }
+);
+
+/**
  * SZStack renders a stack of components within an SWView in a Z-axis layout.
  * Each child is positioned absolutely to overlap, creating a layered effect.
  *
@@ -164,6 +182,28 @@ export const SWButton: React.FC<{ view: ButtonComponent }> = React.memo(
                     {view.label.toJSX()} {/* COMPONENT SPECIFIC PROPERTY */ }
                 </button>
             </SWView >
+        )
+    }
+);
+
+/**
+ * SWInput renders an input field within an SWView, applying input-specific styles and event handlers.
+ *
+ * @param {InputComponent} view - The InputComponent object containing style, events, and placeholder.
+ */
+export const SWInput: React.FC<{ view: InputComponent }> = React.memo(
+    ({ view }) => {
+
+        // Define input-specific styles or event overrides here
+        const inputStyle =  { /* ... */ };
+        const inputEvents = { /* ... */ };
+
+        return (
+            <SWView view={view} overrideStyles={inputStyle} overrideEvents={inputEvents}>
+                <input
+                    placeholder={view.placeholder} // COMPONENT SPECIFIC PROPERTY
+                />
+            </SWView>
         )
     }
 );
@@ -245,6 +285,9 @@ const SWBackgroundWrapper: FC<{
     view: View,
     children: React.ReactNode,
 }> = React.memo(({ view, children }) => {
+
+
+
     const RenderBackground: FC = () => {
         if (view.background?.toJSX) {
             const backgroundPlacement: React.CSSProperties  = {
@@ -266,6 +309,12 @@ const SWBackgroundWrapper: FC<{
         }
         return null;
     };
+
+    if (!view.background?.toJSX) {
+        return (
+            children as ReactElement
+        );
+    }
 
     return (
         <div style={{ position: 'relative', width:"100%", height:"100%" }}>

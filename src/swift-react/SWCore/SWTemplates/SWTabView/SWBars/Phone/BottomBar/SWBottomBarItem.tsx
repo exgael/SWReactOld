@@ -21,7 +21,7 @@ export function BottomBarItem(title: string, path: string, icon: ReactElement): 
 
 export const SWBottomBarItem: React.FC<{ view: BottomBarItemComponent }> = React.memo(
     ({ view }) => {
-        const itemLayout = VStack({ alignment: "center" })(
+        const itemLayout = VStack(
             BottomBarIcon(view.icon)
             ,
             Text(view.title)

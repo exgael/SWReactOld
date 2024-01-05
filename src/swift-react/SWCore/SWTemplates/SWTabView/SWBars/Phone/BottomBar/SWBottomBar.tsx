@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import {HStack} from "../../../../../../components";
 import {Color, View} from "../../../../../SWTypes";
 import {BottomBarItem} from "./SWBottomBarItem";
-import {SWView} from "../../../../../SWElements/SWElements";
 import {TabInfo, useTabView} from "../../../SWTabViewProvider";
+import {SWView} from "../../../../../SWElements/SWElements";
 
 
 export const SWBottomBar: React.FC<{ view: View }> = React.memo(
@@ -37,11 +37,14 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
             });
 
         // Constructing the BottomBar layout
-        const bottomBarLayout = HStack({ alignment: "space-between" })(
+        const bottomBarLayout = HStack(
                 ...items
         )
-            .setClassName(["glass", "tab-bar"])
+            .mainAxisAlignment("space-between")
             .crossAxisAlignment("flex-start")
+
+        // Setting the class names for the Tab Bar container
+        view.classNames = ["tab-bar", "glass"];
 
         return (
             <SWView view={view}>
