@@ -1,23 +1,15 @@
 import React, {useRef, useState} from 'react';
-import {
-    ForEachComponent,
-    QuickLink, Section,
-    ThreePartLayoutComponent
-} from "../../SWTypes/Components";
-import {ForEach, HStack, NavigationLink, RoundedRectangle, Text, VStack} from "../../../components";
+import {ForEachComponent, QuickLink, Section, ThreePartLayoutComponent} from "../../SWTypes/Components";
+import {ForEach, NavigationLink, Text, VStack} from "../../../components";
 import {Color, View} from "../../SWTypes";
 import {SWReactElement} from "../../SWElements/SWElements";
-import {TabSelectContent} from "./TabSelectContent";
 import {useResponsive} from "../../SWProvider/useResponsive";
-import {useNavigate} from "../../SWProvider/useNavigate";
-import {useNavigationStack} from "../../SWProvider/NavigationStack/NavigationStackContext";
-import {ScrollView} from "../../../components/ScrollView";
 
-const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({view} ) => {
+const SWDocumentationBySection: React.FC<{ view: ThreePartLayoutComponent }> = ({view}) => {
     const [activeSectionID, setActiveSectionID] = useState<string>(view.sections[0]?.id);
     const [quickLinks, setQuickLinks] = useState<QuickLink[]>(view.sections[0]?.quickLinks || []);
     const contentRef = useRef<HTMLDivElement>(null);
-    const { isDesktop, isTablet } = useResponsive();
+    const {isDesktop, isTablet} = useResponsive();
 
     const handleContentSwitch = (activeSectionID: string) => {
         setActiveSectionID(activeSectionID)
@@ -41,11 +33,11 @@ const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({
     const Links = ForEach(
         view.sections,
         (section) => (
-           NavigationLink(
-               NavLinkLabel(section),
-               section.view,
-               section.title
-           )
+            NavigationLink(
+                NavLinkLabel(section),
+                section.view,
+                section.title
+            )
         )
     )
 
@@ -77,13 +69,13 @@ const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({
 }
 
 function ActiveContent(activeContent: View) {
-    return   VStack(
+    return VStack(
         activeContent
     )
         .gap("10px")
 }
 
-function TabQuickScroll(quickLinks: QuickLink[] , scrollToQuickLink: (id: string)=> void ): ForEachComponent {
+function TabQuickScroll(quickLinks: QuickLink[], scrollToQuickLink: (id: string) => void): ForEachComponent {
     return ForEach(
         quickLinks,
         (link: QuickLink) => (

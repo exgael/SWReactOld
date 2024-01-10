@@ -10,12 +10,12 @@ type FontStyle = 'normal' | 'italic' | 'oblique';
 type TextDecoration = 'none' | 'underline' | 'overline' | 'line-through';
 
 // Text Modifiers SWTypes
-export type FontSizeModifier<T>  = (size: FontSize) => T;
-export type ClampedFontSizeModifier<T>  = (min: FontSize, preferred: FontSize, max: FontSize) => T;
-export type FontWeightModifier<T>  = (weight: FontWeight) => T;
-export type TextAlignModifier<T>  = (alignment: TextAlign) => T;
-export type FontStyleModifier<T>  = (style: FontStyle) => T;
-export type TextDecorationModifier<T>  = (decoration: TextDecoration) => T;
+export type FontSizeModifier<T> = (size: FontSize) => T;
+export type ClampedFontSizeModifier<T> = (min: FontSize, preferred: FontSize, max: FontSize) => T;
+export type FontWeightModifier<T> = (weight: FontWeight) => T;
+export type TextAlignModifier<T> = (alignment: TextAlign) => T;
+export type FontStyleModifier<T> = (style: FontStyle) => T;
+export type TextDecorationModifier<T> = (decoration: TextDecoration) => T;
 
 // Text Modifiers Interface
 export interface TextModifiers<T = any> {
@@ -29,27 +29,27 @@ export interface TextModifiers<T = any> {
 
 // Text Modifiers
 export const textModifiers = {
-    fontSize: function<T extends View>(this: T, size: string): T {
+    fontSize: function <T extends View>(this: T, size: string): T {
         this.style.fontSize = size;
         return this;
     },
-    clampedFontSize: function<T extends View>(this: T, min: string, preferred: string, max: string): T {
+    clampedFontSize: function <T extends View>(this: T, min: string, preferred: string, max: string): T {
         this.style.fontSize = `clamp(${min}, ${preferred}, ${max})`;
         return this;
     },
-    fontWeight: function<T extends View>(this: T, weight: FontWeight): T {
+    fontWeight: function <T extends View>(this: T, weight: FontWeight): T {
         this.style.fontWeight = weight;
         return this;
     },
-    textAlign: function<T extends View>(this: T, alignment: TextAlign): T {
+    textAlign: function <T extends View>(this: T, alignment: TextAlign): T {
         this.style.textAlign = alignment;
         return this;
     },
-    fontStyle: function<T extends View>(this: T, style: FontStyle): T {
+    fontStyle: function <T extends View>(this: T, style: FontStyle): T {
         this.style.fontStyle = style;
         return this;
     },
-    textDecoration: function<T extends View>(this: T, decoration: TextDecoration): T {
+    textDecoration: function <T extends View>(this: T, decoration: TextDecoration): T {
         this.style.textDecoration = decoration;
         return this;
     }

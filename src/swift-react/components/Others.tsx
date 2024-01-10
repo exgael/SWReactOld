@@ -1,6 +1,6 @@
-import {ForEachComponent, ScreenComponent} from "../SWCore/SWTypes/Components";
+import {ForEachComponent} from "../SWCore/SWTypes/Components";
 import createComponent from "../SWCore/SWElements/componentFactory";
-import {SWForEach, SWScreen, SWView} from "../SWCore/SWElements/SWElements";
+import {SWForEach, SWView} from "../SWCore/SWElements/SWElements";
 import {layoutModifiers} from "../SWCore/SWModifiers/layout/layoutModifiers";
 import View from "../SWCore/SWTypes/View";
 import React from "react";
@@ -25,22 +25,27 @@ type BViewComponent = View & CoreModifiers<BViewComponent> & {
 
 export function BView(children: View): BViewComponent {
     return createComponent<BViewComponent>(
-        { toJSX: function() {
+        {
+            toJSX: function () {
                 return (
                     <SWView view={this as BViewComponent}>
                         {children.toJSX()}
                     </SWView>
                 )
-            }},
+            }
+        },
         {}
     );
 }
 
 
-
 export function ForEach<T>(data: T[], viewBuilder: (item: T, index: number) => View): ForEachComponent {
     return createComponent<ForEachComponent>(
-        { toJSX: function() { return <SWForEach view={this as ForEachComponent} /> }},
+        {
+            toJSX: function () {
+                return <SWForEach view={this as ForEachComponent}/>
+            }
+        },
         {
             data,
             viewBuilder,

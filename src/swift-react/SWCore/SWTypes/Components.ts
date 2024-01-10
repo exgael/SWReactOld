@@ -9,7 +9,6 @@ export type BarComponent = View
     // Base Modifiers
     & CoreModifiers<BarComponent>
     & AbsoluteModifiers<TextComponent>
-    
 
 
 export type TextComponent = View
@@ -124,15 +123,6 @@ export type SpacerComponent = View
 };
 
 
-
-
-
-
-
-
-
-
-
 export interface Section {
     id: string;
     title: string;
@@ -161,28 +151,19 @@ export type ThreePartLayoutComponent = View
 };
 
 
-
-
-
-
-
-
-
 export type ShapeComponent = View
     // Base Modifiers
     & CoreModifiers<ShapeComponent>
     & TopBarModifiers<ShapeComponent>
     & AbsoluteModifiers<TextComponent>
-    & {
-};
+    & {};
 
 export type CircleComponent = View
     // Base Modifiers
     & CoreModifiers<CircleComponent>
     & TopBarModifiers<CircleComponent>
     & AbsoluteModifiers<TextComponent>
-    & {
-};
+    & {};
 
 export type SwitchComponent = View
     // Base Modifiers

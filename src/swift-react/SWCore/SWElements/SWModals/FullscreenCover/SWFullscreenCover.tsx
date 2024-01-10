@@ -3,33 +3,33 @@ import {FullscreenCoverComponent} from "../../../SWTypes/Components";
 import {SWView} from "../../SWElements";
 
 export const SWFullScreenCover: React.FC<{ view: FullscreenCoverComponent }> = React.memo(
-    ({ view }) => {
-    if (!view.show) {
-        return null;
-    }
+    ({view}) => {
+        if (!view.show) {
+            return null;
+        }
 
-    const defaultStyle: React.CSSProperties = {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        zIndex: 1000,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        animation: 'slideIn 0.3s ease-out',
-    };
+        const defaultStyle: React.CSSProperties = {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            zIndex: 1000,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            animation: 'slideIn 0.3s ease-out',
+        };
 
-    view.style = {
-        ...defaultStyle,
-        ...view.style,
-    }
+        view.style = {
+            ...defaultStyle,
+            ...view.style,
+        }
 
-    return (
-        <SWView view={view}>
+        return (
+            <SWView view={view}>
                 <div style={{
                     maxHeight: '100%',
                     overflowY: 'auto',
@@ -48,6 +48,6 @@ export const SWFullScreenCover: React.FC<{ view: FullscreenCoverComponent }> = R
                         Hide
                     </button>
                 </div>
-        </SWView>
-    );
-});
+            </SWView>
+        );
+    });

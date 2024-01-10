@@ -104,7 +104,7 @@ export type TruncationModeModifier<T> = (mode: 'clip' | 'ellipsis') => T;
 
 export type SetId<T> = (id: string) => T;
 export type SetKey<T> = (key: string) => T;
-export type SetRef<T> = (ref:  RefObject<HTMLDivElement>) => T;
+export type SetRef<T> = (ref: RefObject<HTMLDivElement>) => T;
 export type SetClassName<T> = (classNames: string[]) => T;
 
 export type DebugBorder<T> = (color?: Color) => T;
@@ -199,11 +199,11 @@ function applyCSSModifier<T extends View>(view: T, property: keyof typeof view.s
 
 export const coreModifiers = {
 
-    userSelect: function<T extends View>(this: T, userSelect: string): T {
+    userSelect: function <T extends View>(this: T, userSelect: string): T {
         return applyCSSModifier(this, 'userSelect', userSelect);
     },
 
-    debugBorder: function<T extends View>(this: T, color?: Color): T {
+    debugBorder: function <T extends View>(this: T, color?: Color): T {
 
         // Evaluate width, style, and color
         const width: string = "4px";
@@ -214,64 +214,64 @@ export const coreModifiers = {
         return applyCSSModifier(this, 'border', `${width} ${style} ${c}`);
     },
 
-    setClassName: function<T extends View>(this: T, classNames: string[]): T {
+    setClassName: function <T extends View>(this: T, classNames: string[]): T {
         this.classNames = classNames;
         return this;
     },
 
-    backgroundBlur: function<T extends View>(this: T, blurRadius: number): T {
+    backgroundBlur: function <T extends View>(this: T, blurRadius: number): T {
         return applyCSSModifier(this, 'backdropFilter', `blur(${blurRadius}px)`);
     },
 
-    setId: function<T extends View>(this: T, id: string): T {
-      this.id = id;
-      return this;
+    setId: function <T extends View>(this: T, id: string): T {
+        this.id = id;
+        return this;
     },
 
-    setKey: function<T extends View>(this: T, key: string): T {
+    setKey: function <T extends View>(this: T, key: string): T {
         this.key = key;
         return this;
     },
 
-    setRef: function<T extends View>(this: T, ref: RefObject<HTMLDivElement>): T {
+    setRef: function <T extends View>(this: T, ref: RefObject<HTMLDivElement>): T {
         this.ref = ref;
         return this;
     },
 
-    setAriaLabel: function<T extends View>(this: T, ariaLabel: string): T {
+    setAriaLabel: function <T extends View>(this: T, ariaLabel: string): T {
         this.ariaLabel = ariaLabel;
         return this;
     },
 
-    takeEvenSpace: function<T extends View>(this: T): T {
-        applyCSSModifier(this,'flexGrow', "0");
-        applyCSSModifier(this,'flexShrink', "0");
-        applyCSSModifier(this,'flexBasis', "auto");
-        applyCSSModifier(this,'textAlign', "center");
+    takeEvenSpace: function <T extends View>(this: T): T {
+        applyCSSModifier(this, 'flexGrow', "0");
+        applyCSSModifier(this, 'flexShrink', "0");
+        applyCSSModifier(this, 'flexBasis', "auto");
+        applyCSSModifier(this, 'textAlign', "center");
         return this;
     },
 
-    onClick: function<T extends View>(this: T, handler: () => void): T {
+    onClick: function <T extends View>(this: T, handler: () => void): T {
         this.events.onClick = handler;
 
-     //   console.log(handler);
+        //   console.log(handler);
 
-     //   console.log(this.events);
+        //   console.log(this.events);
 
         return this;
     },
 
-    onMouseEnter: function<T extends View>(this: T, handler: () => void): T {
+    onMouseEnter: function <T extends View>(this: T, handler: () => void): T {
         this.events.onMouseEnter = handler;
         return this;
     },
 
-    onMouseLeave: function<T extends View>(this: T, handler: () => void): T {
+    onMouseLeave: function <T extends View>(this: T, handler: () => void): T {
         this.events.onMouseLeave = handler;
         return this;
     },
 
-    foregroundStyle: function<T extends View>(this: T, colorOrGradient: SWColor): T {
+    foregroundStyle: function <T extends View>(this: T, colorOrGradient: SWColor): T {
         const c: Color | Gradient = evaluateSWColor(colorOrGradient);
 
         const cssValue: string = c.toString();
@@ -284,9 +284,9 @@ export const coreModifiers = {
             applyCSSModifier(this, 'color', 'transparent'); // Fallback for other browsers
 
             applyCSSModifier(this, 'WebkitBackgroundClip', 'text');
-            applyCSSModifier(this,'MozBackgroundClip', 'text');
-            applyCSSModifier(this,'WebkitTextFillColor', 'transparent');
-            applyCSSModifier(this,'MozTextFillColor', 'transparent');
+            applyCSSModifier(this, 'MozBackgroundClip', 'text');
+            applyCSSModifier(this, 'WebkitTextFillColor', 'transparent');
+            applyCSSModifier(this, 'MozTextFillColor', 'transparent');
 
             return this;
 
@@ -296,7 +296,7 @@ export const coreModifiers = {
         }
     },
 
-    mask: function<T extends View>(this: T, mask: ShapeComponent): T {
+    mask: function <T extends View>(this: T, mask: ShapeComponent): T {
         // Assuming `mask` is a View with its own style that defines the masking effect,
         // such as using 'clip-path', 'mask-image', or similar CSS properties.
         // Assuming mask is a RoundedRectangle with a borderRadius property
@@ -314,7 +314,7 @@ export const coreModifiers = {
     },
 
 
-    background: function<T extends View>(this: T, bg: SWColor | View): T {
+    background: function <T extends View>(this: T, bg: SWColor | View): T {
 
         if (bg instanceof Color) {
             const c: Color | Gradient = evaluateSWColor(bg)
@@ -337,18 +337,18 @@ export const coreModifiers = {
 
     },
 
-    margin: function<T extends View>(this: T, edgeInsets: SWEdgeInsets): T {
+    margin: function <T extends View>(this: T, edgeInsets: SWEdgeInsets): T {
         const marginValue: string = evaluateSWEdgeInsets(edgeInsets);
 
         // Apply css styling
         return applyCSSModifier(this, 'margin', marginValue);
     },
 
-    cursor : function<T extends View>(this: T, cursorType: string): T {
+    cursor: function <T extends View>(this: T, cursorType: string): T {
         return applyCSSModifier(this, 'cursor', cursorType);
     },
 
-    padding: function<T extends View>(this: T, edgeInsets: SWEdgeInsets): T {
+    padding: function <T extends View>(this: T, edgeInsets: SWEdgeInsets): T {
 
         // Get css representation
         const paddingValue: string = evaluateSWEdgeInsets(edgeInsets);
@@ -358,7 +358,7 @@ export const coreModifiers = {
     },
 
 
-    frame: function<T extends View>(this: T, SWSize : SWSize): T {
+    frame: function <T extends View>(this: T, SWSize: SWSize): T {
 
         // Evaluate edgeInsets (function or value)
         const evaluatedSwSize: SWSize = evaluate(SWSize);
@@ -374,7 +374,7 @@ export const coreModifiers = {
         return this;
     },
 
-    border: function<T extends View>(this: T, SWBorder: SWBorder): T {
+    border: function <T extends View>(this: T, SWBorder: SWBorder): T {
 
         // Evaluate border (function or value)
         const evaluatedSWBorder: SWBorder = evaluate(SWBorder);
@@ -393,19 +393,19 @@ export const coreModifiers = {
 
     // TODO : Implement on reload function capabilities for modifiers below (AKA,  SW...)
 
-    opacity: function<T extends View>(this: T, opacityValue: number): T {
+    opacity: function <T extends View>(this: T, opacityValue: number): T {
         return applyCSSModifier(this, 'opacity', `${opacityValue}`);
     },
 
-    rotationEffect: function<T extends View>(this: T, angle: string): T {
+    rotationEffect: function <T extends View>(this: T, angle: string): T {
         return applyCSSModifier(this, 'transform', `rotate(${angle})`);
     },
 
-    clipShape: function<T extends View>(this: T, radius: string): T {
+    clipShape: function <T extends View>(this: T, radius: string): T {
         return applyCSSModifier(this, 'borderRadius', radius);
     },
 
-    overlay: function<T extends View>(this: T, overlayView: View): T {
+    overlay: function <T extends View>(this: T, overlayView: View): T {
         // This one is a bit more complex as it involves positioning another view over the current one.
         // You might need to adjust the current view's position to 'relative' and the overlayView's position to 'absolute'.
         // Then, you can adjust the top, left, right, and bottom properties of the overlayView to position it correctly.
@@ -419,32 +419,32 @@ export const coreModifiers = {
         return this; // This might need further adjustments to actually "overlay" the view.
     },
 
-    scaleEffect: function<T extends View>(this: T, scaleFactor: number): T {
+    scaleEffect: function <T extends View>(this: T, scaleFactor: number): T {
         return applyCSSModifier(this, 'transform', `scale(${scaleFactor})`);
     },
 
-    shadow: function<T extends View>(this: T, offsetX: number, offsetY: number, blurRadius: number, color: string): T {
+    shadow: function <T extends View>(this: T, offsetX: number, offsetY: number, blurRadius: number, color: string): T {
         return applyCSSModifier(this, 'boxShadow', `${offsetX}px ${offsetY}px ${blurRadius}px ${color}`);
     },
 
-    zIndex: function<T extends View>(this: T, zValue: number): T {
+    zIndex: function <T extends View>(this: T, zValue: number): T {
         return applyCSSModifier(this, 'zIndex', `${zValue}`);
     },
 
-    offset: function<T extends View>(this: T, x: string, y: string): T {
+    offset: function <T extends View>(this: T, x: string, y: string): T {
         return applyCSSModifier(this, 'transform', `translate(${x}, ${y})`);
     },
 
-    blendMode: function<T extends View>(this: T, blendMode: string): T {
+    blendMode: function <T extends View>(this: T, blendMode: string): T {
         return applyCSSModifier(this, 'mixBlendMode', blendMode);
     },
 
-    allowsHitTesting: function<T extends View>(this: T, hit: boolean): T {
+    allowsHitTesting: function <T extends View>(this: T, hit: boolean): T {
         return applyCSSModifier(this, 'pointerEvents', hit ? 'auto' : 'none');
     },
 
     // TO DO : Need refinements
-    edgesIgnoringSafeArea: function<T extends View>(this: T): T {
+    edgesIgnoringSafeArea: function <T extends View>(this: T): T {
         this.style.position = 'absolute';
         this.style.top = '0';
         this.style.right = '0';
@@ -454,17 +454,17 @@ export const coreModifiers = {
     },
 
     // TO DO : Not working
-    flipsForRightToLeftLayoutDirection: function<T extends View>(this: T): T {
+    flipsForRightToLeftLayoutDirection: function <T extends View>(this: T): T {
         return applyCSSModifier(this, 'direction', 'rtl');
     },
 
-    focusable: function<T extends View>(this: T, canFocus: boolean): T {
+    focusable: function <T extends View>(this: T, canFocus: boolean): T {
         return applyCSSModifier(this, 'tabindex', canFocus ? '0' : '-1');
     },
 
 
     // TO DO : Need refinements
-    position: function<T extends View>(this: T, x: number, y: number): T {
+    position: function <T extends View>(this: T, x: number, y: number): T {
         this.style.position = 'absolute';
         this.style.transform = `translate(-50%, -50%)`;
         this.style.top = `${y}%`;
@@ -473,43 +473,43 @@ export const coreModifiers = {
     },
 
     // TO DO : Need testing
-    clipped: function<T extends View>(this: T): T {
+    clipped: function <T extends View>(this: T): T {
         return applyCSSModifier(this, 'overflow', 'hidden');
     },
 
-    saturation: function<T extends View>(this: T, amount: number): T {
+    saturation: function <T extends View>(this: T, amount: number): T {
         return applyCSSModifier(this, 'filter', `saturate(${amount}%)`);
     },
 
-    brightness: function<T extends View>(this: T, amount: number): T {
+    brightness: function <T extends View>(this: T, amount: number): T {
         return applyCSSModifier(this, 'filter', `brightness(${amount}%)`);
     },
 
-    contrast: function<T extends View>(this: T, amount: number): T {
+    contrast: function <T extends View>(this: T, amount: number): T {
         return applyCSSModifier(this, 'filter', `contrast(${amount}%)`);
     },
 
-    blur: function<T extends View>(this: T, amount: number): T {
+    blur: function <T extends View>(this: T, amount: number): T {
         return applyCSSModifier(this, 'filter', `blur(${amount}px)`);
     },
 
-    aspectRatio: function<T extends View>(this: T, ratio: number): T {
+    aspectRatio: function <T extends View>(this: T, ratio: number): T {
         // This is a simplification. You might need to adjust the width or height based on the parent container.
         return applyCSSModifier(this, 'aspectRatio', `${ratio}`);
     },
 
-    font: function<T extends View>(this: T, fontFamily: string, fontSize: string): T {
+    font: function <T extends View>(this: T, fontFamily: string, fontSize: string): T {
         applyCSSModifier(this, 'fontFamily', fontFamily);
         return applyCSSModifier(this, 'fontSize', fontSize);
     },
 
-    hidden: function<T extends View>(this: T, isHidden: boolean): T {
+    hidden: function <T extends View>(this: T, isHidden: boolean): T {
         return applyCSSModifier(this, 'display', isHidden ? 'none' : 'block');
     },
 
-    keyboardShortcut: function<T extends View>(this: T, key: string, action: () => void): T {
+    keyboardShortcut: function <T extends View>(this: T, key: string, action: () => void): T {
         // Attach the event listener
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === key) {
                 action();
             }
@@ -518,7 +518,7 @@ export const coreModifiers = {
         return this;
     },
 
-    hoverEffect: function<T extends View>(this: T, effectType: HoverEffectType = 'default'): T {
+    hoverEffect: function <T extends View>(this: T, effectType: HoverEffectType = 'default'): T {
         const applyEffect = () => {
             switch (effectType) {
                 case 'default':
@@ -545,7 +545,7 @@ export const coreModifiers = {
         };
 
         // Assuming you have a method to add event listeners to your view
-        this.events.onMouseEnter =  applyEffect;
+        this.events.onMouseEnter = applyEffect;
         this.events.onMouseLeave = removeEffect;
 
         console.log(this.events)
@@ -553,18 +553,18 @@ export const coreModifiers = {
         return this;
     },
 
-    custom: function<T extends View>(this: T, customStyles: Record<string, string>): T {
+    custom: function <T extends View>(this: T, customStyles: Record<string, string>): T {
         for (const [key, value] of Object.entries(customStyles)) {
             this.style[key] = value;
         }
         return this;
     },
 
-    multilineTextAlignment: function<T extends View>(this: T, alignment: 'left' | 'center' | 'right' | 'justify'): T {
+    multilineTextAlignment: function <T extends View>(this: T, alignment: 'left' | 'center' | 'right' | 'justify'): T {
         return applyCSSModifier(this, 'textAlign', alignment);
     },
 
-    onDrag: function<T extends View>(this: T, dragData: string): T {
+    onDrag: function <T extends View>(this: T, dragData: string): T {
         this.properties.draggable = 'true';
         this.events.dragStart = (event) => {
             event.dataTransfer.setData('text/plain', dragData);
@@ -573,7 +573,7 @@ export const coreModifiers = {
     },
 
 
-    onDrop: function<T extends View>(this: T, dropCallback: (droppedData: string) => void): T {
+    onDrop: function <T extends View>(this: T, dropCallback: (droppedData: string) => void): T {
         this.events.drop = (event) => {
             event.preventDefault();
             const data = event.dataTransfer.getData('text/plain');
@@ -584,9 +584,9 @@ export const coreModifiers = {
         return this;
     },
 
-    onRotate: function<T extends View>(this: T, rotateCallback: (rotationAngle: number) => void): T {
+    onRotate: function <T extends View>(this: T, rotateCallback: (rotationAngle: number) => void): T {
         let initialAngle = 0;
-        this.events.onTouchStart =(event) => {
+        this.events.onTouchStart = (event) => {
             if (event.touches.length === 2) {
                 initialAngle = Math.atan2(event.touches[1].clientY - event.touches[0].clientY, event.touches[1].clientX - event.touches[0].clientX) * (180 / Math.PI);
             }
@@ -603,17 +603,17 @@ export const coreModifiers = {
         return this;
     },
 
-    onTouchStart: function<T extends View>(this: T, onTouchStartCallback: (event: any) => void): T {
+    onTouchStart: function <T extends View>(this: T, onTouchStartCallback: (event: any) => void): T {
         this.events.onTouchStart = onTouchStartCallback;
         return this;
     },
 
-    onTouchEnd: function<T extends View>(this: T, onTouchEndCallback: (event: any) => void): T {
+    onTouchEnd: function <T extends View>(this: T, onTouchEndCallback: (event: any) => void): T {
         this.events.onTouchEnd = onTouchEndCallback;
         return this;
     },
 
-    onScale: function<T extends View>(this: T, scaleCallback: (scaleFactor: number) => void): T {
+    onScale: function <T extends View>(this: T, scaleCallback: (scaleFactor: number) => void): T {
         let initialDistance = 0;
         this.events.onTouchStart = (event) => {
             if (event.touches.length === 2) {
@@ -621,7 +621,7 @@ export const coreModifiers = {
             }
         };
 
-        this.events.touchMove =  (event) => {
+        this.events.touchMove = (event) => {
             if (event.touches.length === 2) {
                 const distance = Math.hypot(event.touches[1].clientX - event.touches[0].clientX, event.touches[1].clientY - event.touches[0].clientY);
                 const scaleFactor = distance / initialDistance;
@@ -632,29 +632,29 @@ export const coreModifiers = {
         return this;
     },
 
-    preferredContentSizeCategory: function<T extends View>(this: T, fontSize: string): T {
+    preferredContentSizeCategory: function <T extends View>(this: T, fontSize: string): T {
         return applyCSSModifier(this, 'fontSize', fontSize);
     },
 
-    rotation3DEffect: function<T extends View>(this: T, angle: string, x: number, y: number, z: number): T {
+    rotation3DEffect: function <T extends View>(this: T, angle: string, x: number, y: number, z: number): T {
         return applyCSSModifier(this, 'transform', `rotate3d(${x}, ${y}, ${z}, ${angle})`);
     },
 
-    tag: function<T extends View>(this: T, tagValue: string): T {
+    tag: function <T extends View>(this: T, tagValue: string): T {
         this.properties.dataTag = tagValue;
         return this;
     },
 
-    textCase: function<T extends View>(this: T, textCase: 'uppercase' | 'lowercase' | 'capitalize'): T {
+    textCase: function <T extends View>(this: T, textCase: 'uppercase' | 'lowercase' | 'capitalize'): T {
         return applyCSSModifier(this, 'textTransform', textCase);
     },
 
-    textContentType: function<T extends View>(this: T, contentType: string): T {
-        this.properties.autocomplete =  contentType;
+    textContentType: function <T extends View>(this: T, contentType: string): T {
+        this.properties.autocomplete = contentType;
         return this;
     },
 
-    truncationMode: function<T extends View>(this: T, mode: 'clip' | 'ellipsis'): T {
+    truncationMode: function <T extends View>(this: T, mode: 'clip' | 'ellipsis'): T {
         if (mode === 'ellipsis') {
             applyCSSModifier(this, 'whiteSpace', 'nowrap');
             applyCSSModifier(this, 'overflow', 'hidden');
@@ -685,7 +685,7 @@ const evaluateSWEdgeInsets = (edgeInsets: SWEdgeInsets) => {
 const evaluateSWColor = (color: SWColor): Color | Gradient => {
 
     // Evaluate SWColor (function or value)
-    const evaluatedColor: Color | Gradient  = evaluate(color);
+    const evaluatedColor: Color | Gradient = evaluate(color);
 
     return evaluatedColor;
 }

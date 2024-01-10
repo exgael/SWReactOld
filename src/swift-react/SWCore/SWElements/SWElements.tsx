@@ -2,16 +2,21 @@ import React, {FC, ReactElement} from "react";
 import View from "../SWTypes/View";
 
 import {
-    ButtonComponent, ForEachComponent, ShapeComponent, ScreenComponent,
+    ButtonComponent,
+    ForEachComponent,
+    InputComponent,
+    ScreenComponent,
+    ScrollViewComponent,
+    ShapeComponent,
     StackComponent,
-    TextComponent, ScrollViewComponent, InputComponent
+    TextComponent
 } from "../SWTypes/Components";
 import {useTranslation} from "react-i18next";
 import {useTheme} from "../SWProvider/useTheme";
 
 
 export const SWSpacer: React.FC<{ view: View }> = React.memo(
-    ({ view }) => (
+    ({view}) => (
         <div style={view.style} {...view.events} />
     )
 );
@@ -23,10 +28,10 @@ export const SWSpacer: React.FC<{ view: View }> = React.memo(
  * @param {ShapeComponent} view - The RoundedRectangleComponent object containing style, events, and cornerRadius.
  */
 export const SWRoundedRectangle: React.FC<{ view: ShapeComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
         // Define rounded rectangle-specific styles or event overrides here
-        const roundedRectangleStyle =  { /* ... */ };
-        const roundedRectangleEvents = { /* ... */ };
+        const roundedRectangleStyle = { /* ... */};
+        const roundedRectangleEvents = { /* ... */};
         return (
             <SWView
                 view={view}
@@ -45,16 +50,16 @@ export const SWRoundedRectangle: React.FC<{ view: ShapeComponent }> = React.memo
  * @param {ForEachComponent} view - The ForEachComponent object containing data, viewBuilder, style, and events.
  */
 export const SWForEach: React.FC<{ view: ForEachComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
         // Define foreach-specific styles or event overrides here
-        const foreachStyle =  { /* ... */ };
-        const foreachEvents = { /* ... */ };
+        const foreachStyle = { /* ... */};
+        const foreachEvents = { /* ... */};
 
         return (
             <SWView view={view} overrideStyles={foreachStyle} overrideEvents={foreachEvents}>
                 {view.data && view.data.map((item: any, index: number) => (
                     <div key={generateObjectHash(item + index)}>
-                        {view.viewBuilder(item, index).toJSX()} { /* Render each item using the viewBuilder */ }
+                        {view.viewBuilder(item, index).toJSX()} { /* Render each item using the viewBuilder */}
                     </div>
                 ))}
             </SWView>
@@ -66,8 +71,8 @@ export const SWForEach: React.FC<{ view: ForEachComponent }> = React.memo(
  * SWScreen renders a screen of components made of ReactElement and View within a ReactElement.
  */
 export const SWScreen: React.FC<{ view: ScreenComponent }> = React.memo(
-    ({ view }) => (
-        <div style={{ ...view.style, position: 'relative' }} {...view.events}>
+    ({view}) => (
+        <div style={{...view.style, position: 'relative'}} {...view.events}>
             {view.children && view.children.map((child, index) => {
 
                 // undefined check
@@ -102,9 +107,9 @@ export const SWScreen: React.FC<{ view: ScreenComponent }> = React.memo(
  * @param {ScrollViewComponent} view - The ScrollViewComponent object containing children and styles.
  */
 export const SWScrollView: React.FC<{ view: ScrollViewComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
         return (
-            <div style={{ ...view.style }}>
+            <div style={{...view.style}}>
                 {view.children && view.children.map((child: View, index: number) => {
                     return <div key={`scroll-item-${generateObjectHash(child, index)}`}>{child.toJSX()}</div>;
                 })}
@@ -120,16 +125,16 @@ export const SWScrollView: React.FC<{ view: ScrollViewComponent }> = React.memo(
  * @param {StackComponent} view - The StackComponent object containing children, style, and events.
  */
 export const SZStack: React.FC<{ view: StackComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
 
         // Define stack-specific styles or event overrides here
-        const stackStyle =  { /* ... */ };
-        const stackEvents = { /* ... */ };
+        const stackStyle = { /* ... */};
+        const stackEvents = { /* ... */};
 
         return (
             <SWView view={view} overrideStyles={stackStyle} overrideEvents={stackEvents}>
                 {view.children && view.children.map((child: View, index: number) => (
-                    <div key={generateObjectHash(child)} style={{ position: 'absolute' }}>
+                    <div key={generateObjectHash(child)} style={{position: 'absolute'}}>
                         {child.toJSX()}
                     </div>
                 ))}
@@ -145,20 +150,21 @@ export const SZStack: React.FC<{ view: StackComponent }> = React.memo(
  * @param {StackComponent} view - The StackComponent object containing children, style, and events.
  */
 export const SWStack: React.FC<{ view: StackComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
 
         // Define stack-specific styles or event overrides here
-        const stackStyle =  { /* ... */ };
-        const stackEvents = { /* ... */ };
+        const stackStyle = { /* ... */};
+        const stackEvents = { /* ... */};
 
         return (
             <SWView view={view} overrideStyles={stackStyle} overrideEvents={stackEvents}>
                 {view.children && view.children.map((child: View, index: number) => {
                     return (
-                    <div key={generateObjectHash(child, index)}>
-                        {child.toJSX()}
-                    </div>
-                )})}
+                        <div key={generateObjectHash(child, index)}>
+                            {child.toJSX()}
+                        </div>
+                    )
+                })}
             </SWView>
         )
     }
@@ -170,20 +176,20 @@ export const SWStack: React.FC<{ view: StackComponent }> = React.memo(
  * @param {ButtonComponent} view - The ButtonComponent object containing style, events, action, and label.
  */
 export const SWButton: React.FC<{ view: ButtonComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
 
         // Define button-specific styles or event overrides here
-        const buttonStyle =  { /* ... */ };
-        const buttonEvents = { /* ... */ };
+        const buttonStyle = { /* ... */};
+        const buttonEvents = { /* ... */};
 
         return (
             <SWView view={view} overrideStyles={buttonStyle} overrideEvents={buttonEvents}>
                 <button
                     onClick={view.action} // COMPONENT SPECIFIC PROPERTY
                 >
-                    {view.label.toJSX()} {/* COMPONENT SPECIFIC PROPERTY */ }
+                    {view.label.toJSX()} {/* COMPONENT SPECIFIC PROPERTY */}
                 </button>
-            </SWView >
+            </SWView>
         )
     }
 );
@@ -194,11 +200,11 @@ export const SWButton: React.FC<{ view: ButtonComponent }> = React.memo(
  * @param {InputComponent} view - The InputComponent object containing style, events, and placeholder.
  */
 export const SWInput: React.FC<{ view: InputComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
 
         // Define input-specific styles or event overrides here
-        const inputStyle =  { /* ... */ };
-        const inputEvents = { /* ... */ };
+        const inputStyle = { /* ... */};
+        const inputEvents = { /* ... */};
 
         return (
             <SWView view={view} overrideStyles={inputStyle} overrideEvents={inputEvents}>
@@ -217,20 +223,24 @@ export const SWInput: React.FC<{ view: InputComponent }> = React.memo(
  * @param {TextComponent} view - The TextComponent object containing text, style, and events.
  */
 export const SWText: React.FC<{ view: TextComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
 
-        const { themeColors } = useTheme();
+        const {themeColors} = useTheme();
+
+        if (!view.style.color) {
+            view.style.color = themeColors.primaryText;
+        }
 
         // Define text-specific styles or event overrides here
-        const textStyle =  { color: themeColors?.primaryText };
-        const textEvents = { /* ... */ };
+        const textStyle = { /* ... */};
+        const textEvents = { /* ... */};
 
-        const { t } = useTranslation()
+        const {t} = useTranslation()
 
         return (
             <SWView view={view} overrideStyles={textStyle} overrideEvents={textEvents}>
                 <span>
-                    {view.isLocal ? t(view.text) : view.text} {/* COMPONENT SPECIFIC PROPERTY */ }
+                    {view.isLocal ? t(view.text) : view.text} {/* COMPONENT SPECIFIC PROPERTY */}
                 </span>
             </SWView>
         )
@@ -257,7 +267,7 @@ export const SWView: React.FC<{
          view,
          children,
          overrideStyles = {},
-         overrideEvents= {}
+         overrideEvents = {}
      }) => (
 
         <SWBackgroundWrapper view={view}>
@@ -266,14 +276,14 @@ export const SWView: React.FC<{
                 key={view.key}
                 ref={view.ref}
                 className={view.classNames?.join(' ')}
-                style={{...view.style, ...overrideStyles }} {...view.events} {...overrideEvents}>
+                style={{...view.style, ...overrideStyles}} {...view.events} {...overrideEvents}>
                 {children}
             </div>
         </SWBackgroundWrapper>
     )
 );
 
-export function SWReactElement(component: View, template: View ): ReactElement {
+export function SWReactElement(component: View, template: View): ReactElement {
     return (
         <SWView view={component}>
             {template.toJSX()}
@@ -291,13 +301,12 @@ export function SWReactElement(component: View, template: View ): ReactElement {
 const SWBackgroundWrapper: FC<{
     view: View,
     children: React.ReactNode,
-}> = React.memo(({ view, children }) => {
-
+}> = React.memo(({view, children}) => {
 
 
     const RenderBackground: FC = () => {
         if (view.background?.toJSX) {
-            const backgroundPlacement: React.CSSProperties  = {
+            const backgroundPlacement: React.CSSProperties = {
                 position: 'absolute',
                 top: 0,
                 left: 0,
@@ -324,8 +333,8 @@ const SWBackgroundWrapper: FC<{
     }
 
     return (
-        <div style={{ position: 'relative', width:"100%", height:"100%" }}>
-            <RenderBackground />
+        <div style={{position: 'relative', width: "100%", height: "100%"}}>
+            <RenderBackground/>
             {children}
         </div>
     );

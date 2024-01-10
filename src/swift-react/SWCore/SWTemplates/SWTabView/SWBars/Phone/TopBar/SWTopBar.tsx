@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import { View, Color } from '../../../../../SWTypes';
+import {Color, View} from '../../../../../SWTypes';
 import {HStack, LargeTitle, RoundedRectangle, Text, Title} from "../../../../../../components";
 import {useNavigationStack} from "../../../../../SWProvider/NavigationStack/NavigationStackContext";
 import {ChevronBack} from "../../../../../../components/icons/chevrons";
@@ -7,20 +7,20 @@ import {withAnimation} from "../../../../../../components/animation/withAnimatio
 import {SWView} from "../../../../../SWElements/SWElements";
 
 const fadeInOutAnimation = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.5 }
+    initial: {opacity: 0},
+    animate: {opacity: 1},
+    exit: {opacity: 0},
+    transition: {duration: 0.5}
 };
 
 const largeTitleAnimation = {
-    initial: { opacity: 1 },
-    animate: { opacity: 0 }, // Adjust values as needed
-    exit: { opacity: 0 },
-    transition: { duration: 0.3 }
+    initial: {opacity: 1},
+    animate: {opacity: 0}, // Adjust values as needed
+    exit: {opacity: 0},
+    transition: {duration: 0.3}
 };
 
-export const SWTopBar: FC<{ view: View }> =({ view }) => {
+export const SWTopBar: FC<{ view: View }> = ({view}) => {
 
     const {
         canPop,
@@ -56,7 +56,12 @@ export const SWTopBar: FC<{ view: View }> =({ view }) => {
             Trailing()
         )
             .mainAxisAlignment("space-around")
-            .border({color: Color.rgba(150, 150, 150, isLargeTitleHidden ? 0.3 : 0), style: "solid", width:  "0.1px", side: "bottom"})
+            .border({
+                color: Color.rgba(150, 150, 150, isLargeTitleHidden ? 0.3 : 0),
+                style: "solid",
+                width: "0.1px",
+                side: "bottom"
+            })
             .crossAxisAlignment("flex-end")
     )
 
@@ -128,14 +133,15 @@ function NavigationTitle(title: string) {
         .foregroundStyle(Color.black)
         .textAlign("center")
         .fontSize("1rem")
-        .padding({bottom:"1vh"})
+        .padding({bottom: "1vh"})
 }
 
 function Leading(canPop: boolean, previousStackItem: any, pop: any) {
     return (
         canPop ? (
             HStack(
-                ChevronBack(() => {})
+                ChevronBack(() => {
+                })
                     .scaleEffect(1.8)
                 ,
                 Text(previousStackItem?.title || "")
@@ -144,7 +150,7 @@ function Leading(canPop: boolean, previousStackItem: any, pop: any) {
                 .mainAxisAlignment("flex-start")
                 .crossAxisAlignment("center")
                 .frame({width: `${100 / 3}vw`, height: "100%"})
-                .padding({ left: "3vw", bottom: "0.5vh"})
+                .padding({left: "3vw", bottom: "0.5vh"})
                 .foregroundStyle(Color.blue)
                 .onClick(() => {
                     pop();

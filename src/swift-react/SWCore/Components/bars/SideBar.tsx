@@ -6,7 +6,11 @@ import {SWSideBar} from "../../SWTemplates/SWTabView/SWBars/UserFlowBar/SWSideBa
 
 export function SideBar(): BarComponent {
     return createComponent<BarComponent>(
-        { toJSX: function() { return (<SWSideBar view={this as View} />); } },
+        {
+            toJSX: function () {
+                return (<SWSideBar view={this as View}/>);
+            }
+        },
         {
             style: {
                 boxSizing: "border-box",

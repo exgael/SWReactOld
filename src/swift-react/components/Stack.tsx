@@ -8,8 +8,8 @@ import React from "react";
 export function ZStack(...children: View[]): StackComponent {
     return createComponent<StackComponent>(
         {
-            toJSX: function() {
-                return <SZStack view={this as StackComponent} />;
+            toJSX: function () {
+                return <SZStack view={this as StackComponent}/>;
             }
         },
 
@@ -47,21 +47,25 @@ type StackOptions = {
 
 export function VStack(...children: View[]): StackComponent;
 export function VStack(...args: any[]): any {
-    const defaultOptions = { alignment: 'center', gap: '0px' };
+    const defaultOptions = {alignment: 'center', gap: '0px'};
     return createStack('column', defaultOptions as StackOptions)(...args as View[]);
 }
 
 export function HStack(...children: View[]): StackComponent;
 export function HStack(...args: any[]): any {
     // Use default options if only children are provided
-    const defaultOptions = { alignment: 'center', gap: '0px' };
+    const defaultOptions = {alignment: 'center', gap: '0px'};
     return createStack('row', defaultOptions as StackOptions)(...args as View[]);
 }
 
-export const Spacer = ({ flexGrow = 1, flexShrink = 1, flexBasis = 'auto' } = {}): SpacerComponent => createComponent<SpacerComponent>(
+export const Spacer = ({
+                           flexGrow = 1,
+                           flexShrink = 1,
+                           flexBasis = 'auto'
+                       } = {}): SpacerComponent => createComponent<SpacerComponent>(
     {
-        toJSX: function() {
-            return <SWSpacer view={this as SpacerComponent} />;
+        toJSX: function () {
+            return <SWSpacer view={this as SpacerComponent}/>;
         }
     },
     {
@@ -75,11 +79,11 @@ export const Spacer = ({ flexGrow = 1, flexShrink = 1, flexBasis = 'auto' } = {}
 
 function createStack(flexDirection: 'row' | 'column', options: StackOptions = {}) {
     return (...children: View[]): StackComponent => {
-        const { alignment = 'center', gap = '0px' } = options;
+        const {alignment = 'center', gap = '0px'} = options;
         return createComponent<StackComponent>(
             {
-                toJSX: function() {
-                    return <SWStack view={this as StackComponent} />;
+                toJSX: function () {
+                    return <SWStack view={this as StackComponent}/>;
                 }
             },
 

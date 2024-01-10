@@ -150,7 +150,7 @@ html, body {
 */
 @media only screen
 and (width: 393px)
-/*and (height: 852px)*/
+    /*and (height: 852px)*/
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
@@ -170,7 +170,7 @@ and (-webkit-device-pixel-ratio: 3) {
 */
 @media only screen
 and (width: 430px)
-/*and (height: 932px)*/
+    /*and (height: 932px)*/
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
@@ -193,7 +193,7 @@ and (-webkit-device-pixel-ratio: 3) {
 */
 @media only screen
 and (width: 390px)
-/*and (height: 844px)*/
+    /*and (height: 844px)*/
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
@@ -214,7 +214,7 @@ and (-webkit-device-pixel-ratio: 3) {
 */
 @media only screen
 and (width: 428px)
-/*and (height: 926px)*/
+    /*and (height: 926px)*/
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
@@ -237,7 +237,7 @@ and (-webkit-device-pixel-ratio: 3) {
 */
 @media only screen
 and (width: 375px)
-/*and (height: 812px)*/
+    /*and (height: 812px)*/
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
@@ -254,7 +254,7 @@ and (-webkit-device-pixel-ratio: 3) {
 */
 @media only screen
 and (width: 414px)
-/*and (height: 896px)*/
+    /*and (height: 896px)*/
 and (-webkit-device-pixel-ratio: 2) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
@@ -271,7 +271,7 @@ and (-webkit-device-pixel-ratio: 2) {
 */
 @media only screen
 and (width: 414px)
-/*and (height: 896px)*/
+    /*and (height: 896px)*/
 and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
@@ -289,7 +289,7 @@ and (-webkit-device-pixel-ratio: 3) {
 */
 @media only screen
 and (width: 375px)
-/*and (height: 667px)*/
+    /*and (height: 667px)*/
 and (-webkit-device-pixel-ratio: 2) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
@@ -301,7 +301,7 @@ and (-webkit-device-pixel-ratio: 2) {
 .navigation-bar {
     /* Positioning */
     position: fixed; /* Ensures the navigation bar is always at the top of the viewport */
-    top: 0 ;
+    top: 0;
     left: 0;
     right: 0;
     z-index: 999; /* Ensures the navigation bar is always on top of other content */
@@ -316,7 +316,7 @@ and (-webkit-device-pixel-ratio: 2) {
 .large-navigation-title {
     /* Positioning */
     position: static; /* Ensures the navigation bar follow page flow */
-    padding-top: calc( var(--navigation-bar-height)); /* Adds padding to avoid overlapping with the status bar */
+    padding-top: calc(var(--navigation-bar-height)); /* Adds padding to avoid overlapping with the status bar */
     padding-left: var(--safe-area-inset-left); /* Ensures title does not underlap the notch */
 
     z-index: 0; /* Ensures the large navigation title fits in the flow */
@@ -329,7 +329,7 @@ and (-webkit-device-pixel-ratio: 2) {
 
 .tab-bar {
     /* Positioning */
-    position: fixed;  /* Ensures the tab bar is always at the bottom of the viewport */
+    position: fixed; /* Ensures the tab bar is always at the bottom of the viewport */
     bottom: 0;
     left: 0;
     right: 0;
@@ -382,11 +382,9 @@ and (-webkit-device-pixel-ratio: 2) {
  ******************************************************
  */
 .glass, .glassBar {
-    /* Shared Styles */
     background: rgba(248, 247, 242, 0.69);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    /*border: 1px solid rgba(150, 150, 150, 0.4);*/
 }
 
 .no-glass {
@@ -398,4 +396,19 @@ and (-webkit-device-pixel-ratio: 2) {
 .glassBar {
     /* Unique Styles */
     border-radius: 20px;
+}
+
+/* Styles for dark theme */
+@media (prefers-color-scheme: dark) {
+    .glass, .glassBar {
+        background: rgba(30, 30, 30, 0.7); /* Darker color for dark theme */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    .no-glass {
+        /* Shared Styles */
+        background: rgba(30, 30, 30, 0.7);
+        backdrop-filter: blur(20px);
+    }
 }

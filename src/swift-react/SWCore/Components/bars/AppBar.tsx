@@ -6,7 +6,11 @@ import {BarComponent} from "../../SWTypes/Components";
 
 export function AppBar(): BarComponent {
     return createComponent<BarComponent>(
-        { toJSX: function() { return (<SWAppBar view={this as View} />); } },
+        {
+            toJSX: function () {
+                return (<SWAppBar view={this as View}/>);
+            }
+        },
         {
             style: {
                 boxSizing: "border-box",

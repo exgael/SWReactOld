@@ -1,9 +1,10 @@
 import {
-    Section,
     QuickLink,
+    ScrollViewComponent,
+    Section,
     StackComponent,
     TextComponent,
-    ThreePartLayoutComponent, ScrollViewComponent
+    ThreePartLayoutComponent
 } from "../../SWCore/SWTypes/Components";
 import createComponent from "../../SWCore/SWElements/componentFactory";
 import SWDocumentationBySection from "../../SWCore/SWTemplates/SWDocumentation/SWDocumentation";
@@ -13,12 +14,17 @@ export function DocumentationBySection(...views: (StackComponent | ScrollViewCom
     const sections: Section[] = buildNavigationAndQuickLinks(views);
 
     return createComponent<ThreePartLayoutComponent>(
-        { toJSX: function() { return (
-                <SWDocumentationBySection view={this as ThreePartLayoutComponent}/>
-            )}},
-        { sections: sections },
+        {
+            toJSX: function () {
+                return (
+                    <SWDocumentationBySection view={this as ThreePartLayoutComponent}/>
+                )
+            }
+        },
+        {sections: sections},
     );
 }
+
 function buildNavigationAndQuickLinks(views: (StackComponent | ScrollViewComponent)[]): Section[] {
     return views.map(view => {
         if (!view.ariaLabel?.startsWith('Section')) {
@@ -36,7 +42,7 @@ function buildNavigationAndQuickLinks(views: (StackComponent | ScrollViewCompone
                 case 'Subheadline':
                     const val = generateId()
                     child.id = val
-                    quickLinks.push({ id: val, headline: (child as TextComponent).text || '' });
+                    quickLinks.push({id: val, headline: (child as TextComponent).text || ''});
                     break;
             }
         });

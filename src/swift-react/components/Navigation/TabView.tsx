@@ -8,21 +8,29 @@ import {NavigationStackProvider} from "../../SWCore/SWProvider/NavigationStack/N
 
 export function TabView(...tabItems: TabItemComponent[]): TabViewComponent {
     return createComponent<TabViewComponent>(
-        { toJSX: function() { return (
-            <TabViewProvider>
-                <NavigationStackProvider>
-                    <SWTabView view={this as TabViewComponent} />
-                </NavigationStackProvider>
-            </TabViewProvider>
-            )}},
-        { tabItems },
+        {
+            toJSX: function () {
+                return (
+                    <TabViewProvider>
+                        <NavigationStackProvider>
+                            <SWTabView view={this as TabViewComponent}/>
+                        </NavigationStackProvider>
+                    </TabViewProvider>
+                )
+            }
+        },
+        {tabItems},
     )
 }
 
 export function TabItem(view: View): TabItemComponent {
     return createComponent<TabItemComponent>(
-        { toJSX: function() { return (<span> </span>); } },
-        { view },
+        {
+            toJSX: function () {
+                return (<span> </span>);
+            }
+        },
+        {view},
         tabItemModifiers
     )
 }

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, {useState} from 'react';
+import {AnimatePresence, motion} from 'framer-motion';
 import {AnimationComponent} from "../../SWTypes/Components";
 import {SWView} from "../SWElements";
 
 export const SWWithAnimation: React.FC<{ view: AnimationComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
 
         const [isAnimating, setIsAnimating] = useState(true);
         // Define rounded rectangle-specific styles or event overrides here
-        const roundedRectangleStyle =  { /* ... */ };
-        const roundedRectangleEvents = { /* ... */ };
+        const roundedRectangleStyle = { /* ... */};
+        const roundedRectangleEvents = { /* ... */};
         return (
             <SWView
                 view={view as AnimationComponent}

@@ -7,7 +7,7 @@ import PhoneLayout from "./DeviceLayout/PhoneLayout";
 import DesktopLayout from "./DeviceLayout/DesktopLayout";
 import TabletLayout from "./DeviceLayout/TabletLayout";
 import {useTabView} from "./SWTabViewProvider";
-import { motion } from "framer-motion"
+import {motion} from "framer-motion"
 import {useNavigationStack} from "../../SWProvider/NavigationStack/NavigationStackContext";
 
 
@@ -16,10 +16,10 @@ export type TabViewComponent = View & {
 }
 
 export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
 
-        const { activeTabKey, setActiveTabKey, setTabs } =  useTabView();
-        const { stacks, push } = useNavigationStack();
+        const {activeTabKey, setActiveTabKey, setTabs} = useTabView();
+        const {stacks, push} = useNavigationStack();
         const {isPhone, isTablet} = useResponsive();
 
         useEffect(() => {
@@ -38,7 +38,6 @@ export const SWTabView: React.FC<{ view: TabViewComponent }> = React.memo(
             setActiveTabKey(tabInfo[0].key);
 
         }, [view.tabItems, setTabs, setActiveTabKey]);
-
 
 
         // Get the current stack for the active tab
@@ -104,7 +103,7 @@ interface AnimatedRouteProps {
     transitionType: TransitionType;
 }
 
-const AnimatedRoute: React.FC<AnimatedRouteProps> = ({ children, transitionType }) => {
+const AnimatedRoute: React.FC<AnimatedRouteProps> = ({children, transitionType}) => {
     let transition;
 
     switch (transitionType) {
@@ -130,24 +129,24 @@ const AnimatedRoute: React.FC<AnimatedRouteProps> = ({ children, transitionType 
 
 // .transition(.slide)
 const slideTransition = {
-    initial: { x: 100, opacity: 0 },
-    animate: { x: 0, opacity: 1 },
-    exit: { x: -100, opacity: 0 },
-    transition: { duration: 0.5 }
+    initial: {x: 100, opacity: 0},
+    animate: {x: 0, opacity: 1},
+    exit: {x: -100, opacity: 0},
+    transition: {duration: 0.5}
 };
 
 // .transition(.opacity)
 const fadeTransition = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.1 }
+    initial: {opacity: 0},
+    animate: {opacity: 1},
+    exit: {opacity: 0},
+    transition: {duration: 0.1}
 };
 
 //.transition(.scale)
 const scaleTransition = {
-    initial: { scale: 0 },
-    animate: { scale: 1 },
-    exit: { scale: 0 },
-    transition: { duration: 0.4 }
+    initial: {scale: 0},
+    animate: {scale: 1},
+    exit: {scale: 0},
+    transition: {duration: 0.4}
 };

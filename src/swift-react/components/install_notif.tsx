@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 
 export const InstallNotification = () => {
     const [showInstallMessage, setShowInstallMessage] = useState(false);
@@ -21,7 +21,8 @@ export const InstallNotification = () => {
             {showInstallMessage && (
                 <div>
                     {/* Your popup or message for installing the app */}
-                    <p>Install this application on your iOS device: tap the share button and then 'Add to Home Screen'.</p>
+                    <p>Install this application on your iOS device: tap the share button and then 'Add to Home
+                        Screen'.</p>
                 </div>
             )}
         </div>

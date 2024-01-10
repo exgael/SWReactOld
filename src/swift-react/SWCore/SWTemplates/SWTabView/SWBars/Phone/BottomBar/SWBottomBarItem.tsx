@@ -14,13 +14,17 @@ type BottomBarItemComponent = View & CoreModifiers<BottomBarItemComponent> & {
 
 export function BottomBarItem(title: string, path: string, icon: ReactElement): BottomBarItemComponent {
     return createComponent<BottomBarItemComponent>(
-        { toJSX: function() { return <SWBottomBarItem view={this as BottomBarItemComponent} />; } },
-        { title: title, path: path, icon: icon },
+        {
+            toJSX: function () {
+                return <SWBottomBarItem view={this as BottomBarItemComponent}/>;
+            }
+        },
+        {title: title, path: path, icon: icon},
     );
 }
 
 export const SWBottomBarItem: React.FC<{ view: BottomBarItemComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
         const itemLayout = VStack(
             BottomBarIcon(view.icon)
             ,
@@ -47,13 +51,18 @@ type BottomBarIconComponent = View
 
 export function BottomBarIcon(icon: ReactElement): BottomBarIconComponent {
     return createComponent<BottomBarIconComponent>(
-        { toJSX: function() { return <SWBottomBarIcon view={this as BottomBarIconComponent} />; } },
-        { icon: icon },
+        {
+            toJSX: function () {
+                return <SWBottomBarIcon view={this as BottomBarIconComponent}/>;
+            }
+        },
+        {icon: icon},
     );
 }
 
 const SWBottomBarIcon: React.FC<{ view: BottomBarIconComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
+
         return (
             <SWView view={view}>
                 {Icon(view.icon).toJSX()}
@@ -69,13 +78,17 @@ type IconComponent = View & {
 
 export function Icon(icon: ReactElement): IconComponent {
     return createComponent<IconComponent>(
-        { toJSX: function() { return <SWIcon view={this as IconComponent} />; } },
-        { icon: icon },
+        {
+            toJSX: function () {
+                return <SWIcon view={this as IconComponent}/>;
+            }
+        },
+        {icon: icon},
     );
 }
 
 const SWIcon: React.FC<{ view: IconComponent }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
         return (
             <SWView view={view}>
                 {view.icon}

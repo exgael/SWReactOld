@@ -6,7 +6,11 @@ import React from "react";
 
 export function NavigationLink(label: View, destination: View, title?: string): NavigationLinkComponent {
     return createComponent<NavigationLinkComponent>(
-        { toJSX: function() { return <SWNavigationLink view={this as NavigationLinkComponent} />; } },
-        { label, destination, title }
+        {
+            toJSX: function () {
+                return <SWNavigationLink view={this as NavigationLinkComponent}/>;
+            }
+        },
+        {label, destination, title}
     );
 }

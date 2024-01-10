@@ -4,25 +4,28 @@ import {Color, View} from "../../../../../SWTypes";
 import {BottomBarItem} from "./SWBottomBarItem";
 import {TabInfo, useTabView} from "../../../SWTabViewProvider";
 import {SWView} from "../../../../../SWElements/SWElements";
+import {useTheme} from "../../../../../SWProvider/useTheme";
 
 
 export const SWBottomBar: React.FC<{ view: View }> = React.memo(
-    ({ view }) => {
-        const { tabs, activeTabKey, setActiveTabKey } = useTabView()
+    ({view}) => {
+        const {tabs, activeTabKey, setActiveTabKey} = useTabView()
+        const {themeColors} = useTheme();
 
-        const items= tabs.map(
+        const items = tabs.map(
             (tab: TabInfo) => {
 
                 // If the current tab matches the key of the item, we want to highlight it
                 const isHighlighted = activeTabKey === tab.key;
 
-                return BottomBarItem(tab.title, tab.key, isHighlighted ? <tab.iconActive size={24}/> : <tab.icon size={24}/>)
+                return BottomBarItem(tab.title, tab.key, isHighlighted ? <tab.iconActive size={24}/> :
+                    <tab.icon size={24}/>)
                     // Frame width is screen width divided by number of items
                     // For equal distribution of items
                     .frame({width: `${100 / tabs.length}vw`, height: "100%"})
 
                     // Setting the background color of the item
-                    .foregroundStyle(isHighlighted ? Color.olive: Color.grey)
+                    .foregroundStyle(isHighlighted ? Color.hex(themeColors.accent) : Color.grey)
 
                     .onTouchEnd(() => {
                         // Navigate to the corresponding tab
@@ -38,7 +41,7 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
 
         // Constructing the BottomBar layout
         const bottomBarLayout = HStack(
-                ...items
+            ...items
         )
             .mainAxisAlignment("space-between")
             .crossAxisAlignment("flex-start")

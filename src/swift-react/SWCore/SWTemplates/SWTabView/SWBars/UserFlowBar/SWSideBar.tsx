@@ -1,16 +1,13 @@
 import React from "react";
 import {NavigationLink, Text, VStack} from "../../../../../components";
 import {Color, View} from "../../../../SWTypes";
-import { useSelector } from 'react-redux';
 import {NavigationLinkComponent} from "../../../../SWTypes/Components";
-import {Destination} from "../../../../SWProvider/useNavigate";
-import userBarStore from "./UserBarStore";
 import {TabInfo, useTabView} from "../../SWTabViewProvider";
 
 export const SWSideBar: React.FC<{ view: View }> = React.memo(
-    ({ view }) => {
+    ({view}) => {
 
-        const { tabs, activeTabKey, setActiveTabKey } = useTabView()
+        const {tabs, activeTabKey, setActiveTabKey} = useTabView()
 
         const navLinks: NavigationLinkComponent[] = tabs.map(
             (tab: TabInfo) => NavigationLink(Text(tab.title), Text(tab.key))

@@ -6,7 +6,11 @@ import {View} from "../../SWCore";
 
 export function FullscreenCover(show: View, onDismiss?: () => void): FullscreenCoverComponent {
     return createComponent<FullscreenCoverComponent>(
-        { toJSX: function() { return <SWFullScreenCover view={this as FullscreenCoverComponent} />; } },
-        { show: show, onDismiss: onDismiss }
+        {
+            toJSX: function () {
+                return <SWFullScreenCover view={this as FullscreenCoverComponent}/>;
+            }
+        },
+        {show: show, onDismiss: onDismiss}
     )
 }

@@ -5,7 +5,11 @@ import React from "react";
 
 export function Input(value: string, onChange: (value: string) => void, placeholder?: string): InputComponent {
     return createComponent<InputComponent>(
-        { toJSX: function() { return (<SWInput view={this as InputComponent} />); } },
-        { value, onChange, placeholder },
+        {
+            toJSX: function () {
+                return (<SWInput view={this as InputComponent}/>);
+            }
+        },
+        {value, onChange, placeholder},
     )
 }

@@ -6,7 +6,11 @@ import React from "react";
 
 export function Button(action: () => void, label: View): ButtonComponent {
     return createComponent<ButtonComponent>(
-        { toJSX: function() { return <SWButton view={this as ButtonComponent} />; } },
-        { action, label },
+        {
+            toJSX: function () {
+                return <SWButton view={this as ButtonComponent}/>;
+            }
+        },
+        {action, label},
     );
 }

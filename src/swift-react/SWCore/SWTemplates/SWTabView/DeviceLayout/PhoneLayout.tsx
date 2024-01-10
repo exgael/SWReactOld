@@ -1,30 +1,27 @@
 import {ReactElement, ReactNode, useState} from 'react';
-import {BottomBar, LargeTitle, TopBar} from "../../../../components";
+import {BottomBar, TopBar} from "../../../../components";
 import {useNavigationStack} from "../../../SWProvider/NavigationStack/NavigationStackContext";
-import { useSwipeable, SwipeableProps } from 'react-swipeable';
-import {withAnimation} from "../../../../components/animation/withAnimation";
+import {SwipeableProps, useSwipeable} from 'react-swipeable';
+
 interface PhoneContentProps {
     children: ReactNode;
 }
 
-function PhoneLayout({ children }: PhoneContentProps ): ReactElement {
+function PhoneLayout({children}: PhoneContentProps): ReactElement {
 
-    const {currentStackItem, canPop, pop} = useNavigationStack();
+    const {canPop, pop} = useNavigationStack();
 
     // Swipe
 
     const swipeProps: SwipeableProps = {
-        delta: { right: 10 },
-        preventScrollOnSwipe: false,
+        delta: {right: 50},
+        preventScrollOnSwipe: true,
         trackTouch: true,
         trackMouse: false,
-        swipeDuration: 1000,
+        swipeDuration: 500,
     }
 
-    const [stopScroll, setStopScroll] = useState(false);
     const handlers = useSwipeable({
-        onSwipeStart: () => setStopScroll(true),
-        onSwiped: () => setStopScroll(false),
         onSwipedRight: (): void => {
             if (canPop) pop();
         },
@@ -35,11 +32,7 @@ function PhoneLayout({ children }: PhoneContentProps ): ReactElement {
 
     const mainContent = (
         <div
-            className={!canPop? "main-content-with-large-title" : "main-content"}
-            style={{
-                // touchAction: stopScroll ? 'none' : 'pan-y',
-                // WebkitOverflowScrolling: 'touch',
-            }}
+            className={!canPop ? "main-content-with-large-title" : "main-content"}
             {...handlers}
         >
             {children}

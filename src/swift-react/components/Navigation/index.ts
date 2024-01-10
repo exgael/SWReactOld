@@ -1,2 +1,2 @@
-export { TabView, TabItem } from "./TabView";
-export { NavigationLink } from "./NavigationLink";
+export {TabView, TabItem} from "./TabView";
+export {NavigationLink} from "./NavigationLink";

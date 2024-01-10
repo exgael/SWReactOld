@@ -1,3 +1,3 @@
 export * from "./SWTypes"
 export * from "./SWProvider"
-export { Content } from "./SWReactIndex"
+export {Content} from "./SWReactIndex"

@@ -4,7 +4,11 @@ import {SWMdOutlineMenuBook} from "../../SWCore/SWElements/SWIcons/MdOutlineMenu
 
 export function MdOutlineMenuBook(action: () => void): ButtonComponent {
     return createComponent<ButtonComponent>(
-        { toJSX: function() { return <SWMdOutlineMenuBook view={this as ButtonComponent}/>; } },
+        {
+            toJSX: function () {
+                return <SWMdOutlineMenuBook view={this as ButtonComponent}/>;
+            }
+        },
         {action},
     )
 }

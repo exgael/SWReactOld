@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { IconType } from "react-icons";
+import React, {createContext, ReactNode, useContext, useState} from "react";
+import {IconType} from "react-icons";
 
 export type TabInfo = {
     key: string;
@@ -18,14 +18,14 @@ type TabViewContextType = {
 
 const TabViewContext = createContext<TabViewContextType | undefined>(undefined);
 
-export const TabViewProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const TabViewProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [activeTabKey, setActiveTabKey] = useState<string>("");
     const [tabs, setTabs] = useState<TabInfo[]>([]);
 
     const activeTab = tabs.find(tab => tab.key === activeTabKey)!;
 
     return (
-        <TabViewContext.Provider value={{ activeTabKey, setActiveTabKey, tabs, setTabs, activeTab }}>
+        <TabViewContext.Provider value={{activeTabKey, setActiveTabKey, tabs, setTabs, activeTab}}>
             {children}
         </TabViewContext.Provider>
     );

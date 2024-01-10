@@ -1,5 +1,5 @@
 import View from "../../SWTypes/View";
-import { evaluate, MaybeFunction } from "../core/coreModifers";
+import {evaluate, MaybeFunction} from "../core/coreModifers";
 
 // Extend native SWTypes
 type SWLength = MaybeFunction<string>;
@@ -19,7 +19,7 @@ export interface AbsoluteModifiers<T = any> {
 // Implementing the modifiers
 export const absoluteModifiers = {
 
-    positionFixedTrailingTopBar: function<T extends View>(this: T): T {
+    positionFixedTrailingTopBar: function <T extends View>(this: T): T {
         this.style.position = 'absolute';
         this.style.top = '0';
         this.style.right = '5%';
@@ -27,7 +27,7 @@ export const absoluteModifiers = {
         return this;
     },
 
-    absolutePosition: function<T extends View>(this: T, x: SWLength, y: SWLength): T {
+    absolutePosition: function <T extends View>(this: T, x: SWLength, y: SWLength): T {
         const xPos = evaluate(x);
         const yPos = evaluate(y);
         this.style.position = 'absolute';
@@ -36,7 +36,7 @@ export const absoluteModifiers = {
         return this;
     },
 
-    absoluteCenter: function<T extends View>(this: T): T {
+    absoluteCenter: function <T extends View>(this: T): T {
         this.style.position = 'absolute';
         this.style.left = '50%';
         this.style.top = '50%';
@@ -45,7 +45,7 @@ export const absoluteModifiers = {
     },
 
     // Modifier for UserFlowBar and NavigationBar
-    positionFixedTop: function<T extends View>(this: T): T {
+    positionFixedTop: function <T extends View>(this: T): T {
         this.style.position = 'fixed';
         this.style.top = '0';
         this.style.left = '0';
@@ -56,25 +56,24 @@ export const absoluteModifiers = {
     },
 
 
-
     // Modifier for BottomBar
-    positionFixedBottom: function<T extends View>(this: T): T {
+    positionFixedBottom: function <T extends View>(this: T): T {
         this.style.position = 'fixed';
         this.style.bottom = '0%';
         this.style.left = '0%';
-      //  this.style.transform = 'translate(-50%)';
+        //  this.style.transform = 'translate(-50%)';
         this.style.right = '0';
         this.style.zIndex = '999';
 
         // TODO : Fix this to use auto instead of 17.5%
 
-   //     this.style.marginLeft = 'auto';
-   //     this.style.marginRight = 'auto';
+        //     this.style.marginLeft = 'auto';
+        //     this.style.marginRight = 'auto';
         return this;
     },
 
     // Modifier for SideBar
-    positionFixedSide: function<T extends View>(this: T, side: 'left' | 'right'): T {
+    positionFixedSide: function <T extends View>(this: T, side: 'left' | 'right'): T {
         this.style.position = 'fixed';
         this.style[side] = '0';
         this.style.top = '0';

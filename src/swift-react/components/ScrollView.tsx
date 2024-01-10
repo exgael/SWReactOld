@@ -7,8 +7,8 @@ import {View} from "../SWCore";
 export function ScrollView(...children: View[]): ScrollViewComponent {
     return createComponent<ScrollViewComponent>(
         {
-            toJSX: function() {
-                return <SWScrollView view={this as ScrollViewComponent} />;
+            toJSX: function () {
+                return <SWScrollView view={this as ScrollViewComponent}/>;
             }
         },
 

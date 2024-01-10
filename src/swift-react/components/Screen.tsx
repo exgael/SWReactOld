@@ -7,8 +7,8 @@ import React from "react";
 export function Screen(...children: any[]) {
     return createComponent<ScreenComponent>(
         {
-            toJSX: function() {
-                return <SWScreen view={this as ScreenComponent} />;
+            toJSX: function () {
+                return <SWScreen view={this as ScreenComponent}/>;
             }
         },
 

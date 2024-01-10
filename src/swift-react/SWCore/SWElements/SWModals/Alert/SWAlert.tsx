@@ -1,10 +1,9 @@
 import React from 'react';
 //import { useAlert } from '../../../SWProvider';
-import { toJS } from 'mobx';
 import {View} from "../../../SWTypes";
 
-export const SWAlert: React.FC<{ view: View }> = ({ view }) => {
- //   const { hideAlert, alertTitle, alertMessage } = useAlert();
+export const SWAlert: React.FC<{ view: View }> = ({view}) => {
+    //   const { hideAlert, alertTitle, alertMessage } = useAlert();
 
     return (
         <div style={{

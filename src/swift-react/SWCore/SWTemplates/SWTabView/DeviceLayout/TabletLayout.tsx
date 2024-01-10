@@ -1,15 +1,15 @@
 import {ReactElement, ReactNode} from 'react';
-import {SideBar, Screen} from "../../../../components";
+import {Screen, SideBar} from "../../../../components";
 import {useResponsive} from "../../../SWProvider/useResponsive";
 
 interface TabletContentProps {
     children: ReactNode;
 }
 
-function TabletLayout({ children }: TabletContentProps ): ReactElement {
+function TabletLayout({children}: TabletContentProps): ReactElement {
     let tabletContent;
 
-    const { orientation } = useResponsive();
+    const {orientation} = useResponsive();
 
     if (orientation === 'portrait') {
         tabletContent = Screen(

@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
-import {
-    ForEachComponent,
-    Section,
-} from "../../SWTypes/Components";
+import {ForEachComponent, Section,} from "../../SWTypes/Components";
 import {ForEach, HStack, Text} from "../../../components";
 import {Color, View} from "../../SWTypes";
 import {SWReactElement} from "../../SWElements/SWElements";
-import {ChevronBack} from "../../../components/icons/chevrons";
 import createComponent from "../../SWElements/componentFactory";
 import {CoreModifiers} from "../../SWModifiers/core/coreModifers";
 import {useResponsive} from "../../SWProvider/useResponsive";
@@ -59,7 +55,7 @@ const SWTabSelectContent: React.FC<{ view: TabSelectContentComponent }> = ({view
                     .setClassName(["glass"])
             ) : (
                 MdOutlineMenuBook(() => toggleShowSections())
-                   // .position(0, 0)
+                    // .position(0, 0)
                     .positionFixedSide("left")
                     .padding({left: "2vh", bottom: "5vh"})
                     .positionFixedTrailingTopBar()
@@ -73,7 +69,7 @@ const SWTabSelectContent: React.FC<{ view: TabSelectContentComponent }> = ({view
                     sectionSelection
                         .positionFixedSide("left")
                     ,
-                  //  MdOutlineMenuBook(() => toggleShowSections())
+                    //  MdOutlineMenuBook(() => toggleShowSections())
                 )
                     .mainAxisAlignment("flex-start")
                     .crossAxisAlignment("baseline")

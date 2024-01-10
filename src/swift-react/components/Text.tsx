@@ -7,8 +7,12 @@ import React from "react";
 export function Text(text: string, isLocal: boolean = false): TextComponent {
 
     return createComponent<TextComponent>(
-        { toJSX: function() { return (<SWText view={this as TextComponent} />); } },
-        { text, isLocal },
+        {
+            toJSX: function () {
+                return (<SWText view={this as TextComponent}/>);
+            }
+        },
+        {text, isLocal},
         textModifiers,
     )
         .textAlign("justify");

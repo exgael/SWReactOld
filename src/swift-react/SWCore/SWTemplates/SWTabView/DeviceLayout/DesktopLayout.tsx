@@ -1,11 +1,11 @@
-import { ReactNode, ReactElement } from 'react';
-import { AppBar, Screen } from "../../../../components";
+import {ReactElement, ReactNode} from 'react';
+import {AppBar, Screen} from "../../../../components";
 
 interface DesktopContentProps {
     children: ReactNode;
 }
 
-function DesktopLayout({ children }: DesktopContentProps ): ReactElement {
+function DesktopLayout({children}: DesktopContentProps): ReactElement {
     return Screen(
         children
         ,

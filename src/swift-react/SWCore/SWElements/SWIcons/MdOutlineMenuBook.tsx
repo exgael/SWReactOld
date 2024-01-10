@@ -1,4 +1,4 @@
-import { MdOutlineMenuBook } from "react-icons/md";
+import {MdOutlineMenuBook} from "react-icons/md";
 import React, {useEffect} from "react";
 import {ButtonComponent} from "../../SWTypes/Components";
 import {useNavigate} from "../../SWProvider/useNavigate";
@@ -7,7 +7,7 @@ import routingManager from "../SWNavigation/RoutingManager";
 export const SWMdOutlineMenuBook: React.FC<{ view: ButtonComponent }> = React.memo(
     ({view}) => {
 
-        const { goBack } = useNavigate();
+        const {goBack} = useNavigate();
 
         useEffect(() => {
             // Set up a listener for route changes
@@ -16,7 +16,8 @@ export const SWMdOutlineMenuBook: React.FC<{ view: ButtonComponent }> = React.me
             };
 
             return () => {
-                routingManager.onRouteChange = () => {};
+                routingManager.onRouteChange = () => {
+                };
             };
         }, []);
 

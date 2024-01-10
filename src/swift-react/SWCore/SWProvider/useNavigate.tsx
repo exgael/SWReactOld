@@ -1,12 +1,7 @@
-import React, {ReactElement, ReactNode} from 'react';
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-    useNavigate as useReactNavigate, useLocation,
-} from 'react-router-dom';
+import React, {ReactNode} from 'react';
+import {BrowserRouter, Route, Routes, useLocation, useNavigate as useReactNavigate,} from 'react-router-dom';
 import {View} from "../SWTypes";
-import { motion, AnimatePresence } from "framer-motion"
+import {motion} from "framer-motion"
 
 // Define a type for the element that will be rendered by the route
 
@@ -14,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion"
 // Define a type for the route configuration
 export interface Destination {
     title: string;
-  //  icon: ReactElement;
+    //  icon: ReactElement;
     path: string;
     view: () => View;
 }
@@ -24,7 +19,7 @@ interface NavigationContainerProps {
     children: ReactNode;
 }
 
-export const NavigationContainer: React.FC<NavigationContainerProps> = ({ children }) => {
+export const NavigationContainer: React.FC<NavigationContainerProps> = ({children}) => {
     return (
         <BrowserRouter>
             {children}
@@ -39,26 +34,26 @@ interface NavigationRoutesProps {
 
 // .transition(.slide)
 const slideTransition = {
-    initial: { x: 100, opacity: 0 },
-    animate: { x: 0, opacity: 1 },
-    exit: { x: -100, opacity: 0 },
-    transition: { duration: 0.5 }
+    initial: {x: 100, opacity: 0},
+    animate: {x: 0, opacity: 1},
+    exit: {x: -100, opacity: 0},
+    transition: {duration: 0.5}
 };
 
 // .transition(.opacity)
 const fadeTransition = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.3 }
+    initial: {opacity: 0},
+    animate: {opacity: 1},
+    exit: {opacity: 0},
+    transition: {duration: 0.3}
 };
 
 //.transition(.scale)
 const scaleTransition = {
-    initial: { scale: 0 },
-    animate: { scale: 1 },
-    exit: { scale: 0 },
-    transition: { duration: 0.4 }
+    initial: {scale: 0},
+    animate: {scale: 1},
+    exit: {scale: 0},
+    transition: {duration: 0.4}
 };
 
 type TransitionType = 'slide' | 'fade' | 'scale';
@@ -69,7 +64,7 @@ interface AnimatedRouteProps {
     transitionType: TransitionType;
 }
 
-const AnimatedRoute: React.FC<AnimatedRouteProps> = ({ children, transitionType }) => {
+const AnimatedRoute: React.FC<AnimatedRouteProps> = ({children, transitionType}) => {
     let transition;
 
     switch (transitionType) {
@@ -99,23 +94,23 @@ const AnimatedRoute: React.FC<AnimatedRouteProps> = ({ children, transitionType 
  * @constructor
  */
 
-export const Body: React.FC<NavigationRoutesProps> = ({ destinations }) => {
+export const Body: React.FC<NavigationRoutesProps> = ({destinations}) => {
     const location = useLocation();
 
     return (
-            <Routes location={location} key={location.pathname}>
-                {destinations.map((route: Destination, index: number) => (
-                    <Route
-                        key={route.title + index}
-                        path={route.path}
-                        element={
-                            <AnimatedRoute transitionType="fade">
-                                {route.view().toJSX()}
-                            </AnimatedRoute>
-                        }
-                    />
-                ))}
-            </Routes>
+        <Routes location={location} key={location.pathname}>
+            {destinations.map((route: Destination, index: number) => (
+                <Route
+                    key={route.title + index}
+                    path={route.path}
+                    element={
+                        <AnimatedRoute transitionType="fade">
+                            {route.view().toJSX()}
+                        </AnimatedRoute>
+                    }
+                />
+            ))}
+        </Routes>
     );
 };
 

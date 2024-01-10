@@ -6,7 +6,11 @@ import {SWTopBar} from "../../SWTemplates/SWTabView/SWBars/Phone/TopBar/SWTopBar
 
 export function TopBar(): BarComponent {
     return createComponent<BarComponent>(
-        { toJSX: function() { return (<SWTopBar view={this as View} />); } },
+        {
+            toJSX: function () {
+                return (<SWTopBar view={this as View}/>);
+            }
+        },
         {
             style: {
                 boxSizing: "border-box",

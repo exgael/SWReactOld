@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import {useTabView} from "../../SWTemplates/SWTabView/SWTabViewProvider";
 import {View} from "../../SWTypes";
 
@@ -40,32 +40,32 @@ interface NavigationStackProviderProps {
 }
 
 // Create the provider component
-export const NavigationStackProvider: React.FC<NavigationStackProviderProps> = ({ children }) => {
+export const NavigationStackProvider: React.FC<NavigationStackProviderProps> = ({children}) => {
     const [stacks, setStacks] = useState<NavigationStacks>({});
-    const { activeTabKey } = useTabView()
+    const {activeTabKey} = useTabView()
 
-    const push = (component: View, title?: string,  tabKey: string = activeTabKey ) => {
+    const push = (component: View, title?: string, tabKey: string = activeTabKey) => {
         if (!tabKey) return; // Ensure activeTabKey is set
-        const stack = stacks[tabKey] || { items: [] };
-        stack.items.push({ component, key: Math.random().toString(36).substring(7), title });
-        setStacks({ ...stacks, [tabKey]: stack });
+        const stack = stacks[tabKey] || {items: []};
+        stack.items.push({component, key: Math.random().toString(36).substring(7), title});
+        setStacks({...stacks, [tabKey]: stack});
     };
 
-    const pop = (tabKey: string = activeTabKey ) => {
+    const pop = (tabKey: string = activeTabKey) => {
         if (!tabKey) return; // Ensure activeTabKey is set
         const stack = stacks[tabKey];
         if (stack && stack.items.length > 0) {
             stack.items.pop();
-            setStacks({ ...stacks, [tabKey]: stack });
+            setStacks({...stacks, [tabKey]: stack});
         }
     };
 
-    const reset = (tabKey: string = activeTabKey ) => {
+    const reset = (tabKey: string = activeTabKey) => {
         if (!tabKey) return; // Ensure activeTabKey is set
         const stack = stacks[tabKey];
         if (stack) {
             stack.items = stack.items.slice(0, 1); // Keep only the first item in the stack
-            setStacks({ ...stacks, [tabKey]: stack });
+            setStacks({...stacks, [tabKey]: stack});
         }
     };
 
@@ -75,7 +75,8 @@ export const NavigationStackProvider: React.FC<NavigationStackProviderProps> = (
     const previousStackItem = currentStack?.items[currentStack.items.length - 2];
 
     return (
-        <NavigationStackContext.Provider value={{ stacks, push, pop, reset, currentStackItem, currentStack, canPop, previousStackItem }}>
+        <NavigationStackContext.Provider
+            value={{stacks, push, pop, reset, currentStackItem, currentStack, canPop, previousStackItem}}>
             {children}
         </NavigationStackContext.Provider>
     );

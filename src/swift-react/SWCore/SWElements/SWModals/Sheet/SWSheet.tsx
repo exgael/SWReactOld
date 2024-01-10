@@ -1,9 +1,8 @@
 import React from 'react';
-import { toJS } from 'mobx';
 import {View} from "../../../SWTypes";
 
-export const SWSheet: React.FC<{ view: View }> = ({ view }) => {
-   // const { hideSheet, sheetContent } = useSheet();
+export const SWSheet: React.FC<{ view: View }> = ({view}) => {
+    // const { hideSheet, sheetContent } = useSheet();
 
     return (
         <div style={{
@@ -29,7 +28,7 @@ export const SWSheet: React.FC<{ view: View }> = ({ view }) => {
                 height: '5px',
                 backgroundColor: '#ccc',
                 borderRadius: '5px',
-            }} />
+            }}/>
             <div style={{
                 ...view.style,
                 maxHeight: '80vh',

@@ -1,7 +1,39 @@
-
 // Color.ts
 
 import {MaybeFunction} from "../SWModifiers/core/coreModifers";
+
+
+const shouldUseDark = () => {
+    const hour = new Date().getHours();
+    const isNight = hour >= 18 || hour <= 6;
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark || isNight;
+}
+
+export interface ThemeColors {
+    background: string;
+    primaryText: string;
+    secondaryText: string;
+    accent: string;
+    divider: string;
+}
+
+const lightThemeColors: ThemeColors = {
+    background: '#FFFFFF', // White
+    primaryText: '#000000', // Black
+    secondaryText:'#3C3C43', // Dark gray
+    accent: '#007AFF', // Blue
+    divider: '#C6C6C8', // Light gray
+};
+
+const darkThemeColors: ThemeColors = {
+    background: '#1C1C1E', // Almost black
+    primaryText: '#FFFFFF', // White
+    secondaryText: '#EBEBF5', // Light gray
+    accent: '#0A84FF', // Bright blue
+    divider: '#48484A', // Dark gray
+};
 
 /**
  * Represents a color.
@@ -14,6 +46,13 @@ export class Color {
     constructor(value: string) {
         this.value = value;
     }
+
+    // Theme colors
+    static background = new Color(shouldUseDark() ? darkThemeColors.background : lightThemeColors.background);
+    static primaryText = new Color(shouldUseDark() ? darkThemeColors.primaryText : lightThemeColors.primaryText);
+    static secondaryText = new Color(shouldUseDark() ? darkThemeColors.secondaryText : lightThemeColors.secondaryText);
+    static accent = new Color(shouldUseDark() ? darkThemeColors.accent : lightThemeColors.accent);
+    static divider = new Color(shouldUseDark() ? darkThemeColors.divider : lightThemeColors.divider);
 
     // Basic colors
     static black = new Color('#000000');
@@ -110,7 +149,7 @@ export class Color {
 
     static random(): Color {
         const val = Math.random()
-        if ( val > 0.5) {
+        if (val > 0.5) {
             return Color.olive
         } else {
             return Color.aliceblue
@@ -150,6 +189,9 @@ export class Gradient {
         }
     }
 }
+
+
+
 
 // Prime Color Type
 export type SWColor = MaybeFunction<Color> | MaybeFunction<Gradient>;
