@@ -37,9 +37,8 @@ function PhoneLayout({ children }: PhoneContentProps ): ReactElement {
         <div
             className={!canPop? "main-content-with-large-title" : "main-content"}
             style={{
-                touchAction: stopScroll ? 'none' : 'pan-y',
-                WebkitOverflowScrolling: 'touch',
-                minHeight: "100vh", // To avoid the content from jumping when the keyboard is opened
+                // touchAction: stopScroll ? 'none' : 'pan-y',
+                // WebkitOverflowScrolling: 'touch',
             }}
             {...handlers}
         >

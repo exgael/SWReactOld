@@ -1,7 +1,6 @@
 import {Body, Color, Subheadline, Title, VStack} from "../swift-react";
 import {DocumentationBySection} from "../swift-react/components/ComplexPage/DocumentationBySection";
 
-
 export function CurriculumVitae() {
     return VStack(
         DocumentationBySection(
@@ -20,9 +19,9 @@ function LanguageSkills() {
     return VStack(
         CVTitle("Langues")
         ,
-        Body("Arabe: Courant")
+        Body("welcome", true)
         ,
-        Body("Français: Courant")
+        Body("welcome")
         ,
         Body("Anglais: Courant (TOEIC 885/990)")
         ,

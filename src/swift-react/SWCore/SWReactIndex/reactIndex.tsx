@@ -5,6 +5,8 @@ import reportWebVitals from "../../../reportWebVitals";
 import { SWReact } from "../SWProvider";
 import View from '../SWTypes/View';
 
+import '../SWProvider/language/i18n';
+
 const root: ReactDOM.Root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );

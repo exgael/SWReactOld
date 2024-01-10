@@ -52,14 +52,7 @@ const SWDocumentationBySection: React.FC<{view : ThreePartLayoutComponent}> = ({
     return SWReactElement(
         view,
         Links
-            .crossAxisAlignment("center")
             .gap("50px")
-            .padding({left: "3vw"})
-            .padding({top: "5vh"})
-            .frame({width: "100vw", height: "100%"})
-
-
-
 
         // HStack({alignment: "space-between"})(
         //     TabSelectContent(view.sections, handleContentSwitch)

@@ -6,6 +6,8 @@ import {
     StackComponent,
     TextComponent, ScrollViewComponent, InputComponent
 } from "../SWTypes/Components";
+import {useTranslation} from "react-i18next";
+import {useTheme} from "../SWProvider/useTheme";
 
 
 export const SWSpacer: React.FC<{ view: View }> = React.memo(
@@ -102,7 +104,7 @@ export const SWScreen: React.FC<{ view: ScreenComponent }> = React.memo(
 export const SWScrollView: React.FC<{ view: ScrollViewComponent }> = React.memo(
     ({ view }) => {
         return (
-            <div style={{ ...view.style, height: '100%', width: '100%' }}>
+            <div style={{ ...view.style }}>
                 {view.children && view.children.map((child: View, index: number) => {
                     return <div key={`scroll-item-${generateObjectHash(child, index)}`}>{child.toJSX()}</div>;
                 })}
@@ -210,20 +212,25 @@ export const SWInput: React.FC<{ view: InputComponent }> = React.memo(
 
 /**
  * SWText renders text within an SWView, applying text-specific styles and event handlers.
+ * It supports localization by checking the isLocal property.
  *
  * @param {TextComponent} view - The TextComponent object containing text, style, and events.
  */
 export const SWText: React.FC<{ view: TextComponent }> = React.memo(
     ({ view }) => {
 
+        const { themeColors } = useTheme();
+
         // Define text-specific styles or event overrides here
-        const textStyle =  { /* ... */ };
+        const textStyle =  { color: themeColors?.primaryText };
         const textEvents = { /* ... */ };
+
+        const { t } = useTranslation()
 
         return (
             <SWView view={view} overrideStyles={textStyle} overrideEvents={textEvents}>
                 <span>
-                    {view.text} {/* COMPONENT SPECIFIC PROPERTY */ }
+                    {view.isLocal ? t(view.text) : view.text} {/* COMPONENT SPECIFIC PROPERTY */ }
                 </span>
             </SWView>
         )

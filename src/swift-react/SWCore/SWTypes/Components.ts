@@ -24,6 +24,7 @@ export type TextComponent = View
     // Text Properties
     & {
     text: string;
+    isLocal?: boolean;
 };
 
 export type NavigationLinkComponent = View

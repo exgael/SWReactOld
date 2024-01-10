@@ -109,9 +109,6 @@ html, body {
       */
     min-height: 100vh;
 
-    /* Prevents scrolling */
-    /*overflow: hidden;*/
-
     font-family: var(--font-family);
 
     /*
@@ -128,15 +125,14 @@ html, body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-
-    background-color: #F8F7F2;
     scrollbar-width: none; /* Firefox 64+ */
     -ms-overflow-style: none; /* IE 10+ */
 
     /* Scrolling  */
     scroll-behavior: smooth;
 
-    overflow: hidden;
+    /* Prevents scrolling */
+    overflow: hidden !important;
 }
 
 /*
@@ -359,6 +355,9 @@ and (-webkit-device-pixel-ratio: 2) {
     padding-bottom: calc(var(--tab-bar-height) + var(--safe-area-inset-bottom)); /* Ensures content does not underlap the tab bar */
     padding-left: var(--safe-area-inset-left); /* Ensures content does not underlap the notch */
     padding-right: var(--safe-area-inset-right); /* Ensures content does not underlap the notch */
+
+    overflow: hidden;
+    min-height: 90vh;
 }
 
 .main-content-with-large-title {

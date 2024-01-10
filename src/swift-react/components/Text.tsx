@@ -4,10 +4,11 @@ import {SWText} from "../SWCore/SWElements/SWElements";
 import {textModifiers} from "../SWCore/SWModifiers/text/textModifiers";
 import React from "react";
 
-export function Text(text: string): TextComponent {
+export function Text(text: string, isLocal: boolean = false): TextComponent {
+
     return createComponent<TextComponent>(
         { toJSX: function() { return (<SWText view={this as TextComponent} />); } },
-        { text },
+        { text, isLocal },
         textModifiers,
     )
         .textAlign("justify");
@@ -40,8 +41,8 @@ export function Subheadline(string: string): TextComponent {
         .clampedFontSize("1rem", "3.5vw", "1.25rem");
 }
 
-export function Body(string: string): TextComponent {
-    return Text(string)
+export function Body(string: string, isLocal: boolean | undefined = false): TextComponent {
+    return Text(string, isLocal)
         .setAriaLabel("Body")
         .clampedFontSize("1rem", "3vw", "1.25rem");
 }

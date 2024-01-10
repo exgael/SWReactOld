@@ -1,5 +1,4 @@
 import React, {FC, useEffect, useState} from 'react';
-import { observer } from 'mobx-react';
 import { View, Color } from '../../../../../SWTypes';
 import {HStack, LargeTitle, RoundedRectangle, Text, Title} from "../../../../../../components";
 import {useNavigationStack} from "../../../../../SWProvider/NavigationStack/NavigationStackContext";
@@ -21,7 +20,7 @@ const largeTitleAnimation = {
     transition: { duration: 0.3 }
 };
 
-export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
+export const SWTopBar: FC<{ view: View }> =({ view }) => {
 
     const {
         canPop,
@@ -71,8 +70,7 @@ export const SWTopBar: FC<{ view: View }> = observer(({ view }) => {
             {LargeNavigationTitle(canPop, navigationTitle, isLargeTitleHidden)}
         </>
     );
-});
-
+};
 
 function LargeNavigationTitle(canPop: boolean, title: string | undefined, isLargeTitleHidden: boolean) {
 
@@ -82,8 +80,8 @@ function LargeNavigationTitle(canPop: boolean, title: string | undefined, isLarg
                 <div className={"large-navigation-title"}>
                     {
                         withAnimation(
-                            isLargeTitleHidden ?  largeTitleAnimation.animate : largeTitleAnimation.initial,
-                            isLargeTitleHidden ?  largeTitleAnimation.animate : largeTitleAnimation.initial,
+                            isLargeTitleHidden ? largeTitleAnimation.animate : largeTitleAnimation.initial,
+                            isLargeTitleHidden ? largeTitleAnimation.animate : largeTitleAnimation.initial,
                             largeTitleAnimation.exit,
                             largeTitleAnimation.transition
                         )(
@@ -123,7 +121,6 @@ function Center(canPop: boolean, navigationTitle: string, isLargeTitleHidden: bo
         )
     )
 }
-
 
 function NavigationTitle(title: string) {
     return Title(title)
