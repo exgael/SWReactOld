@@ -100,6 +100,41 @@ html, body {
     margin: 0;
     padding: 0;
 
+    overflow: hidden;
+
+
+    font-family: var(--font-family);
+
+    /*
+      Native behavior
+      Remove default tap highlight from navigators
+     */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    /*
+      These are browser-specific properties to enhance the readability of text,
+      particularly on macOS and iOS.
+     */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+
+    /* Prevents scrolling */
+    /*overflow: hidden;*/
+
+    -webkit-overflow-scrolling: touch;
+
+    overscroll-behavior: contain;
+
+    touch-action: none;
+
+}
+
+body {
+
+    /* Prevents overscrolling */
+    overscroll-behavior: contain;
+
     /*
        Sets the height of the html element to 100% of the viewport height.
        This ensures that the html element is always at least the height of the viewport.
@@ -109,30 +144,9 @@ html, body {
       */
     min-height: 100vh;
 
-    font-family: var(--font-family);
-
-    /*
-      Native behavior
-      Remove default tap highlight from navigators
-     */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-overflow-scrolling: touch;
-
-    /*
-      These are browser-specific properties to enhance the readability of text,
-      particularly on macOS and iOS.
-     */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 
     scrollbar-width: none; /* Firefox 64+ */
     -ms-overflow-style: none; /* IE 10+ */
-
-    /* Scrolling  */
-    scroll-behavior: smooth;
-
-    /* Prevents scrolling */
-    overflow: hidden !important;
 }
 
 /*
@@ -175,7 +189,7 @@ and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
         --large-title-height: calc(var(--const-large-title-height) * 1);
-        --tab-bar-height: calc(var(--const-tab-bar-height) * 2);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1.5);
         --tab-bar-icon-size: calc(var(--tab-bar-icon-size) * 1.5);
         --tab-bar-label-size: calc(var(--tab-bar-label-size) * 1.5);
         --device-height: 932px;
@@ -198,7 +212,7 @@ and (-webkit-device-pixel-ratio: 3) {
     :root {
         --navigation-bar-height: calc(var(--const-nav-bar-height) * 2);
         --large-title-height: calc(var(--const-large-title-height) * 1);
-        --tab-bar-height: calc(var(--const-tab-bar-height) * 1.1);
+        --tab-bar-height: calc(var(--const-tab-bar-height) * 1.5);
         --tab-bar-icon-size: calc(var(--tab-bar-icon-size) * 1.5);
         --tab-bar-label-size: calc(var(--tab-bar-label-size) * 1.5);
         --device-height: 844px;
@@ -351,18 +365,29 @@ and (-webkit-device-pixel-ratio: 2) {
 }
 
 .main-content, .main-content-with-large-title {
-    padding-top: calc(var(--navigation-bar-height) + var(--safe-area-inset-bottom)); /* Ensures content starts below the navigation bar */
-    padding-bottom: calc(var(--tab-bar-height) + var(--safe-area-inset-bottom)); /* Ensures content does not underlap the tab bar */
+    padding-top: calc(var(--navigation-bar-height)); /* Ensures content starts below the navigation bar */
+    padding-bottom: calc(var(--tab-bar-height)); /* Ensures content does not underlap the tab bar */
     padding-left: var(--safe-area-inset-left); /* Ensures content does not underlap the notch */
     padding-right: var(--safe-area-inset-right); /* Ensures content does not underlap the notch */
 
-    overflow: hidden;
-    min-height: 90vh;
+    min-height: calc(100vh - var(--safe-area-inset-top) - var(--safe-area-inset-bottom)); /* Ensures content is at least the height of the viewport minus the navigation bar and tab bar */
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .main-content-with-large-title {
-    /* Ensures content starts below the large navigation title */
-    padding-top: calc(var(--large-title-height) + var(--safe-area-inset-bottom));
+    /* Ensures content starts below the large navigation title
+
+    Note: This is only needed when using large navigation titles
+
+    Nav bar height + large title height + safe area inset bottom
+
+    */
+    padding-top: calc(var(--navigation-bar-height) + var(--large-title-height));
 }
 
 /*
@@ -411,4 +436,13 @@ and (-webkit-device-pixel-ratio: 2) {
         background: rgba(30, 30, 30, 0.7);
         backdrop-filter: blur(20px);
     }
+}
+
+
+.scrollableContent {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* other styles */
+
+    height: 100%;
 }

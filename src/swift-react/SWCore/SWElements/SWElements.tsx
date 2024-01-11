@@ -12,7 +12,7 @@ import {
     TextComponent
 } from "../SWTypes/Components";
 import {useTranslation} from "react-i18next";
-import {useTheme} from "../SWProvider/useTheme";
+import {Color} from "../SWTypes";
 
 
 export const SWSpacer: React.FC<{ view: View }> = React.memo(
@@ -108,12 +108,22 @@ export const SWScreen: React.FC<{ view: ScreenComponent }> = React.memo(
  */
 export const SWScrollView: React.FC<{ view: ScrollViewComponent }> = React.memo(
     ({view}) => {
+
+        // Define stack-specific styles or event overrides here
+        const stackStyle = { /* ... */};
+        const stackEvents = { /* ... */};
+
+        const children = view.children && view.children.map((child: View, index: number) => {
+            child.key = generateObjectHash(child, index);
+            return child.toJSX();
+        });
+
         return (
-            <div style={{...view.style}}>
-                {view.children && view.children.map((child: View, index: number) => {
-                    return <div key={`scroll-item-${generateObjectHash(child, index)}`}>{child.toJSX()}</div>;
-                })}
-            </div>
+             <div className={"scrollableContent"} style={{ height: "100%", overflowY: "auto" }}> {/* Overflow control */}
+                <SWView view={view} overrideStyles={stackStyle} overrideEvents={stackEvents}> {/* Scrollable content */}
+                    {children}
+                </SWView>
+             </div>
         )
     }
 );
@@ -225,10 +235,8 @@ export const SWInput: React.FC<{ view: InputComponent }> = React.memo(
 export const SWText: React.FC<{ view: TextComponent }> = React.memo(
     ({view}) => {
 
-        const {themeColors} = useTheme();
-
         if (!view.style.color) {
-            view.style.color = themeColors.primaryText;
+            view.style.color = Color.primaryText.toString();
         }
 
         // Define text-specific styles or event overrides here

@@ -52,8 +52,7 @@ function NestedView() {
     return (
         NavigationLink(
             Text("View 2"),
-            NavigationLink(Text("View 3"), Text("View 4")
-                .setNavigationTitle("View 4"))
+            NavigationLink(Text("View 3"), Text("View 4").setNavigationTitle("View 4"))
         )
     )
 }

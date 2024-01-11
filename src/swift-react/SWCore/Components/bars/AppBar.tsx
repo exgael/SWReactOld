@@ -11,10 +11,6 @@ export function AppBar(): BarComponent {
                 return (<SWAppBar view={this as View}/>);
             }
         },
-        {
-            style: {
-                boxSizing: "border-box",
-            }
-        },
+        {},
     )
 }

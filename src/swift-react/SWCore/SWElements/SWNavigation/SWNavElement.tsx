@@ -2,7 +2,7 @@ import React from "react";
 import {ButtonComponent, NavigationLinkComponent} from "../../SWTypes/Components";
 import {IoChevronBack} from "react-icons/io5";
 import {useNavigationStack} from "../../SWProvider/NavigationStack/NavigationStackContext";
-import {useTheme} from "../../SWProvider/useTheme";
+import {Color} from "../../SWTypes";
 
 export const SWNavigationLink: React.FC<{ view: NavigationLinkComponent }> = React.memo(
     ({view}) => {
@@ -21,7 +21,7 @@ export const SWNavigationLink: React.FC<{ view: NavigationLinkComponent }> = Rea
 export const SWChevronBack: React.FC<{ view: ButtonComponent }> = React.memo(
     ({view}) => {
 
-        view.style.color = useTheme().themeColors.accent;
+        view.style.color = Color.accent;
 
         return (
             <div style={view.style} {...view.events} onClick={view.action}>

@@ -13,15 +13,7 @@ export function ScrollView(...children: View[]): ScrollViewComponent {
         },
 
         {
-            children,
-            style: {
-                display: "flex",
-                overflowY: "scroll", // Enables scrolling
-                flexDirection: "column",
-                height: "100%", // Enables scrolling
-                width: "100%", // Enables scrolling
-                // Add other styles as needed
-            }
+            children
         },
         layoutModifiers
     );

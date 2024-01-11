@@ -11,10 +11,6 @@ export function TopBar(): BarComponent {
                 return (<SWTopBar view={this as View}/>);
             }
         },
-        {
-            style: {
-                boxSizing: "border-box",
-            }
-        },
+        {},
     )
 }

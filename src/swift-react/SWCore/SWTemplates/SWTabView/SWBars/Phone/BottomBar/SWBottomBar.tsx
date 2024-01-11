@@ -4,13 +4,10 @@ import {Color, View} from "../../../../../SWTypes";
 import {BottomBarItem} from "./SWBottomBarItem";
 import {TabInfo, useTabView} from "../../../SWTabViewProvider";
 import {SWView} from "../../../../../SWElements/SWElements";
-import {useTheme} from "../../../../../SWProvider/useTheme";
-
 
 export const SWBottomBar: React.FC<{ view: View }> = React.memo(
     ({view}) => {
         const {tabs, activeTabKey, setActiveTabKey} = useTabView()
-        const {themeColors} = useTheme();
 
         const items = tabs.map(
             (tab: TabInfo) => {
@@ -25,7 +22,7 @@ export const SWBottomBar: React.FC<{ view: View }> = React.memo(
                     .frame({width: `${100 / tabs.length}vw`, height: "100%"})
 
                     // Setting the background color of the item
-                    .foregroundStyle(isHighlighted ? Color.hex(themeColors.accent) : Color.grey)
+                    .foregroundStyle(isHighlighted ? Color.accent : Color.grey)
 
                     .onTouchEnd(() => {
                         // Navigate to the corresponding tab

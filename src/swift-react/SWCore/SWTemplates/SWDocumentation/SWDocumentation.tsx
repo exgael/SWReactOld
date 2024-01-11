@@ -4,6 +4,7 @@ import {ForEach, NavigationLink, Text, VStack} from "../../../components";
 import {Color, View} from "../../SWTypes";
 import {SWReactElement} from "../../SWElements/SWElements";
 import {useResponsive} from "../../SWProvider/useResponsive";
+import {ScrollView} from "../../../components/ScrollView";
 
 const SWDocumentationBySection: React.FC<{ view: ThreePartLayoutComponent }> = ({view}) => {
     const [activeSectionID, setActiveSectionID] = useState<string>(view.sections[0]?.id);
@@ -35,7 +36,8 @@ const SWDocumentationBySection: React.FC<{ view: ThreePartLayoutComponent }> = (
         (section) => (
             NavigationLink(
                 NavLinkLabel(section),
-                section.view,
+                // section.view,
+                ScrollView(section.view),
                 section.title
             )
         )

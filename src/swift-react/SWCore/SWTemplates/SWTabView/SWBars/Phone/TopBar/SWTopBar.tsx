@@ -29,16 +29,23 @@ export const SWTopBar: FC<{ view: View }> = ({view}) => {
         previousStackItem
     } = useNavigationStack();
 
+    const [isUnderNav, setIsUnderNav] = useState(false);
+    const [isLargeTitleHidden, setIsLargeTitleHidden] = useState(false);
     // Hide the large title when scrolling
 
-    const [isLargeTitleHidden, setIsLargeTitleHidden] = useState(false);
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollThreshold = 31;
-            const scrollPosition = window.scrollY;
-            setIsLargeTitleHidden(scrollPosition > scrollThreshold);
-        };
+    const handleScroll = () => {
+        const scrollThreshold = 31;
+        const scrollPosition = window.scrollY;
+        setIsLargeTitleHidden(scrollPosition > scrollThreshold);
 
+        const navBarHeight = document.querySelector('.navigation-bar')?.clientHeight || 0;
+        const mainContentElement = document.getElementsByClassName('scrollableContent');
+        const rect = mainContentElement[0].getBoundingClientRect();
+        setIsUnderNav(rect.top < navBarHeight);
+        console.log("IsUnderNav:", isUnderNav)
+    };
+
+    useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -66,7 +73,7 @@ export const SWTopBar: FC<{ view: View }> = ({view}) => {
     )
 
     // Setting the class names for the Navigation Bar container
-    view.classNames = [isLargeTitleHidden ? "glass" : "no-glass", "navigation-bar"];
+    view.classNames = [isUnderNav ? "glass" : "no-glass", "navigation-bar"];
     return (
         <>
             <SWView view={view}>
@@ -130,7 +137,6 @@ function Center(canPop: boolean, navigationTitle: string, isLargeTitleHidden: bo
 function NavigationTitle(title: string) {
     return Title(title)
         .frame({width: `${100 / 3}vw`, height: "100%"})
-        .foregroundStyle(Color.black)
         .textAlign("center")
         .fontSize("1rem")
         .padding({bottom: "1vh"})

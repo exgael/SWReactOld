@@ -1,2 +1,2 @@
-export * from "./Color"
+export * from "../Color/Color"
 export * from "./View"

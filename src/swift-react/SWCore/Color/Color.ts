@@ -11,6 +11,7 @@ const shouldUseDark = () => {
     return prefersDark || isNight;
 }
 
+
 export interface ThemeColors {
     background: string;
     primaryText: string;
@@ -20,7 +21,7 @@ export interface ThemeColors {
 }
 
 const lightThemeColors: ThemeColors = {
-    background: '#FFFFFF', // White
+    background: '#0a0000', // White
     primaryText: '#000000', // Black
     secondaryText:'#3C3C43', // Dark gray
     accent: '#007AFF', // Blue
@@ -34,6 +35,9 @@ const darkThemeColors: ThemeColors = {
     accent: '#0A84FF', // Bright blue
     divider: '#48484A', // Dark gray
 };
+
+// Set background color based on theme
+document.body.style.backgroundColor = shouldUseDark() ? darkThemeColors.background : lightThemeColors.background;
 
 /**
  * Represents a color.

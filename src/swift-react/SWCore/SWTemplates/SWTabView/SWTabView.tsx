@@ -121,7 +121,7 @@ const AnimatedRoute: React.FC<AnimatedRouteProps> = ({children, transitionType})
     }
 
     return (
-        <motion.div {...transition}>
+        <motion.div style={{ height:"100%"}} {...transition}>
             {children}
         </motion.div>
     );

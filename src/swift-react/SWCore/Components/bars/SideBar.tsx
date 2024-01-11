@@ -11,10 +11,6 @@ export function SideBar(): BarComponent {
                 return (<SWSideBar view={this as View}/>);
             }
         },
-        {
-            style: {
-                boxSizing: "border-box",
-            }
-        },
+        {},
     )
 }

@@ -17,7 +17,7 @@ const root: ReactDOM.Root = ReactDOM.createRoot(
  */
 export function Content(content: View): void {
 
-    const isStrictMode: boolean = false
+    const isStrictMode: boolean = true
 
     if (isStrictMode) {
         root.render(

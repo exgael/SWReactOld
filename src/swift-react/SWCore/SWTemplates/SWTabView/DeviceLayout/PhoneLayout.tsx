@@ -18,7 +18,7 @@ function PhoneLayout({children}: PhoneContentProps): ReactElement {
         preventScrollOnSwipe: true,
         trackTouch: true,
         trackMouse: false,
-        swipeDuration: 500,
+        swipeDuration: 5000,
     }
 
     const handlers = useSwipeable({
