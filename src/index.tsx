@@ -13,6 +13,7 @@ import {
 } from "./swift-react";
 
 import {Input} from "./swift-react/components/Input";
+import {ScrollView} from "./swift-react/components/ScrollView";
 
 
 
@@ -36,7 +37,12 @@ Content(
         TabItem(
             VStack(
                 NavigationLink(Text("View 1"), NestedView()),
-                NavigationLink(Text("View 2"), ContactMe()
+                NavigationLink(Text("View 2")  .frame({height: "400px"}), ContactMe()
+                    .setNavigationTitle("Contact Me")
+                )
+                  ,
+                NavigationLink(Text("View 3"), NestedView()),
+                NavigationLink(Text("View 4").frame({height: "300px"}), ContactMe()
                     .setNavigationTitle("Contact Me")
                 ),
                 Input("Name", ( text: string ) => console.log(text))

@@ -1,10 +1,10 @@
 import React, {useRef, useState} from 'react';
 import {ForEachComponent, QuickLink, Section, ThreePartLayoutComponent} from "../../SWTypes/Components";
-import {ForEach, NavigationLink, Text, VStack} from "../../../components";
+import {ForEach, HStack, NavigationLink, Text, VStack} from "../../../components";
 import {Color, View} from "../../SWTypes";
 import {SWReactElement} from "../../SWElements/SWElements";
 import {useResponsive} from "../../SWProvider/useResponsive";
-import {ScrollView} from "../../../components/ScrollView";
+import {TabSelectContent} from "./TabSelectContent";
 
 const SWDocumentationBySection: React.FC<{ view: ThreePartLayoutComponent }> = ({view}) => {
     const [activeSectionID, setActiveSectionID] = useState<string>(view.sections[0]?.id);
@@ -36,8 +36,7 @@ const SWDocumentationBySection: React.FC<{ view: ThreePartLayoutComponent }> = (
         (section) => (
             NavigationLink(
                 NavLinkLabel(section),
-                // section.view,
-                ScrollView(section.view),
+                section.view,
                 section.title
             )
         )
@@ -45,28 +44,29 @@ const SWDocumentationBySection: React.FC<{ view: ThreePartLayoutComponent }> = (
 
     return SWReactElement(
         view,
-        Links
-            .gap("50px")
+        isDesktop ? (
 
-        // HStack({alignment: "space-between"})(
-        //     TabSelectContent(view.sections, handleContentSwitch)
-        //     ,
-        //
-        //     ActiveContent(view.sections.find(section => section.id === activeSectionID)!.view)
-        //         .setRef(contentRef)
-        //         .frame(isDesktop ? {width: "59vw", height: "100%"} : isTablet ?  {width: "65vw", height: "100%"} : {width: "80vw", height: "100%"})
-        //     ,
-        //
-        //     isDesktop ? (
-        //         TabQuickScroll(quickLinks, scrollToQuickLink)
-        //             .positionFixedSide("right")
-        //     ) : (
-        //         Text("")
-        //     )
-        // )
-        //     .frame({width: "100vw", height: "100%"})
-        //     .crossAxisAlignment("baseline")
-        //     .margin({left: isTablet? "5vw" : "0px"})
+            HStack(
+                TabSelectContent(view.sections, handleContentSwitch)
+                ,
+
+                ActiveContent(view.sections.find(section => section.id === activeSectionID)!.view)
+                    .setRef(contentRef)
+                    .frame(isDesktop ? {width: "59vw", height: "100%"} : isTablet ?  {width: "65vw", height: "100%"} : {width: "80vw", height: "100%"})
+                ,
+
+                TabQuickScroll(quickLinks, scrollToQuickLink)
+                    .positionFixedSide("right")
+            )
+                .frame({width: "100vw", height: "100%"})
+                .crossAxisAlignment("baseline")
+                .mainAxisAlignment("space-between")
+                .margin({left: isTablet? "5vw" : "0px"})
+
+        ) : (
+            Links
+                .gap("50px")
+        )
     )
 }
 

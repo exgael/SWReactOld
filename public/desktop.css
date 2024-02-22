@@ -100,9 +100,6 @@ html, body {
     margin: 0;
     padding: 0;
 
-    overflow: hidden;
-
-
     font-family: var(--font-family);
 
     /*
@@ -124,17 +121,10 @@ html, body {
 
     -webkit-overflow-scrolling: touch;
 
-    overscroll-behavior: contain;
-
-    touch-action: none;
 
 }
 
 body {
-
-    /* Prevents overscrolling */
-    overscroll-behavior: contain;
-
     /*
        Sets the height of the html element to 100% of the viewport height.
        This ensures that the html element is always at least the height of the viewport.
@@ -144,6 +134,9 @@ body {
       */
     min-height: 100vh;
 
+    /*min-height: auto;*/
+
+    /*height: 100vh;*/
 
     scrollbar-width: none; /* Firefox 64+ */
     -ms-overflow-style: none; /* IE 10+ */
@@ -319,7 +312,7 @@ and (-webkit-device-pixel-ratio: 2) {
     left: 0;
     right: 0;
     z-index: 999; /* Ensures the navigation bar is always on top of other content */
-    height: var(--navigation-bar-height); /* Sets the height of the navigation bar */
+    height: calc(var(--navigation-bar-height)); /* Sets the height of the navigation bar */
     padding-top: var(--safe-area-inset-top); /* Adds padding to avoid overlapping with the status bar */
 
     /* Typography */
@@ -329,11 +322,11 @@ and (-webkit-device-pixel-ratio: 2) {
 
 .large-navigation-title {
     /* Positioning */
-    position: static; /* Ensures the navigation bar follow page flow */
+    /*position: relative; !* Ensures the navigation bar follow page flow *!*/
     padding-top: calc(var(--navigation-bar-height)); /* Adds padding to avoid overlapping with the status bar */
     padding-left: var(--safe-area-inset-left); /* Ensures title does not underlap the notch */
 
-    z-index: 0; /* Ensures the large navigation title fits in the flow */
+    /*z-index: 0; !* Ensures the large navigation title fits in the flow *!*/
     height: var(--large-title-height); /* Total height when using large title */
 
     /* Typography */
@@ -371,12 +364,12 @@ and (-webkit-device-pixel-ratio: 2) {
     padding-right: var(--safe-area-inset-right); /* Ensures content does not underlap the notch */
 
     min-height: calc(100vh - var(--safe-area-inset-top) - var(--safe-area-inset-bottom)); /* Ensures content is at least the height of the viewport minus the navigation bar and tab bar */
+    min-width: calc(100vw); /* Ensures content is at least the width of the viewport */
 
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    overflow:clip ;
+
+    height: 100%;
+    width: 100%;
 }
 
 .main-content-with-large-title {
@@ -396,6 +389,7 @@ and (-webkit-device-pixel-ratio: 2) {
  ******************************************************
  */
 ::-webkit-scrollbar {
+    -webkit-appearance: none;
     display: none;
     width: 0; /* For vertical scrollbars */
     height: 0; /* For horizontal scrollbars */
@@ -407,15 +401,15 @@ and (-webkit-device-pixel-ratio: 2) {
  ******************************************************
  */
 .glass, .glassBar {
-    background: rgba(248, 247, 242, 0.69);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(248, 247, 242, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 .no-glass {
     /* Shared Styles */
-    background: rgba(248, 247, 242, 0.69);
-    backdrop-filter: blur(20px);
+    background: rgba(248, 247, 242, 0.7);
+    backdrop-filter: blur(15px);
 }
 
 .glassBar {
@@ -427,8 +421,8 @@ and (-webkit-device-pixel-ratio: 2) {
 @media (prefers-color-scheme: dark) {
     .glass, .glassBar {
         background: rgba(30, 30, 30, 0.7); /* Darker color for dark theme */
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
     }
 
     .no-glass {
@@ -440,9 +434,6 @@ and (-webkit-device-pixel-ratio: 2) {
 
 
 .scrollableContent {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    /* other styles */
-
+    overflow-y: scroll;
     height: 100%;
 }

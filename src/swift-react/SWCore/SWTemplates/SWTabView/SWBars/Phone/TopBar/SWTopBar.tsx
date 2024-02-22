@@ -5,12 +5,13 @@ import {useNavigationStack} from "../../../../../SWProvider/NavigationStack/Navi
 import {ChevronBack} from "../../../../../../components/icons/chevrons";
 import {withAnimation} from "../../../../../../components/animation/withAnimation";
 import {SWView} from "../../../../../SWElements/SWElements";
+import {useScrollContext} from "../../../../../SWProvider/scrollUnderBar/scrollContext";
 
 const fadeInOutAnimation = {
     initial: {opacity: 0},
     animate: {opacity: 1},
     exit: {opacity: 0},
-    transition: {duration: 0.5}
+    transition: {duration: 0.3}
 };
 
 const largeTitleAnimation = {
@@ -29,20 +30,13 @@ export const SWTopBar: FC<{ view: View }> = ({view}) => {
         previousStackItem
     } = useNavigationStack();
 
-    const [isUnderNav, setIsUnderNav] = useState(false);
     const [isLargeTitleHidden, setIsLargeTitleHidden] = useState(false);
     // Hide the large title when scrolling
 
     const handleScroll = () => {
-        const scrollThreshold = 31;
+        const scrollThreshold = 32;
         const scrollPosition = window.scrollY;
         setIsLargeTitleHidden(scrollPosition > scrollThreshold);
-
-        const navBarHeight = document.querySelector('.navigation-bar')?.clientHeight || 0;
-        const mainContentElement = document.getElementsByClassName('scrollableContent');
-        const rect = mainContentElement[0].getBoundingClientRect();
-        setIsUnderNav(rect.top < navBarHeight);
-        console.log("IsUnderNav:", isUnderNav)
     };
 
     useEffect(() => {
@@ -72,32 +66,42 @@ export const SWTopBar: FC<{ view: View }> = ({view}) => {
             .crossAxisAlignment("flex-end")
     )
 
-    // Setting the class names for the Navigation Bar container
-    view.classNames = [isUnderNav ? "glass" : "no-glass", "navigation-bar"];
+    // Navigation Bar container properties
+    view.classNames = ["navigation-bar", "glass"];
+
+    // Return the NavigationBar
     return (
         <>
             <SWView view={view}>
                 {navigationBar.toJSX()}
             </SWView>
-            {LargeNavigationTitle(canPop, navigationTitle, isLargeTitleHidden)}
+            {LargeNavigationTitle()}
         </>
     );
 };
 
-function LargeNavigationTitle(canPop: boolean, title: string | undefined, isLargeTitleHidden: boolean) {
+function LargeNavigationTitle() {
+
+    const {
+        canPop,
+        currentStackItem,
+    } = useNavigationStack();
+
+    const navigationTitle = currentStackItem?.title || '';
+    const { isContentUnderNav, position } = useScrollContext();
 
     return (
         !canPop ? (
-            title ? (
-                <div className={"large-navigation-title"}>
+            navigationTitle ? (
+                <div className={"large-navigation-title"} style={{ top: `${-position}px` }}>
                     {
                         withAnimation(
-                            isLargeTitleHidden ? largeTitleAnimation.animate : largeTitleAnimation.initial,
-                            isLargeTitleHidden ? largeTitleAnimation.animate : largeTitleAnimation.initial,
+                            isContentUnderNav ? largeTitleAnimation.animate : largeTitleAnimation.initial,
+                            isContentUnderNav ? largeTitleAnimation.animate : largeTitleAnimation.initial,
                             largeTitleAnimation.exit,
                             largeTitleAnimation.transition
                         )(
-                            LargeTitle(title)
+                            LargeTitle(navigationTitle)
                         )
                             .toJSX()
                     }
@@ -113,22 +117,24 @@ function LargeNavigationTitle(canPop: boolean, title: string | undefined, isLarg
 
 
 function Center(canPop: boolean, navigationTitle: string, isLargeTitleHidden: boolean) {
-
-    const titleAnimation = isLargeTitleHidden ? fadeInOutAnimation.animate : fadeInOutAnimation.initial;
-
     return (
         canPop ? (
             // Not at root, then simply display navigation title
             NavigationTitle(navigationTitle)
         ) : (
             // At root, interplay between large title and navigation title
-            withAnimation(
-                titleAnimation,
-                titleAnimation,
-                fadeInOutAnimation.exit,
-                fadeInOutAnimation.transition
-            )(
-                NavigationTitle(navigationTitle)
+            isLargeTitleHidden ? (
+
+                withAnimation(
+                    fadeInOutAnimation.initial,
+                    fadeInOutAnimation.animate,
+                    fadeInOutAnimation.exit,
+                    fadeInOutAnimation.transition
+                )(
+                    NavigationTitle(navigationTitle)
+                )
+            ) : (
+                NavigationTitle("")
             )
         )
     )

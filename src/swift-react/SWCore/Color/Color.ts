@@ -29,7 +29,7 @@ const lightThemeColors: ThemeColors = {
 };
 
 const darkThemeColors: ThemeColors = {
-    background: '#1C1C1E', // Almost black
+    background: '#1e1e1e', // Almost black
     primaryText: '#FFFFFF', // White
     secondaryText: '#EBEBF5', // Light gray
     accent: '#0A84FF', // Bright blue

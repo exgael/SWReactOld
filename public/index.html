@@ -4,7 +4,11 @@
     <meta charset="utf-8" />
     <title>MyCV</title>
 
-    <meta name="theme-color" content="#000000" />
+<!--    <meta name="theme-color" content="#B3ffffff">-->
+<!--    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#B3ffffff">-->
+<!--    <meta name="msapplication-navbutton-color" content="#00ff00">-->
+
+
     <meta name="description" content="Web site created using create-react-app"/>
     <!--
     The width=device-width part sets the width of the page to follow the screen-width of the device (which will vary depending on the device).
@@ -97,8 +101,26 @@
       viewport.setAttribute("content", content);
     }
 
-    window.onload = setUserScalable;
+
+
+    function loadCSS() {
+      var cssFile;
+      if (window.innerWidth <= 768) { // Assuming 768px as a breakpoint for mobile devices
+        cssFile = 'phone.css';
+      } else {
+        cssFile = 'desktop.css';
+      }
+
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = cssFile;
+      document.head.appendChild(link);
+
+      setUserScalable()
+    }
+
     window.onresize = setUserScalable;
+    window.onload = loadCSS; // Load the CSS when the window is loaded
   </script>
 
 </html>

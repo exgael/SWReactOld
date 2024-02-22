@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import reportWebVitals from "../../../reportWebVitals";
 import {SWReact} from "../SWProvider";
 import View from '../SWTypes/View';
@@ -31,6 +30,9 @@ export function Content(content: View): void {
         );
     }
 }
+
+
+
 
 reportWebVitals();
 

@@ -13,6 +13,7 @@ import {
 } from "../SWTypes/Components";
 import {useTranslation} from "react-i18next";
 import {Color} from "../SWTypes";
+import {useScrollContext} from "../SWProvider/scrollUnderBar/scrollContext";
 
 
 export const SWSpacer: React.FC<{ view: View }> = React.memo(
@@ -109,9 +110,16 @@ export const SWScreen: React.FC<{ view: ScreenComponent }> = React.memo(
 export const SWScrollView: React.FC<{ view: ScrollViewComponent }> = React.memo(
     ({view}) => {
 
+        const { setScrollPosition } = useScrollContext();
+
         // Define stack-specific styles or event overrides here
         const stackStyle = { /* ... */};
         const stackEvents = { /* ... */};
+
+        const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+            const scrollY = event.currentTarget.scrollTop;
+            setScrollPosition(scrollY);
+        };
 
         const children = view.children && view.children.map((child: View, index: number) => {
             child.key = generateObjectHash(child, index);
@@ -119,7 +127,7 @@ export const SWScrollView: React.FC<{ view: ScrollViewComponent }> = React.memo(
         });
 
         return (
-             <div className={"scrollableContent"} style={{ height: "100%", overflowY: "auto" }}> {/* Overflow control */}
+             <div className={"scrollableContent"} style={{ height: "100%", overflowY: "auto", position: "relative" }} onScroll={handleScroll}> {/* Overflow control */}
                 <SWView view={view} overrideStyles={stackStyle} overrideEvents={stackEvents}> {/* Scrollable content */}
                     {children}
                 </SWView>
