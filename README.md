@@ -7,7 +7,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 npm i 
 ```
 
-
 #### To launch the server
 ```sh
 npm start
@@ -15,4 +14,7 @@ npm start
 
 Open the server url on a iOS simulator or iphone and install the app. 
 
-![Alt Text](https://github.com/exgael/TempSW/edit/main/RPReplay_.gif)
+![RPReplay_](https://github.com/exgael/TempSW/assets/110360316/e6c4f216-6158-4128-9def-be39d1689ff6)
+
+
+
