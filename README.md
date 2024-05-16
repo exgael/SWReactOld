@@ -24,6 +24,8 @@ Open the server URL on an iOS simulator or iPhone and install the app.
 
 ## Overview
 
+It is still under development.
+
 SWReact is a library for static content. It allows the use of reactive elements, but requires the use of React states for full reactivity. This library is heavily inspired by the verbosity of SwiftUI, aiming to achieve similar expressiveness in React, minus the reactivity. However, necessary hooks are provided to build reactive SWComponents, though it requires a bit more work.
 
 ### Example
