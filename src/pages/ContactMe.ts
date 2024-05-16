@@ -4,7 +4,7 @@ import {Text} from "../swift-react";
 export function ContactMe() {
     return (
         VStack(
-            Text("Yousra Chriette"),
+            Text("Some Name"),
             Text("Contact information"),
             Text("Phone: +213 555 555 555"),
             Text("Email: anonyme@gmail.com"),

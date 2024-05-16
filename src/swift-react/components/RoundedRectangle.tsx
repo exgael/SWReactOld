@@ -1,5 +1,4 @@
 import createComponent from "../SWCore/SWElements/componentFactory";
-import React from "react";
 import {ShapeComponent} from "../SWCore/SWTypes/Components";
 import {SWRoundedRectangle} from "../SWCore/SWElements/SWElements";
 

@@ -1,5 +1,4 @@
 import { CurriculumVitae } from "./pages/CurriculumVitae";
-import { ContactMe } from "./pages/ContactMe";
 import { IoHome, IoHomeOutline } from "react-icons/io5";
 import { IoPerson, IoPersonOutline } from "react-icons/io5";
 import { IoMail, IoMailOutline } from "react-icons/io5";
@@ -10,18 +9,15 @@ import {
     TabView,
     VStack,
     Text,
+    Color,
 } from "./swift-react";
-
 import {Input} from "./swift-react/components/Input";
-import {ScrollView} from "./swift-react/components/ScrollView";
-
-
+import { Landing } from "./pages/Landing";
 
 Content(
-
     TabView(
         TabItem(
-                NestedView()
+            Landing()
         )
             .setTitle("Home")
             .setIcon(IoHomeOutline, IoHome)
@@ -29,39 +25,27 @@ Content(
 
         TabItem(
             CurriculumVitae()
-        )
+        ) 
             .setTitle("CV")
             .setIcon(IoPersonOutline, IoPerson)
         ,
 
         TabItem(
             VStack(
-                NavigationLink(Text("View 1"), NestedView()),
-                NavigationLink(Text("View 2")  .frame({height: "400px"}), ContactMe()
-                    .setNavigationTitle("Contact Me")
-                )
-                  ,
-                NavigationLink(Text("View 3"), NestedView()),
-                NavigationLink(Text("View 4").frame({height: "300px"}), ContactMe()
-                    .setNavigationTitle("Contact Me")
-                ),
+                NavigationLink(Text("Nav Link to some View")
+                    .border({width: "2px", style: "groove", color: Color.fuchsia, side: "bottom"})
+                    .foregroundStyle(Color.blue)
+                , 
+                Landing()
+            ),
                 Input("Name", ( text: string ) => console.log(text))
             )
+            .gap("20px")
         )
-            .setTitle("Tab Item 3")
+            .setTitle("Nav and Input")
             .setIcon(IoMailOutline, IoMail)
     )
 );
-
-
-function NestedView() {
-    return (
-        NavigationLink(
-            Text("View 2"),
-            NavigationLink(Text("View 3"), Text("View 4").setNavigationTitle("View 4"))
-        )
-    )
-}
 
 
 
