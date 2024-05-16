@@ -18,7 +18,9 @@ npm start
 
 Open the server URL on an iOS simulator or iPhone and install the app.
 
-![RPReplay_](https://github.com/exgael/TempSW/assets/110360316/e6c4f216-6158-4128-9def-be39d1689ff6)
+<div align="center">
+      <img src="https://github.com/exgael/TempSW/assets/110360316/e6c4f216-6158-4128-9def-be39d1689ff6" width="200" /> 
+</div>
 
 ## Overview
 
